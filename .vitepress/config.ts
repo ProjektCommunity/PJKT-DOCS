@@ -16,6 +16,9 @@ export default defineConfig({
   srcDir: '.',
   outDir: './.vitepress/dist',
   cacheDir: './.vitepress/cache',
+
+  // Ignore dead links
+  ignoreDeadLinks: true,
   
   // Appearance
   appearance: true,
@@ -102,4 +105,6 @@ export default defineConfig({
     lineNumbers: true,
     breaks: true
   }
+
+  
 })

@@ -9,7 +9,7 @@ export default defineConfig({
   description: 'Documentation for developers and booth exhibitors using our tools.',
   
   // Deployment
-  base: '/',
+  base: '/PJKT-DOCS/',
   cleanUrls: true,
   
   // Build settings

@@ -7,7 +7,28 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass'
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass'
 
-const specs = ref(null)
+const specs = ref({
+  // Fallback specs in case API is unavailable
+  MaxTriangles: 50000,
+  MaxMaterial: 10,
+  MaxStaticMeshes: 100,
+  MaxDims: [8, 8, 5],
+  MaxDimsMargin: 0.5,
+  MaxBuildSize: 8,
+  MaxFileSize: 100,
+  MaxVram: 50,
+  MaxPickups: 10,
+  MaxAvatarPedestals: 2,
+  MaxPortals: 1,
+  MaxTextMeshPro: 20,
+  MaxParticles: 5,
+  MaxMirrors: 1,
+  MaxSkinnedMeshRenderers: 5,
+  MaxAnimators: 10,
+  MaxAnimations: 20,
+  MaxUdonScripts: 10,
+  UdonWhitelist: ['Default SDK Scripts']
+})
 const loading = ref(true)
 const error = ref(null)
 const eventName = ref('')
@@ -261,7 +282,15 @@ function initThreeJS() {
 
 onMounted(async () => {
   try {
-    const response = await fetch('https://api.projektcommunity.com/projects')
+    const response = await fetch('https://api.projektcommunity.com/projects', {
+      mode: 'cors',
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    if (!response.ok) {
+      throw new Error('API response was not ok')
+    }
     const data = await response.json()
     const now = new Date()
     
@@ -295,8 +324,14 @@ onMounted(async () => {
       }
     })
   } catch (e) {
-    error.value = 'Failed to load specifications'
+    error.value = 'Using fallback specifications - API is currently unavailable'
     loading.value = false
+    // We'll still initialize Three.js with fallback specs
+    nextTick(() => {
+      if (canvasRef.value) {
+        initThreeJS()
+      }
+    })
   }
 })
 

@@ -38,7 +38,7 @@
       <template v-else>
         <div class="countdown-error-message">
           <span>⚠️ PJKT API is currently down. Please check our</span>
-          <a href="https://discord.gg/projektmelody" target="_blank" rel="noopener">Discord</a>
+          <a href="https://discord.com/invite/pjkt" target="_blank" rel="noopener">Discord</a>
         </div>
       </template>
     </div>
@@ -66,7 +66,12 @@ export default defineComponent({
       try {
         isLoading.value = true
         apiError.value = false
-        const response = await fetch('https://api.projektcommunity.com/projects')
+        const response = await fetch('https://api.projektcommunity.com/projects', {
+          mode: 'cors',
+          headers: {
+            'Accept': 'application/json'
+          }
+        })
         if (!response.ok) {
           throw new Error('API response was not ok')
         }

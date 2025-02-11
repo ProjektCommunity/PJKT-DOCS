@@ -16,6 +16,9 @@ hero:
       link: /info/how-to-rep
 
 features:
+  - icon: ⚠️
+    title: WORK IN PROGRESS - EARLY ACCESS
+    details: This documentation site is currently under heavy development. Pages may be incomplete, links might not work, and content will change frequently. Please bear with us as we build this resource. If you find any issues, let us know!
   - icon: 📚
     title: Info you should know
     details: See what you need to get your neat booth out there!

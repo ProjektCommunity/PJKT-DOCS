@@ -2,7 +2,7 @@
 layout: home
 
 hero:
-  name: "PJKT:DOCS"
+  name: "⚠️EARLY ALPHA WIP⚠️"
   text: "Documentations for our booth exhibitors and representatives."
   image:
     src: /images/logo.png

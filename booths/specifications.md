@@ -105,6 +105,17 @@ function initThreeJS() {
   gridHelper.material.transparent = true
   scene.add(gridHelper)
 
+  // Add arrow helper to show forward direction
+  const arrowDir = new THREE.Vector3(0, 0, 1)
+  arrowDir.normalize()
+  const arrowOrigin = new THREE.Vector3(0, 0.1, 0)
+  const arrowLength = 2
+  const arrowColor = 0x00ff00 // Green color
+  const headLength = 0.4
+  const headWidth = 0.3
+  const arrowHelper = new THREE.ArrowHelper(arrowDir, arrowOrigin, arrowLength, arrowColor, headLength, headWidth)
+  scene.add(arrowHelper)
+
   if (!specs.value?.MaxDims) return
   const [width, length, height] = specs.value.MaxDims
 

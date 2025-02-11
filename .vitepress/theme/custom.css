@@ -1,0 +1,30 @@
+:root {
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #41d1ff 30%, #bd34fe 70%);
+}
+
+.VPFlyout.VPNavBarMenuGroup:hover {
+  color: #ffde00 !important;
+}
+
+.VPNavBarMenuGroup .text:hover {
+  color: #ffde00 !important;
+}
+
+
+.VPSidebar {
+  z-index: 150;
+}
+
+/* Ensure event countdown doesn't interfere with search */
+.event-countdown {
+  position: relative;
+  z-index: 50;
+}
+
+/* Adjust spacing for surrounding elements */
+.VPNavBarHamburger,
+.VPNavBarExtra {
+  position: relative;
+  z-index: 100;
+}

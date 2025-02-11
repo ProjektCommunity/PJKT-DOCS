@@ -1,0 +1,565 @@
+/**
+ * Customize default theme styling by overriding CSS variables:
+ * https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
+ */
+
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&family=Poppins:wght@400;500;600&display=swap');
+
+/**
+ * Colors
+ *
+ * Each colors have exact same color scale system with 3 levels of solid
+ * colors with different brightness, and 1 soft color.
+ *
+ * - `XXX-1`: The most solid color used mainly for colored text. It must
+ *   satisfy the contrast ratio against when used on top of `XXX-soft`.
+ *
+ * - `XXX-2`: The color used mainly for hover state of the button.
+ *
+ * - `XXX-3`: The color for solid background, such as bg color of the button.
+ *   It must satisfy the contrast ratio with pure white (#ffffff) text on
+ *   top of it.
+ *
+ * - `XXX-soft`: The color used for subtle background such as custom container
+ *   or badges. It must satisfy the contrast ratio when putting `XXX-1` colors
+ *   on top of it.
+ *
+ *   The soft color must be semi transparent alpha channel. This is crucial
+ *   because it allows adding multiple "soft" colors on top of each other
+ *   to create a accent, such as when having inline code block inside
+ *   custom containers.
+ *
+ * - `default`: The color used purely for subtle indication without any
+ *   special meanings attached to it such as bg color for menu hover state.
+ *
+ * - `brand`: Used for primary brand colors, such as link text, button with
+ *   brand theme, etc.
+ *
+ * - `tip`: Used to indicate useful information. The default theme uses the
+ *   brand color for this by default.
+ *
+ * - `warning`: Used to indicate warning to the users. Used in custom
+ *   container, badges, etc.
+ *
+ * - `danger`: Used to show error, or dangerous message to the users. Used
+ *   in custom container, badges, etc.
+ * -------------------------------------------------------------------------- */
+
+:root {
+  --vp-c-default-1: var(--vp-c-gray-1);
+  --vp-c-default-2: var(--vp-c-gray-2);
+  --vp-c-default-3: var(--vp-c-gray-3);
+  --vp-c-default-soft: var(--vp-c-gray-soft);
+
+  --vp-c-brand-1: var(--pjkt-yellow);
+  --vp-c-brand-2: var(--pjkt-cyan);
+  --vp-c-brand-3: var(--pjkt-purple);
+  --vp-c-brand-soft: rgba(255, 228, 0, 0.14);
+
+  --vp-c-tip-1: var(--vp-c-brand-1);
+  --vp-c-tip-2: var(--vp-c-brand-2);
+  --vp-c-tip-3: var(--vp-c-brand-3);
+  --vp-c-tip-soft: var(--vp-c-brand-soft);
+
+  --vp-c-warning-1: var(--vp-c-yellow-1);
+  --vp-c-warning-2: var(--vp-c-yellow-2);
+  --vp-c-warning-3: var(--vp-c-yellow-3);
+  --vp-c-warning-soft: var(--vp-c-yellow-soft);
+
+  --vp-c-danger-1: var(--vp-c-red-1);
+  --vp-c-danger-2: var(--vp-c-red-2);
+  --vp-c-danger-3: var(--vp-c-red-3);
+  --vp-c-danger-soft: var(--vp-c-red-soft);
+
+  /* Custom brand colors */
+  --pjkt-yellow: #FFE400;
+  --pjkt-cyan: #00C6FF;
+  --pjkt-purple: #A004FF;
+  --pjkt-black: #000000;
+  --pjkt-white: #FFFFFF;
+  --pjkt-gray: #666666;
+
+  /* Typography */
+  --vp-font-family-base: 'Poppins', sans-serif;
+  --vp-font-family-headings: 'Teko', sans-serif;
+
+  /* Heading Sizes */
+  --vp-h1-font-size: 61.04px;
+  --vp-h2-font-size: 48.83px;
+  --vp-h3-font-size: 39.06px;
+  --vp-h4-font-size: 31.25px;
+  --vp-h5-font-size: 25px;
+  --vp-h6-font-size: 20px;
+
+  /* Body text sizes */
+  --vp-text-base-size: 16px;
+  --vp-text-small-size: 12.8px;
+
+  /* Navigation text colors */
+  --vp-c-text-1: rgba(255, 255, 255, 0.87);
+}
+
+/**
+ * Component: Button
+ * -------------------------------------------------------------------------- */
+
+:root {
+  --vp-button-brand-border: transparent;
+  --vp-button-brand-text: var(--pjkt-black);
+  --vp-button-brand-bg: var(--pjkt-yellow);
+  --vp-button-brand-hover-border: transparent;
+  --vp-button-brand-hover-text: var(--pjkt-white);
+  --vp-button-brand-hover-bg: linear-gradient(45deg, var(--pjkt-cyan), var(--pjkt-purple));
+  --vp-button-brand-active-border: transparent;
+  --vp-button-brand-active-text: var(--pjkt-white);
+  --vp-button-brand-active-bg: var(--pjkt-purple);
+}
+
+/* Custom button styling for gradient effect */
+.VPButton.brand {
+  position: relative;
+  background: var(--pjkt-yellow);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  isolation: isolate;
+  overflow: hidden;
+  transform: scale(1);
+}
+
+.VPButton.brand::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    var(--pjkt-cyan),
+    var(--pjkt-purple)
+  );
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+  border-radius: inherit;
+  transform: translateX(-100%);
+}
+
+.VPButton.brand:hover {
+  color: var(--pjkt-white);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+}
+
+.VPButton.brand:hover::before {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.VPButton.brand:active {
+  transform: scale(0.98) translateY(0);
+}
+
+.VPButton.brand:active::before {
+  background: var(--pjkt-purple);
+  transition: all 0.1s ease-out;
+}
+
+/**
+ * Component: Home
+ * -------------------------------------------------------------------------- */
+
+:root {
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: -webkit-linear-gradient(
+    315deg,
+    var(--pjkt-purple) 30%,
+    var(--pjkt-cyan)
+  );
+
+  --vp-home-hero-image-background-image: linear-gradient(
+    315deg,
+    var(--pjkt-purple) 50%,
+    var(--pjkt-cyan) 50%
+  );
+  --vp-home-hero-image-filter: blur(44px);
+}
+
+/* Glowsticks */
+.VPHome {
+  position: relative;
+  /* Remove overflow: hidden and use a different approach for containing content */
+  isolation: isolate;
+}
+
+/* Add a wrapper div inside VPHome to control content flow if needed */
+.VPHome > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.glowstick {
+  position: absolute;
+  width: 3px;
+  height: 100px;
+  background: linear-gradient(180deg, transparent, currentColor, transparent);
+  animation: float 8s infinite;
+  opacity: 0.6;
+  filter: blur(5px);
+  pointer-events: none;
+}
+
+.glowstick::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  background: inherit;
+  filter: blur(10px);
+  opacity: 0.3;
+}
+
+.glowstick.yellow {
+  color: var(--pjkt-yellow);
+}
+
+.glowstick.cyan {
+  color: var(--pjkt-cyan);
+}
+
+.glowstick.purple {
+  color: var(--pjkt-purple);
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(-50%) translateX(-50%) rotate(5deg);
+  }
+  50% {
+    transform: translateY(-60%) translateX(-30%) rotate(-5deg);
+  }
+}
+
+/* Hero text width control */
+.VPHero .text {
+  max-width: 960px !important;
+  width: 100%;
+}
+
+.VPHero .tagline {
+  max-width: 960px !important;
+  margin: 0 auto;
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --vp-home-hero-image-filter: blur(56px);
+  }
+}
+
+@media (min-width: 960px) {
+  :root {
+    --vp-home-hero-image-filter: blur(68px);
+  }
+}
+
+/**
+ * Component: Custom Block
+ * -------------------------------------------------------------------------- */
+
+:root {
+  /* Tip block - Using green */
+  --vp-custom-block-tip-border: #42b883;
+  --vp-custom-block-tip-text: var(--pjkt-white);
+  --vp-custom-block-tip-bg: rgba(66, 184, 131, 0.15);
+  --vp-custom-block-tip-code-bg: rgba(66, 184, 131, 0.2);
+
+  /* Warning block - Using yellow */
+  --vp-custom-block-warning-border: var(--pjkt-yellow);
+  --vp-custom-block-warning-text: var(--pjkt-white);
+  --vp-custom-block-warning-bg: rgba(255, 228, 0, 0.15);
+  --vp-custom-block-warning-code-bg: rgba(255, 228, 0, 0.2);
+
+  /* Danger block - Using hot pink */
+  --vp-custom-block-danger-border: #FF69B4;
+  --vp-custom-block-danger-text: var(--pjkt-white);
+  --vp-custom-block-danger-bg: rgba(255, 105, 180, 0.15);
+  --vp-custom-block-danger-code-bg: rgba(255, 105, 180, 0.2);
+
+  /* Info block - Using a mix of cyan and purple */
+  --vp-custom-block-info-border: var(--pjkt-cyan);
+  --vp-custom-block-info-text: var(--pjkt-white);
+  --vp-custom-block-info-bg: rgba(0, 198, 255, 0.15);
+  --vp-custom-block-info-code-bg: rgba(0, 198, 255, 0.2);
+}
+
+/* Additional custom block styling for better contrast */
+.custom-block {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  border-radius: 8px;
+}
+
+.custom-block.tip,
+.custom-block.warning,
+.custom-block.danger,
+.custom-block.info {
+  border-width: 2px;
+  border-style: solid;
+  box-shadow: 0 0 10px currentColor;
+}
+
+.custom-block.tip {
+  border-color: #42b883;
+  box-shadow: 0 0 10px rgba(66, 184, 131, 0.4);
+}
+
+.custom-block.warning {
+  border-color: var(--pjkt-yellow);
+  box-shadow: 0 0 10px rgba(255, 228, 0, 0.4);
+}
+
+.custom-block.danger {
+  border-color: #FF69B4;
+  box-shadow: 0 0 10px rgba(255, 105, 180, 0.4);
+}
+
+.custom-block.info {
+  border-color: var(--pjkt-cyan);
+  box-shadow: 0 0 10px rgba(0, 198, 255, 0.4);
+}
+
+/* Custom block title styling for better readability */
+.custom-block .custom-block-title {
+  font-family: var(--vp-font-family-headings);
+  font-weight: 600;
+  text-shadow: 0 0 10px currentColor;
+  font-size: 1.2em;
+  margin-bottom: 0.8em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.custom-block-title::before {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.2em;
+  height: 1.2em;
+  font-size: 1.1em;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.7));
+}
+
+.custom-block.tip .custom-block-title::before {
+  content: "\f058";  /* fa-circle-check */
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  color: #42b883;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.7))
+         drop-shadow(0 0 8px rgba(66, 184, 131, 0.6));
+}
+
+.custom-block.warning .custom-block-title::before {
+  content: "\f071";  /* fa-triangle-exclamation */
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  color: var(--pjkt-yellow);
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.7))
+         drop-shadow(0 0 8px rgba(255, 228, 0, 0.6));
+}
+
+.custom-block.danger .custom-block-title::before {
+  content: "\f06a";  /* fa-circle-exclamation */
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  color: #FF69B4;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.7))
+         drop-shadow(0 0 8px rgba(255, 105, 180, 0.6));
+}
+
+.custom-block.info .custom-block-title::before {
+  content: "\f05a";  /* fa-circle-info */
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  color: var(--pjkt-cyan);
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.7))
+         drop-shadow(0 0 8px rgba(0, 198, 255, 0.6));
+}
+
+.custom-block.details .custom-block-title::before {
+  content: "\f059";  /* fa-circle-question */
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  color: var(--vp-c-text-1);
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.7))
+         drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+}
+
+.custom-block.tip .custom-block-title {
+  color: #42b883;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.7),
+               0 0 4px rgba(66, 184, 131, 0.6),
+               0 0 8px rgba(66, 184, 131, 0.4);
+  letter-spacing: 0.5px;
+}
+
+.custom-block.warning .custom-block-title {
+  color: var(--pjkt-yellow);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.7),
+               0 0 4px rgba(255, 228, 0, 0.6),
+               0 0 8px rgba(255, 228, 0, 0.4);
+  letter-spacing: 0.5px;
+}
+
+.custom-block.danger .custom-block-title {
+  color: #FF69B4;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.7),
+               0 0 4px rgba(255, 105, 180, 0.6),
+               0 0 8px rgba(255, 105, 180, 0.4);
+  letter-spacing: 0.5px;
+}
+
+.custom-block.info .custom-block-title {
+  color: var(--pjkt-cyan);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.7),
+               0 0 4px rgba(0, 198, 255, 0.6),
+               0 0 8px rgba(0, 198, 255, 0.4);
+  letter-spacing: 0.5px;
+}
+
+.custom-block.details .custom-block-title {
+  color: var(--vp-c-text-1);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.7),
+               0 0 4px rgba(255, 255, 255, 0.3),
+               0 0 8px rgba(255, 255, 255, 0.2);
+  letter-spacing: 0.5px;
+}
+
+/* Add a subtle glow effect to the titles */
+.custom-block .custom-block-title {
+  font-family: var(--vp-font-family-headings);
+  font-weight: 600;
+  text-shadow: 0 0 10px currentColor;
+  font-size: 1.2em;
+  margin-bottom: 0.8em;
+}
+
+/* Custom block hover effects */
+.custom-block:hover {
+  transform: translateY(-2px);
+}
+
+.custom-block.tip:hover {
+  background: rgba(66, 184, 131, 0.2);
+  box-shadow: 0 0 15px rgba(66, 184, 131, 0.6),
+              0 0 30px rgba(66, 184, 131, 0.4);
+}
+
+.custom-block.warning:hover {
+  background: rgba(255, 228, 0, 0.2);
+  box-shadow: 0 0 15px rgba(255, 228, 0, 0.6),
+              0 0 30px rgba(255, 228, 0, 0.4);
+}
+
+.custom-block.danger:hover {
+  background: rgba(255, 105, 180, 0.2);
+  box-shadow: 0 0 15px rgba(255, 105, 180, 0.6),
+              0 0 30px rgba(255, 105, 180, 0.4);
+}
+
+.custom-block.info:hover {
+  background: rgba(0, 198, 255, 0.2);
+  box-shadow: 0 0 15px rgba(0, 198, 255, 0.6),
+              0 0 30px rgba(0, 198, 255, 0.4);
+}
+
+.custom-block.details:hover {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3),
+              0 0 30px rgba(255, 255, 255, 0.2);
+}
+
+/* Enhance code blocks within custom blocks */
+.custom-block :not(pre) > code {
+  color: var(--vp-c-text-1);
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.1);
+  text-shadow: none;
+}
+
+/* Enhance content within custom blocks */
+.custom-block p {
+  position: relative;
+  z-index: 1;
+  line-height: 1.6;
+}
+
+/**
+ * Component: Algolia
+ * -------------------------------------------------------------------------- */
+
+.DocSearch {
+  --docsearch-primary-color: var(--pjkt-yellow) !important;
+  --docsearch-text-color: var(--pjkt-black) !important;
+}
+
+/* Apply Teko to all headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--vp-font-family-headings) !important;
+  font-weight: 600;
+}
+
+/* Base text styling */
+body {
+  font-family: var(--vp-font-family-base);
+  font-size: var(--vp-text-base-size);
+}
+
+/* Small text */
+.text-sm {
+  font-size: var(--vp-text-small-size);
+}
+
+/* Add drop shadow to interactive elements */
+.VPButton,
+.VPNavBarMenuLink,
+.VPNavBarMenuGroup,
+.VPLink {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+/* Navigation button styles */
+.VPNavBarMenuLink {
+  color: var(--pjkt-black) !important;
+}
+
+.VPNavBarMenuLink:hover {
+  color: var(--pjkt-yellow) !important;
+}
+
+/* Disabled button state */
+.VPButton.disabled {
+  background-color: var(--pjkt-gray) !important;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Navigation text colors */
+.VPNav .VPNavBar .content-body .VPNavBarMenuLink,
+.VPLink {
+  color: var(--vp-c-text-1) !important;
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.VPNav .VPNavBar .content-body .VPNavBarMenuLink:hover,
+.VPLink:hover {
+  color: var(--vp-c-brand) !important;
+  opacity: 1;
+}
+
+/* Hide theme toggle */
+.VPNavBarAppearance {
+  display: none !important;
+}
+

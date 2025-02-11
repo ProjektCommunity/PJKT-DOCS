@@ -94,10 +94,21 @@ export default defineConfig({
   head: [
     ['link', { rel: 'icon', href: '/images/logo-mini.png' }],
     ['meta', { name: 'theme-color', content: '#3eaf7c' }],
-    ['meta', { name: 'og:type', content: 'website' }],
-    ['meta', { name: 'og:title', content: 'PJKT:DOCS' }],
-    ['meta', { name: 'og:description', content: 'Documentation for developers and booth exhibitors using our tools.' }],
-    ['meta', { name: 'og:image', content: '/images/logo-mini.png' }]
+    // Open Graph / Discord embed tags
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:title', content: 'PJKT:DOCS' }],
+    ['meta', { property: 'og:description', content: 'Documentation for developers and booth exhibitors using our tools.' }],
+    ['meta', { property: 'og:image', content: 'https://docs.pjkt.net/images/logo-mini.png' }],
+    ['meta', { property: 'og:image:alt', content: 'PJKT:DOCS Logo' }],
+    ['meta', { property: 'og:image:width', content: '512' }],
+    ['meta', { property: 'og:image:height', content: '512' }],
+    ['meta', { property: 'og:site_name', content: 'PJKT:DOCS' }],
+    // Discord specific
+    ['meta', { name: 'twitter:card', content: 'summary' }],
+    ['meta', { name: 'twitter:site', content: '@PJKT_COM' }],
+    ['meta', { name: 'twitter:title', content: 'PJKT:DOCS' }],
+    ['meta', { name: 'twitter:description', content: 'Documentation for developers and booth exhibitors using our tools.' }],
+    ['meta', { name: 'twitter:image', content: 'https://docs.pjkt.net/images/logo-mini.png' }]
   ],
 
   // Markdown config

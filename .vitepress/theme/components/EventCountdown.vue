@@ -5,11 +5,11 @@
       'event-countdown-navbar': isHomePage,
       'event-countdown-bubble': !isHomePage 
     }"
-    v-show="true"
+    v-show="eventName"
   >
     <div class="countdown-item">
       <span class="countdown-label">Next event:</span>
-      <span class="countdown-value">FEST 2025</span>
+      <span class="countdown-value">{{ eventName }}</span>
     </div>
     <div class="countdown-item">
       <span class="countdown-label">Submission deadline:</span>
@@ -36,14 +36,45 @@ export default defineComponent({
   name: 'EventCountdown',
   setup() {
     const route = useRoute()
-    const deadline = ref('feb 8, 2025 20:05:59')
+    const eventData = ref(null)
+    const deadline = ref('')
     const timeDistance = ref(0)
+    const eventName = ref('')
 
     const isHomePage = computed(() => {
       return route.path === '/'
     })
 
+    const fetchEventData = async () => {
+      try {
+        const response = await fetch('https://api.projektcommunity.com/projects')
+        const data = await response.json()
+        
+        // Find the next event that's accepting booths and deadline hasn't passed
+        const now = new Date()
+        let nextEvent = data.projects
+          .filter(p => new Date(p.booth_deadline_date) > now && p.accepting_booth)
+          .sort((a, b) => new Date(a.start_date) - new Date(b.start_date))[0]
+
+        // If no upcoming events found, get the last event that accepted booths
+        if (!nextEvent) {
+          nextEvent = data.projects
+            .filter(p => p.accepting_booth)
+            .sort((a, b) => new Date(b.start_date) - new Date(a.start_date))[0]
+        }
+
+        if (nextEvent) {
+          eventData.value = nextEvent
+          eventName.value = nextEvent.name
+          deadline.value = nextEvent.booth_deadline_date
+        }
+      } catch (error) {
+        console.error('Failed to fetch event data:', error)
+      }
+    }
+
     const deadlineFormatted = computed(() => {
+      if (!deadline.value) return ''
       const date = new Date(deadline.value)
       const dateStr = date.toLocaleDateString('en-US', { 
         weekday: 'long',
@@ -58,7 +89,8 @@ export default defineComponent({
       })
       return `${dateStr} at ${timeStr}`
     })
-
+    
+    // Hehe dummy stupid over-engineered countdown formatter
     const formattedDeadline = computed(() => {
       if (timeDistance.value <= 0) return 'Deadline passed'
       
@@ -103,6 +135,7 @@ export default defineComponent({
     }
 
     onMounted(() => {
+      fetchEventData()
       let animationFrameId = null
       let normalInterval = null
 
@@ -176,7 +209,8 @@ export default defineComponent({
       formattedDeadline,
       timeDistance,
       isHomePage,
-      deadlineFormatted
+      deadlineFormatted,
+      eventName
     }
   }
 })

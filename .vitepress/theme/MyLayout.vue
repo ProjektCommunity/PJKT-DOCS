@@ -18,10 +18,14 @@ interface BirdPosition {
   isDragging?: boolean
   offsetX?: number
   offsetY?: number
+  emoji: string
 }
 
 const { Layout } = DefaultTheme
 const { frontmatter } = useData()
+
+// Bird emojis array
+const birdEmojis = ['🐦', '🦜', '🦤', '🦚', '🦃', '🦢', '🦅', '🦆', '🦉']
 
 // 404 page logic
 const birds = ref<BirdPosition[]>([])
@@ -61,6 +65,15 @@ const endDrag = () => {
   }
 }
 
+const selectBirdEmoji = () => {
+  // 70% chance for the common bird
+  if (Math.random() < 0.7) {
+    return '🐦'
+  }
+  // 30% chance for other bird variants
+  return birdEmojis[Math.floor(Math.random() * (birdEmojis.length - 1)) + 1]
+}
+
 onMounted(() => {
   window.addEventListener('mousemove', onDrag)
   window.addEventListener('mouseup', endDrag)
@@ -72,7 +85,8 @@ onMounted(() => {
       x: Math.random() * 100,
       y: Math.random() * 100,
       delay: Math.random() * 2,
-      size: Math.random() * 20 + 20
+      size: Math.random() * 20 + 20,
+      emoji: selectBirdEmoji()
     })
   }
 })
@@ -106,8 +120,12 @@ onUnmounted(() => {
     <template #not-found>
       <div class="not-found-container">
         <div class="not-found">
-          <h1 class="not-found-heading">4🐦4</h1>
+          <h1 class="not-found-heading">4🦜4</h1>
           <p class="message">{{ currentMessage }}</p>
+          <div class="wip-warning">
+            <span class="wip-icon">⚠️</span>
+            This site is under construction
+          </div>
           <div class="bird-container">
             <div v-for="(bird, index) in birds" 
                  :key="index" 
@@ -121,7 +139,7 @@ onUnmounted(() => {
                  }"
                  @mousedown.prevent="startDrag(bird, $event)"
                  @touchstart.prevent="startDrag(bird, $event)"
-                 @touchmove.prevent>🐦</div>
+                 @touchmove.prevent>{{ bird.emoji }}</div>
           </div>
           <a class="vp-button brand" href="/">
             <i class="fas fa-home"></i>
@@ -175,6 +193,25 @@ onUnmounted(() => {
   margin: 20px 0 40px;
   color: var(--pjkt-cyan);
   text-shadow: 0 0 10px var(--pjkt-cyan);
+}
+
+.wip-warning {
+  background: linear-gradient(45deg, rgba(255, 166, 0, 0.2), rgba(255, 217, 0, 0.2));
+  border: 2px solid var(--pjkt-yellow);
+  padding: 8px 16px;
+  border-radius: 8px;
+  color: var(--pjkt-yellow);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 1rem;
+  box-shadow: 0 0 15px rgba(255, 228, 0, 0.2);
+  animation: wiggle 10s ease-in-out infinite;
+}
+
+.wip-icon {
+  font-size: 1.2em;
 }
 
 .bird-container {
@@ -263,6 +300,11 @@ onUnmounted(() => {
   50% {
     filter: drop-shadow(0 0 30px var(--pjkt-purple));
   }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-1deg); }
+  50% { transform: rotate(1deg); }
 }
 
 .vp-button.brand {

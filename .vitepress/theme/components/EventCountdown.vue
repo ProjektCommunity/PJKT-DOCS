@@ -1,35 +1,52 @@
 <template>
-  <div 
-    class="event-countdown" 
-    :class="{ 
-      'event-countdown-navbar': isHomePage,
-      'event-countdown-bubble': !isHomePage 
-    }"
-    v-show="eventName"
-  >
-    <div class="countdown-item">
-      <span class="countdown-label">Next event:</span>
-      <span class="countdown-value">{{ eventName }}</span>
+  <Transition name="fade">
+    <div 
+      class="event-countdown" 
+      :class="{ 
+        'event-countdown-navbar': isHomePage,
+        'event-countdown-bubble': !isHomePage,
+        'event-countdown-error': apiError,
+        'event-countdown-loading': isLoading
+      }"
+      v-if="isLoading || (deadline && eventName) || apiError"
+    >
+      <template v-if="isLoading">
+        <div class="countdown-loading">
+          Loading next event...
+        </div>
+      </template>
+      <template v-else-if="!apiError">
+        <div class="countdown-item">
+          <span class="countdown-label">Next event:</span>
+          <span class="countdown-value">{{ eventName }}</span>
+        </div>
+        <div class="countdown-item" v-if="deadline">
+          <span class="countdown-label">Submission deadline:</span>
+          <span 
+            class="countdown-value" 
+            :class="{ 'countdown-urgent': timeDistance < 300000 }"
+            data-tooltip
+            role="tooltip"
+            tabindex="0"
+            aria-label="Full deadline date and time"
+          >
+            {{ formattedDeadline }}
+            <span class="tooltip" role="tooltip">{{ deadlineFormatted }}</span>
+          </span>
+        </div>
+      </template>
+      <template v-else>
+        <div class="countdown-error-message">
+          <span>⚠️ PJKT API is currently down. Please check our</span>
+          <a href="https://discord.gg/projektmelody" target="_blank" rel="noopener">Discord</a>
+        </div>
+      </template>
     </div>
-    <div class="countdown-item">
-      <span class="countdown-label">Submission deadline:</span>
-      <span 
-        class="countdown-value" 
-        :class="{ 'countdown-urgent': timeDistance < 300000 }"
-        data-tooltip
-        role="tooltip"
-        tabindex="0"
-        aria-label="Full deadline date and time"
-      >
-        {{ formattedDeadline }}
-        <span class="tooltip" role="tooltip">{{ deadlineFormatted }}</span>
-      </span>
-    </div>
-  </div>
+  </Transition>
 </template>
 
 <script>
-import { defineComponent, ref, onMounted, computed } from 'vue'
+import { defineComponent, ref, onMounted, computed, watch, onUnmounted } from 'vue'
 import { useRoute } from 'vitepress'
 
 export default defineComponent({
@@ -37,39 +54,56 @@ export default defineComponent({
   setup() {
     const route = useRoute()
     const eventData = ref(null)
-    const deadline = ref('')
+    const deadline = ref(null)
     const timeDistance = ref(0)
     const eventName = ref('')
+    const apiError = ref(false)
+    const isLoading = ref(true)
 
-    const isHomePage = computed(() => {
-      return route.path === '/'
-    })
-
+    const isHomePage = computed(() => route.path === '/')
+    
     const fetchEventData = async () => {
       try {
+        isLoading.value = true
+        apiError.value = false
         const response = await fetch('https://api.projektcommunity.com/projects')
+        if (!response.ok) {
+          throw new Error('API response was not ok')
+        }
         const data = await response.json()
         
-        // Find the next event that's accepting booths and deadline hasn't passed
+        if (!data || !data.projects || !Array.isArray(data.projects)) {
+          throw new Error('Invalid API response format')
+        }
+
         const now = new Date()
         let nextEvent = data.projects
-          .filter(p => new Date(p.booth_deadline_date) > now && p.accepting_booth)
+          .filter(p => p.booth_deadline_date && new Date(p.booth_deadline_date) > now && p.accepting_booth)
           .sort((a, b) => new Date(a.start_date) - new Date(b.start_date))[0]
 
-        // If no upcoming events found, get the last event that accepted booths
         if (!nextEvent) {
           nextEvent = data.projects
-            .filter(p => p.accepting_booth)
+            .filter(p => p.accepting_booth && p.booth_deadline_date)
             .sort((a, b) => new Date(b.start_date) - new Date(a.start_date))[0]
         }
 
-        if (nextEvent) {
+        if (nextEvent && nextEvent.name && nextEvent.booth_deadline_date) {
           eventData.value = nextEvent
           eventName.value = nextEvent.name
           deadline.value = nextEvent.booth_deadline_date
+          updateCountdown()
+        } else {
+          eventName.value = ''
+          deadline.value = null
+          throw new Error('No valid event data found')
         }
       } catch (error) {
         console.error('Failed to fetch event data:', error)
+        apiError.value = true
+        eventName.value = ''
+        deadline.value = null
+      } finally {
+        isLoading.value = false
       }
     }
 
@@ -92,7 +126,8 @@ export default defineComponent({
     
     // Hehe dummy stupid over-engineered countdown formatter
     const formattedDeadline = computed(() => {
-      if (timeDistance.value <= 0) return 'Deadline passed'
+      if (!deadline.value) return ''
+      if (!timeDistance.value && timeDistance.value !== 0) return ''
       
       const days = Math.floor(timeDistance.value / (1000 * 60 * 60 * 24))
       const months = Math.floor(days / 30.44)
@@ -129,6 +164,10 @@ export default defineComponent({
     })
 
     const updateCountdown = () => {
+      if (!deadline.value) {
+        timeDistance.value = 0
+        return
+      }
       const now = new Date().getTime()
       const targetDate = new Date(deadline.value).getTime()
       timeDistance.value = targetDate - now
@@ -161,19 +200,30 @@ export default defineComponent({
         normalInterval = setInterval(updateCountdown, 1000)
       }
 
-      // Start with normal updates (every second)
-      startNormalUpdates()
+      // Watch for loading state changes
+      watch([isLoading, deadline], ([loading, newDeadline]) => {
+        if (!loading && newDeadline) {
+          startNormalUpdates()
 
-      // Check every second if we need to switch to precise updates
-      const checkInterval = setInterval(() => {
-        if (timeDistance.value < 300000 && !animationFrameId) { // Switch to precise updates under 5 minutes
-          startPreciseUpdates()
-        } else if (timeDistance.value <= 0) { // Clean up when deadline passed
-          if (normalInterval) clearInterval(normalInterval)
-          if (animationFrameId) cancelAnimationFrame(animationFrameId)
-          if (checkInterval) clearInterval(checkInterval)
+          const checkInterval = setInterval(() => {
+            if (timeDistance.value < 300000 && !animationFrameId) {
+              startPreciseUpdates()
+            } else if (timeDistance.value <= 0) {
+              if (normalInterval) clearInterval(normalInterval)
+              if (animationFrameId) cancelAnimationFrame(animationFrameId)
+              if (checkInterval) clearInterval(checkInterval)
+              // Refetch data when countdown ends
+              fetchEventData()
+            }
+          }, 1000)
         }
-      }, 1000)
+      })
+
+      // Clean up intervals on component unmount
+      onUnmounted(() => {
+        if (normalInterval) clearInterval(normalInterval)
+        if (animationFrameId) cancelAnimationFrame(animationFrameId)
+      })
 
       // Add tooltip position handler
       const tooltipElements = document.querySelectorAll('[data-tooltip]');
@@ -210,13 +260,27 @@ export default defineComponent({
       timeDistance,
       isHomePage,
       deadlineFormatted,
-      eventName
+      eventName,
+      apiError,
+      isLoading,
+      deadline
     }
   }
 })
 </script>
 
 <style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
 .event-countdown {
   display: flex;
   align-items: center;
@@ -224,6 +288,17 @@ export default defineComponent({
   padding: 0 16px;
   font-size: 14px;
   color: var(--vp-c-text-1);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .event-countdown-navbar {
@@ -358,5 +433,38 @@ export default defineComponent({
   top: 100%;
   border-top-color: var(--vp-c-divider);
   margin-top: 0.5px;
+}
+
+.event-countdown-error {
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-danger-1);
+  padding: 8px 16px;
+}
+
+.countdown-error-message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--vp-c-danger-1);
+}
+
+.countdown-error-message a {
+  color: var(--vp-c-brand-1);
+  text-decoration: none;
+  pointer-events: auto;
+}
+
+.countdown-error-message a:hover {
+  text-decoration: underline;
+}
+
+.event-countdown-loading {
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-divider);
+}
+
+.countdown-loading {
+  color: var(--vp-c-text-2);
+  font-style: italic;
 }
 </style>

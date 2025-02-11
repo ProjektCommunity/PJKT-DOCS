@@ -3,10 +3,6 @@
 <script setup>
 import { onMounted, ref, nextTick, onUnmounted } from 'vue'
 import * as THREE from 'three'
-// Changed to use three-stdlib for postprocessing imports
-import { EffectComposer } from 'three-stdlib/postprocessing/EffectComposer'
-import { RenderPass } from 'three-stdlib/postprocessing/RenderPass'
-import { UnrealBloomPass } from 'three-stdlib/postprocessing/UnrealBloomPass'
 
 const specs = ref({
   // Fallback specs in case API is unavailable
@@ -37,7 +33,7 @@ const eventInfo = ref(null)
 
 // Three.js setup for booth preview
 const canvasRef = ref(null)
-let renderer, scene, camera, animationFrameId, composer
+let renderer, scene, camera, animationFrameId
 
 function createTextSprite(text, position, color = '#ff69b4') {
   const canvas = document.createElement('canvas')
@@ -112,15 +108,6 @@ function initThreeJS() {
   })
   renderer.setPixelRatio(window.devicePixelRatio)
   renderer.setSize(container.clientWidth, container.clientHeight, false)
-
-  composer = new EffectComposer(renderer)
-  composer.addPass(new RenderPass(scene, camera))
-  composer.addPass(new UnrealBloomPass(
-    new THREE.Vector2(container.clientWidth, container.clientHeight),
-    0.2,
-    0.3,
-    0.5
-  ))
 
   const gridHelper = new THREE.GridHelper(10, 10, 0x666666, 0x444444)
   gridHelper.material.opacity = 0.3
@@ -226,7 +213,7 @@ function initThreeJS() {
   scene.add(directionalLight)
 
   function animate() {
-    if (!scene || !camera || !composer) return
+    if (!scene || !camera) return
     
     animationFrameId = requestAnimationFrame(animate)
     theta += 0.001
@@ -261,20 +248,19 @@ function initThreeJS() {
       }
     })
 
-    composer.render()
+    renderer.render(scene, camera)
   }
 
   let theta = 0
   animate()
 
   const handleResize = () => {
-    if (!container || !camera || !renderer || !composer) return
+    if (!container || !camera || !renderer) return
     const width = container.clientWidth
     const height = container.clientHeight
     camera.aspect = width / height
     camera.updateProjectionMatrix()
     renderer.setSize(width, height, false)
-    composer.setSize(width, height)
   }
 
   window.addEventListener('resize', handleResize)

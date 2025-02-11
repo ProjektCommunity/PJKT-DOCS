@@ -3,9 +3,10 @@
 <script setup>
 import { onMounted, ref, nextTick, onUnmounted } from 'vue'
 import * as THREE from 'three'
-import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer'
-import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass'
-import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass'
+// Changed to use three-stdlib for postprocessing imports
+import { EffectComposer } from 'three-stdlib/postprocessing/EffectComposer'
+import { RenderPass } from 'three-stdlib/postprocessing/RenderPass'
+import { UnrealBloomPass } from 'three-stdlib/postprocessing/UnrealBloomPass'
 
 const specs = ref({
   // Fallback specs in case API is unavailable

@@ -5,24 +5,12 @@ Welcome to PJKT:DOCS! This documentation site is designed to help booth exhibito
 ## 📚 Core Information
 
 - **[Getting Started Guide](/info/getting-started)**: Essential information for all participants
-- **[How to Become a Representative](/info/how-to-rep)**: Guidelines and requirements for becoming a rep
-- **Project Overview**: Understanding what PJKT is all about
 
 ## 🎪 Booth Information
 
 Our [booth documentation](/booths) covers everything you need to know about creating and managing your booth:
 
 - **Booth Specifications**: Technical requirements and limitations
-- **Setup Guidelines**: Step-by-step guide to setting up your booth
-- **Best Practices**: Tips and tricks for creating an engaging booth
-
-## 🛠️ Technical Resources
-
-We provide various technical tools and components to enhance your booth:
-
-- **[Components Library](/booths/components)**: Ready-to-use components for your booth
-- **SDK Documentation**: Technical documentation for booth integration
-- **Button Components**: Interactive elements you can add to your booth
 
 ## ⚠️ Important Note
 

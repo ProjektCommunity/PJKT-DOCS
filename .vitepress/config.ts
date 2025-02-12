@@ -59,17 +59,23 @@ export default defineConfig({
 
     sidebar: [
       {
-        text: 'Rep Information',
+        text: 'Core Information',
         items: [
-          { text: 'Booth Stuff', link: 'booths/index' },
-          { text: 'Runtime API Examples', link: '/api-examples' }
+          { text: 'How to Become a Representative', link: '/info/how-to-rep' },
         ]
       },
       {
-        text: 'Booths',
+        text: 'PJKT Account',
         items: [
-          { text: 'Getting Started', link: 'booths/gettings-started' },
-          { text: 'Booth Specifications', link: '/api-examples' }
+          { text: 'Creating an Account', link: '/info/account-creation' },
+        ]
+      },
+      {
+        text: 'Booths & PJKT SDK',
+        items: [
+          { text: 'Getting started', link: '/booths/setup-guidelines' },
+          { text: 'Booth Specifications', link: '/booths/specifications' },
+          { text: 'Buttons & Components', link: '/booths/button-components' }
         ]
       }
     ],

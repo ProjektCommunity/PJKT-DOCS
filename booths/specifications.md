@@ -408,7 +408,7 @@ Before creating your booth, make sure to review all specifications carefully. St
 ::: info Static Flags
 Objects that are not animated or interactive must have the following static flags enabled:
 - Occludee Static
-- Static
+- Batching Static
 - Contribute GI
 - Reflection Probe Static
 
@@ -507,7 +507,7 @@ If you are not sure how to set these flags, the SDK will automatically set them 
     <div class="feature-value">{{ specs.MaxTextMeshPro }}</div>
   </div>
   <div class="feature-card">
-    <div class="feature-title">Particle Systems</div>
+    <div class="feature-title">Active Particles</div>
     <div class="feature-value">{{ specs.MaxParticles }}</div>
     <div class="feature-note">No collision particles</div>
   </div>

@@ -7,24 +7,29 @@ import * as THREE from 'three'
 const specs = ref({
   // Fallback specs in case API is unavailable
   MaxTriangles: 50000,
-  MaxMaterial: 10,
+  MaxMaterial: 4,          // Updated to 4
   MaxStaticMeshes: 100,
-  MaxDims: [8, 8, 5],
+  MaxDims: [6, 6, 7],     // Updated dimensions
   MaxDimsMargin: 0.5,
   MaxBuildSize: 8,
-  MaxFileSize: 100,
-  MaxVram: 50,
+  MaxFileSize: 50,        // Updated to 50
+  MaxVram: 35,            // Updated to 35
   MaxPickups: 10,
   MaxAvatarPedestals: 2,
   MaxPortals: 1,
-  MaxTextMeshPro: 20,
-  MaxParticles: 5,
-  MaxMirrors: 1,
-  MaxSkinnedMeshRenderers: 5,
-  MaxAnimators: 10,
-  MaxAnimations: 20,
+  MaxTextMeshPro: 1,      // Updated to 1
+  MaxParticles: 50,       // Updated to 50
+  MaxMirrors: 0,
+  MaxSkinnedMeshRenderers: 1,  // Updated to 1
+  MaxAnimators: 1,        // Updated to 1
+  MaxAnimations: 8,       // Updated to 8
   MaxUdonScripts: 10,
-  UdonWhitelist: ['Default SDK Scripts']
+  UdonWhitelist: [
+    'Default SDK Scripts',
+    "Packages/com.vrchat.worlds/Samples/UdonExampleScene/UdonProgramSources/AvatarPedestal Program.asset",
+    "Packages/com.vrchat.worlds/Samples/UdonExampleScene/UdonProgramSources/DownloadString.asset",
+    "Packages/com.vrchat.worlds/Samples/UdonExampleScene/Prefabs/VRCChair/StationGraph.asset"
+  ]
 })
 const loading = ref(true)
 const error = ref(null)
@@ -381,9 +386,10 @@ const formatNumber = (num) => num.toLocaleString()
 Before creating your booth, make sure to review all specifications carefully. Staff may contact you for adjustments if needed.
 :::
 
-## 📐 Geometry and Bounds
+## 📐 Geometry and Gameobjects
 
-::: info Technical Specifications
+
+**Maximum limits:**
 <div class="specs-grid">
   <div class="spec-item">
     <div class="spec-value">{{ formatNumber(specs.MaxTriangles) }}</div>
@@ -391,13 +397,23 @@ Before creating your booth, make sure to review all specifications carefully. St
   </div>
   <div class="spec-item">
     <div class="spec-value">{{ specs.MaxMaterial }}</div>
-    <div class="spec-label">Materials</div>
+    <div class="spec-label">Material slots</div>
   </div>
   <div class="spec-item">
     <div class="spec-value">{{ specs.MaxStaticMeshes }}</div>
     <div class="spec-label">Static Meshes</div>
   </div>
 </div>
+
+::: info Static Flags
+Objects that are not animated or interactive must have the following static flags enabled:
+- Occludee Static
+- Static
+- Contribute GI
+- Reflection Probe Static
+
+If you are not sure how to set these flags, the SDK will automatically set them for you when you build your booth.
+:::
 
 **Maximum Dimensions:**
 <div class="dimensions-box">
@@ -413,32 +429,33 @@ Before creating your booth, make sure to review all specifications carefully. St
     </div>
   </div>
 </div>
-:::
 
 ## 💾 Size Requirements
 
-::: tip Resource Limits
 <div class="resource-limits">
   <div class="resource-item">
     <span class="resource-icon">📦</span>
-    <span class="resource-label">VRChat Build:</span>
+    <span class="resource-label">VRChat Build Size</span>
     <span class="resource-value">{{ specs.MaxBuildSize ?? 8 }} MB</span>
   </div>
   <div class="resource-item">
     <span class="resource-icon">💾</span>
-    <span class="resource-label">Uncompressed:</span>
+    <span class="resource-label">Uncompressed Size</span>
     <span class="resource-value">{{ specs.MaxFileSize }} MB</span>
   </div>
   <div class="resource-item">
     <span class="resource-icon">🎮</span>
-    <span class="resource-label">VRAM Usage:</span>
+    <span class="resource-label">VRAM Usage</span>
     <span class="resource-value">{{ specs.MaxVram }} MB</span>
   </div>
 </div>
+
+## 🎮 Interactive Elements
+
+::: info Pickup Physics
+- Only kinematic pickups allowed
+- No gravity or collision-based physics
 :::
-
-
-## 🎮 Pickups and Props
 
 <div class="feature-grid">
   <div class="feature-card">
@@ -448,28 +465,51 @@ Before creating your booth, make sure to review all specifications carefully. St
   <div class="feature-card">
     <div class="feature-title">Avatar Pedestals</div>
     <div class="feature-value">{{ specs.MaxAvatarPedestals }}</div>
+    <div class="feature-note">May be distance hidden</div>
   </div>
   <div class="feature-card">
     <div class="feature-title">Portals</div>
     <div class="feature-value">{{ specs.MaxPortals }}</div>
+    <div class="feature-note">May be distance hidden</div>
   </div>
 </div>
 
-## 🎨 UI and Effects
+## 🎨 Visuals and Audio
+
+### Lighting Requirements
+- All lights must be set to **Baked** mode
+- Light intensity: Maximum 10
+- Light range: Maximum 7m
+- No realtime or mixed lighting allowed
+- Lightmap settings will be enforced by SDK and might be adjusted on our side
+
+### Shader Guidelines
+
+**Custom Shaders**  
+- Allowed, but prefer performance-friendly implementations.  
+- Avoid using grab pass or screen space effects.
+
+**Poiyomi Shader Notes**  
+- **Avoid:** Poiyomi PRO shaders  
+- **Use Instead:** Poiyomi Lite/World shaders, Creator Companion VPM releases recommended
+- Ensure that all Poiyomi shaders are locked before building your booth.
+
+### Audio Requirements
+- Sound effects only
+- Must stay within booth area
+- Non-intrusive to neighbors
+
+### Visual Elements
 
 <div class="feature-grid">
   <div class="feature-card">
-    <div class="feature-title">TextMeshPro</div>
+    <div class="feature-title">TextMeshPro Components</div>
     <div class="feature-value">{{ specs.MaxTextMeshPro }}</div>
   </div>
   <div class="feature-card">
-    <div class="feature-title">Particles</div>
+    <div class="feature-title">Particle Systems</div>
     <div class="feature-value">{{ specs.MaxParticles }}</div>
-    <div class="feature-note">No collisions allowed</div>
-  </div>
-  <div class="feature-card">
-    <div class="feature-title">Mirrors</div>
-    <div class="feature-value">{{ specs.MaxMirrors === 0 ? '❌' : specs.MaxMirrors }}</div>
+    <div class="feature-note">No collision particles</div>
   </div>
 </div>
 
@@ -477,29 +517,28 @@ Before creating your booth, make sure to review all specifications carefully. St
 
 <div class="feature-grid">
   <div class="feature-card">
-    <div class="feature-title">Skinned Meshes</div>
+    <div class="feature-title">Skinned Mesh Renderers</div>
     <div class="feature-value">{{ specs.MaxSkinnedMeshRenderers }}</div>
   </div>
   <div class="feature-card">
-    <div class="feature-title">Animators</div>
+    <div class="feature-title">Animator Components</div>
     <div class="feature-value">{{ specs.MaxAnimators }}</div>
   </div>
   <div class="feature-card">
-    <div class="feature-title">Animations</div>
+    <div class="feature-title">Animation Clips</div>
     <div class="feature-value">{{ specs.MaxAnimations }}</div>
   </div>
 </div>
 
-## 🔧 SDK Integration
+## 📜 Scripting
 
-::: warning Scripts Limit
-Maximum {{ specs.MaxUdonScripts }} Udon scripts per booth. Only use approved scripts from the whitelist below.
+::: warning Script Limitations
+- Maximum {{ specs.MaxUdonScripts }} Udon scripts per booth
+- Only use approved scripts (listed below)
+- No custom Udon scripting allowed
 :::
 
-### 📜 Approved Scripts
-
-Available in the PJKT SDK:
-
+### Approved Scripts
 <div class="script-container">
   <div v-for="script in specs.UdonWhitelist" :key="script" class="script-item">
     <span class="script-icon">📄</span>
@@ -507,17 +546,37 @@ Available in the PJKT SDK:
   </div>
 </div>
 
-## ⚠️ Restrictions
+### SDK Components
+<div class="script-container">
+  <div class="script-item">
+    <span class="script-icon">📄</span>
+    Avatar Pedestals
+  </div>
+  <div class="script-item">
+    <span class="script-icon">📄</span>
+    Portals
+  </div>
+  <div class="script-item">
+    <span class="script-icon">📄</span>
+    DownloadString
+  </div>
+  <div class="script-item">
+    <span class="script-icon">📄</span>
+    VRCChair
+  </div>
+</div>
 
-::: danger Important Restrictions
-- No custom Udon scripting (only use approved prefabs)
-- If a feature is not explicitly mentioned in these specifications, assume it's not allowed
-- No runtime lighting changes - use baked lighting only
-- Custom shaders are allowed but must be performance-conscious
+## ⚠️ Final Notes
+
+::: danger Important
+- Unlisted features may not be supported, ask staff for clarification
+- We may ask for changes to your booth if we deem it necessary
+- Staff will contact for necessary changes if needed
 :::
 
-::: tip Need Help?
-Report SDK bugs to @Pesky#8762 on Discord
+::: tip Support
+- Need buttons? Check out the [components page](/booths/components) ⚠️WIP
+- Have question? Feedback? Shoot us a message in our Discord representative channels
 :::
 
 </div>

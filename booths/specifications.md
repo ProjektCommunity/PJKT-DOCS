@@ -354,6 +354,9 @@ onUnmounted(() => {
 const formatNumber = (num) => num.toLocaleString()
 </script>
 
+<div class="specifications-page">
+<!-- Wrap all content in a scoped div -->
+
 <div v-if="loading" class="loading">Loading specifications...</div>
 <div v-else-if="error" class="error-message">{{ error }}</div>
 <template v-else>
@@ -583,16 +586,32 @@ If you are not sure how to set these flags, the SDK will automatically set them 
 
 </template>
 
-<style>
-.specs-content {
+</div>
+
+<style scoped>
+/* Scope all styles to specifications-page */
+.specifications-page {
+  /* Base wrapper styles */
+  width: 100%;
+  max-width: 100%;
+}
+
+.specifications-page .event-logo {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.specifications-page .specs-content {
   margin: 0;
 }
 
-h1 {
+.specifications-page h1 {
   margin-bottom: 0;
 }
 
-h2.event-title {
+.specifications-page h2.event-title {
   margin: 0 0 0.25rem;
   font-size: 1.85rem;
   color: var(--vp-c-text-1);
@@ -600,18 +619,18 @@ h2.event-title {
   font-weight: 700;
 }
 
-h2 {
+.specifications-page h2 {
   margin-top: 2rem;
   margin-bottom: 1rem;
 }
 
-.loading {
+.specifications-page .loading {
   text-align: center;
   padding: 2rem;
   color: var(--vp-c-text-2);
 }
 
-.error-message {
+.specifications-page .error-message {
   color: var(--vp-c-danger);
   padding: 1rem;
   border: 1px solid var(--vp-c-danger);
@@ -619,7 +638,7 @@ h2 {
   margin: 1rem 0;
 }
 
-.event-header {
+.specifications-page .event-header {
   display: flex;
   gap: 1.5rem;
   align-items: flex-start;
@@ -634,19 +653,7 @@ h2 {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
-.event-title + .event-metadata {
-  margin-top: 0.25rem;
-}
-
-.event-logo {
-  flex-shrink: 0;
-  width: 90px;
-  height: 90px;
-  object-fit: contain;
-  border-radius: 8px;
-}
-
-.event-info {
+.specifications-page .event-info {
   display: block;
   min-height: min-content;
   overflow: hidden;
@@ -655,11 +662,11 @@ h2 {
   clear: both;
 }
 
-.event-metadata {
+.specifications-page .event-metadata {
   margin-top: 0.25rem;
 }
 
-.dates, .deadline {
+.specifications-page .dates, .deadline {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -672,17 +679,17 @@ h2 {
   box-shadow: none;
 }
 
-.dates:hover, .deadline:hover {
+.specifications-page .dates:hover, .deadline:hover {
   background: transparent;
 }
 
-.preview-info {
+.specifications-page .preview-info {
   margin-top: 0.75rem;
   padding-top: 0.25rem;
   border-top: 1px solid var(--vp-c-divider);
 }
 
-.preview-info a {
+.specifications-page .preview-info a {
   background: var(--vp-c-brand);
   color: white;
   padding: 0.4rem 0.85rem;
@@ -693,38 +700,38 @@ h2 {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-.preview-info a:hover {
+.specifications-page .preview-info a:hover {
   background: var(--vp-c-brand-dark);
   transform: translateY(-1px);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.specs-grid {
+.specifications-page .specs-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
   margin: 1rem 0;
 }
 
-.spec-item {
+.specifications-page .spec-item {
   padding: 1rem;
   text-align: center;
   background: var(--vp-c-bg-soft);
   border-radius: 8px;
 }
 
-.spec-value {
+.specifications-page .spec-value {
   font-size: 1.5rem;
   font-weight: bold;
   color: var(--vp-c-brand);
 }
 
-.spec-label {
+.specifications-page .spec-label {
   margin-top: 0.5rem;
   color: var(--vp-c-text-2);
 }
 
-.dimensions-box {
+.specifications-page .dimensions-box {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
@@ -734,13 +741,13 @@ h2 {
   border-radius: 6px;
 }
 
-.dimensions-info {
+.specifications-page .dimensions-info {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 0.75rem;
 }
 
-.dim {
+.specifications-page .dim {
   text-align: center;
   font-weight: 500;
   font-size: 0.95rem;
@@ -749,14 +756,14 @@ h2 {
   border-radius: 4px;
 }
 
-.resource-limits {
+.specifications-page .resource-limits {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
   margin: 1rem 0;
 }
 
-.resource-item {
+.specifications-page .resource-item {
   text-align: center;
   padding: 1.25rem 1rem;
   background: var(--vp-c-bg-soft);
@@ -767,53 +774,53 @@ h2 {
   gap: 0.5rem;
 }
 
-.resource-icon {
+.specifications-page .resource-icon {
   font-size: 1.2rem;
 }
 
-.resource-label {
+.specifications-page .resource-label {
   color: var(--vp-c-text-2);
 }
 
-.resource-value {
+.specifications-page .resource-value {
   font-size: 1.5rem;
   font-weight: bold;
   color: var(--vp-c-brand);
   margin-top: 0.25rem;
 }
 
-.feature-grid {
+.specifications-page .feature-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 1rem;
   margin: 1rem 0;
 }
 
-.feature-card {
+.specifications-page .feature-card {
   padding: 1rem;
   background: var(--vp-c-bg-soft);
   border-radius: 8px;
   text-align: center;
 }
 
-.feature-title {
+.specifications-page .feature-title {
   font-weight: 500;
   color: var(--vp-c-text-2);
 }
 
-.feature-value {
+.specifications-page .feature-value {
   font-size: 1.5rem;
   font-weight: bold;
   margin: 0.5rem 0;
   color: var (--vp-c-brand);
 }
 
-.feature-note {
+.specifications-page .feature-note {
   font-size: 0.9rem;
   color: var(--vp-c-text-2);
 }
 
-.script-container {
+.specifications-page .script-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 0.5rem;
@@ -823,7 +830,7 @@ h2 {
   margin: 1rem 0;
 }
 
-.script-item {
+.specifications-page .script-item {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -833,11 +840,11 @@ h2 {
   font-family: monospace;
 }
 
-.script-icon {
+.specifications-page .script-icon {
   opacity: 0.7;
 }
 
-.icon {
+.specifications-page .icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -847,7 +854,7 @@ h2 {
   opacity: 0.8;
 }
 
-.booth-preview {
+.specifications-page .booth-preview {
   width: 100%;
   height: 400px;
   background: var(--vp-c-bg);
@@ -857,13 +864,13 @@ h2 {
   border: 1px solid var(--vp-c-divider);
 }
 
-.preview-canvas {
+.specifications-page .preview-canvas {
   width: 100%;
   height: 100%;
 }
 
 @media (max-width: 640px) {
-  .event-header {
+  .specifications-page .event-header {
     flex-direction: column;
     align-items: center;
     text-align: center;
@@ -871,31 +878,31 @@ h2 {
     gap: 1rem;
   }
   
-  .event-logo {
-    width: 75px;
-    height: 75px;
+  .specifications-page .event-logo {
+    width: 48px;
+    height: 48px;
   }
   
-  .event-title {
+  .specifications-page .event-title {
     font-size: 1.6rem;
   }
   
-  .event-metadata {
+  .specifications-page .event-metadata {
     align-items: center;
   }
   
-  .dates, .deadline {
+  .specifications-page .dates, .deadline {
     justify-content: center;
     width: 100%;
   }
   
-  .preview-info {
+  .specifications-page .preview-info {
     width: 100%;
     display: flex;
     justify-content: center;
   }
   
-  .preview-info a {
+  .specifications-page .preview-info a {
     width: 100%;
     justify-content: center;
   }

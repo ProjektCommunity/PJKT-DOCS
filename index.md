@@ -11,9 +11,9 @@ hero:
     - theme: brand
       text: Get readin'
       link: /get-readin
-    - theme: alt
-      text: Want to join as a rep?
-      link: /info/rep-signup-info
+    # - theme: alt
+    #   text: Want to join as a rep?
+    #   link: /info/rep-signup-info
 
 features:
   - icon: ⚠️

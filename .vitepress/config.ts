@@ -58,18 +58,18 @@ export default defineConfig({
     ],
 
     sidebar: [
-      {
-        text: 'Core Information',
-        items: [
-          { text: 'How to Become a Representative', link: '/info/how-to-rep' },
-        ]
-      },
-      {
-        text: 'PJKT Account',
-        items: [
-          { text: 'Creating an Account', link: '/info/account-creation' },
-        ]
-      },
+      // {
+      //   text: 'Core Information',
+      //   items: [
+      //     { text: 'How to Become a Representative', link: '/info/how-to-rep' },
+      //   ]
+      // },
+      // {
+      //   text: 'PJKT Account',
+      //   items: [
+      //     { text: 'Creating an Account', link: '/info/account-creation' },
+      //   ]
+      // },
       {
         text: 'Booths & PJKT SDK',
         items: [

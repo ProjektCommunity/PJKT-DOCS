@@ -13,7 +13,7 @@ hero:
       link: /get-readin
     - theme: alt
       text: Want to join as a rep?
-      link: /info/how-to-rep
+      link: /info/rep-signup-info
 
 features:
   - icon: ⚠️

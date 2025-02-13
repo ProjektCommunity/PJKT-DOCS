@@ -1,3 +1,7 @@
+::: warning WORK IN PROGRESS
+This page is currently under construction. Check back later for complete information about becoming a PJKT representative.
+:::
+
 # Getting Started with PJKT:DOCS
 
 Welcome to PJKT:DOCS! This documentation site is designed to help booth exhibitors and representatives understand everything they need to know about participating in the project. Here's what you'll find in our documentation:
@@ -20,3 +24,8 @@ This documentation is currently under active development. You might encounter:
 - Frequent content updates
 
 We're working hard to improve and complete the documentation. If you find any issues or have suggestions, please let us know!
+
+
+::: tip Questions?
+Have questions about becoming a representative? Join our [Discord](https://discord.com/invite/pjkt) and ask in the appropriate channels!
+:::

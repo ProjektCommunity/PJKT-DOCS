@@ -546,7 +546,7 @@ If you are not sure how to set these flags, the SDK will automatically set them 
   </div>
 </div>
 
-### SDK Components
+### VRC SDK Components
 <div class="script-container">
   <div class="script-item">
     <span class="script-icon">📄</span>

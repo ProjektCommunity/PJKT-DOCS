@@ -31,25 +31,25 @@ export default defineConfig({
     
     nav: [
       { text: 'Home', link: '/' },
-      {
-        text: 'Documentation',
-        items: [
-          {
-            text: 'Getting Started',
-            items: [
-              { text: 'Introduction', link: '/info/getting-started' },
-              { text: 'Booth Setup', link: '/booths/' }
-            ]
-          },
-          {
-            text: 'Reference',
-            items: [
-              { text: 'Components', link: '/booths/components' },
-              { text: 'API Examples', link: '/api-examples' },
-            ]
-          }
-        ]
-      },
+      // {
+      //   text: 'Documentation',
+      //   items: [
+      //     {
+      //       text: 'Getting Started',
+      //       items: [
+      //         { text: 'Introduction', link: '/info/getting-started' },
+      //         { text: 'Booth Setup', link: '/booths/' }
+      //       ]
+      //     },
+      //     {
+      //       text: 'Reference',
+      //       items: [
+      //         { text: 'Components', link: '/booths/components' },
+      //         { text: 'API Examples', link: '/api-examples' },
+      //       ]
+      //     }
+      //   ]
+      // },
       {
         text: 'Donate to PJKT',
         link: 'https://ko-fi.com/pjkt',
@@ -73,7 +73,7 @@ export default defineConfig({
       {
         text: 'Booths & PJKT SDK',
         items: [
-          { text: 'Getting started', link: '/booths/setup-guidelines' },
+          { text: 'Getting started', link: '/booths/getting-started' },
           { text: 'Booth Specifications', link: '/booths/specifications' },
           { text: 'Buttons & Components', link: '/booths/button-components' }
         ]

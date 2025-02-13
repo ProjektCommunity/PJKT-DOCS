@@ -4,7 +4,7 @@ Welcome to PJKT:DOCS! This documentation site is designed to help booth exhibito
 
 ## 📚 Core Information
 
-- **[Getting Started Guide](/info/getting-started)**: Essential information for all participants
+<!-- - **[Getting Started Guide](/info/getting-started)**: Essential information for all participants -->
 
 ## 🎪 Booth Information
 

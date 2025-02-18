@@ -16,6 +16,7 @@ export default defineConfig({
   srcDir: '.',
   outDir: './.vitepress/dist',
   cacheDir: './.vitepress/cache',
+  srcExclude: ['localDocs'],
 
   // Ignore dead links
   ignoreDeadLinks: true,

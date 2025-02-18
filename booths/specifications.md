@@ -354,6 +354,8 @@ onUnmounted(() => {
 const formatNumber = (num) => num.toLocaleString()
 </script>
 
+<ClientOnly>
+
 <div class="specifications-page">
 <!-- Wrap all content in a scoped div -->
 
@@ -584,9 +586,12 @@ If you are not sure how to set these flags, the SDK will automatically set them 
 
 </div>
 
+
 </template>
 
 </div>
+
+</ClientOnly>
 
 <style scoped>
 /* Scope all styles to specifications-page */

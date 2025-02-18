@@ -1,4 +1,4 @@
-# PJKT Booth Creation Guidelines
+# PJKT Booth Specifications
 
 <script setup>
 import { onMounted, ref, nextTick, onUnmounted } from 'vue'

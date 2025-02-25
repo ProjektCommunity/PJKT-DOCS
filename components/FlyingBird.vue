@@ -1,13 +1,32 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 
+// Function to check if an emoji is supported
+function isEmojiSupported(emoji) {
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#000000';
+  ctx.textBaseline = 'top';
+  ctx.font = '16px Arial';
+  ctx.fillText(emoji, 0, 0);
+  const width = ctx.measureText(emoji).width;
+  return width > 0;
+}
+
 // Collection of different bird emojis
-const birdEmojis = ['🕊️', '🦅', '🦆', '🦉', '🦜', '🦢', '🦤', '🦩', '🐦', '🐧', '🪽', '🦚']
+const allBirdEmojis = ['🕊️', '🦅', '🦆', '🦉', '🦜', '🦢', '🦤', '🦩', '🐦', '🐧', '🪽', '🦚']
+const birdEmojis = ref([])
 const activeBirds = ref([])
+
+// Initialize supported emojis on mount
+onMounted(() => {
+  // Filter out unsupported emojis
+  birdEmojis.value = allBirdEmojis.filter(emoji => isEmojiSupported(emoji))
+})
 
 // Select a random bird emoji
 function getRandomBird() {
-  return birdEmojis[Math.floor(Math.random() * birdEmojis.length)]
+  return birdEmojis.value[Math.floor(Math.random() * birdEmojis.value.length)]
 }
 
 function flyAcrossScreen() {

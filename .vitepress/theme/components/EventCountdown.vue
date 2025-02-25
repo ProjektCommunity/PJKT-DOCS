@@ -21,7 +21,7 @@
           <span class="countdown-value">{{ eventName }}</span>
         </div>
         <div class="countdown-item" v-if="deadline">
-          <span class="countdown-label">Submission deadline:</span>
+          <span class="countdown-label">Booth deadline:</span>
           <span 
             class="countdown-value" 
             :class="{ 'countdown-urgent': timeDistance < 300000 }"

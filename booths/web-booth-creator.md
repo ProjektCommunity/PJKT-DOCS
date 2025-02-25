@@ -72,10 +72,6 @@ The Web Booth Creator is an tool that will allow you to create and customize PJK
   </div>
 </div>
 
-::: tip Success Indicator
-After upload: You'll see a "Make has been submitted" confirmation message
-:::
-
 ## 🎉 Congratulations!
 
   <div class="success-content">

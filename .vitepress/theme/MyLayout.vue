@@ -2,6 +2,7 @@
 import DefaultTheme from 'vitepress/theme'
 import { useData } from 'vitepress'
 import { ref, onMounted, onUnmounted } from 'vue'
+import FlyingBird from '../../components/FlyingBird.vue'
 
 interface Bird {
   x: number
@@ -120,6 +121,7 @@ onUnmounted(() => {
     <!-- Add layout bottom slot -->
     <template #layout-bottom>
       <WIPBubble />
+      <FlyingBird />
     </template>
 
     <!-- Add 404 page slot -->

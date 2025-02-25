@@ -2,7 +2,11 @@
 import DefaultTheme from 'vitepress/theme'
 import { useData } from 'vitepress'
 import { ref, onMounted, onUnmounted } from 'vue'
+import Glowsticks from './components/Glowsticks.vue'
+import EventCountdown from './components/EventCountdown.vue'
+import WIPBubble from './components/WIPBubble.vue'
 import FlyingBird from '../../components/FlyingBird.vue'
+import NeonCursor from './components/NeonCursor.vue'
 
 interface Bird {
   x: number
@@ -122,6 +126,7 @@ onUnmounted(() => {
     <template #layout-bottom>
       <WIPBubble />
       <FlyingBird />
+      <NeonCursor />
     </template>
 
     <!-- Add 404 page slot -->

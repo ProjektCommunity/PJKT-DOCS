@@ -95,7 +95,10 @@ export default defineConfig({
 
   // Head tags
   head: [
-    ['link', { rel: 'icon', href: '/images/logo-mini.png' }],
+    // Standard favicon
+    ['link', { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    // Alternative favicon format for better browser support
+    ['link', { rel: 'icon', type: 'image/png', href: '/images/logo-mini.png' }],
     ['meta', { name: 'theme-color', content: '#3eaf7c' }],
     // Open Graph / Discord embed tags
     ['meta', { property: 'og:type', content: 'website' }],

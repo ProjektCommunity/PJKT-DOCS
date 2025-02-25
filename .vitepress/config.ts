@@ -21,8 +21,8 @@ export default defineConfig({
   // Ignore dead links
   ignoreDeadLinks: true,
   
-  // Appearance
-  appearance: true,
+  // Appearance - force dark theme only
+  appearance: 'force-dark',
   lastUpdated: true,
 
   // Theme configuration
@@ -118,7 +118,7 @@ export default defineConfig({
     ['meta', { name: 'twitter:description', content: 'Documentation for developers and booth exhibitors using our tools.' }],
     ['meta', { name: 'twitter:image', content: 'https://docs.pjkt.net/images/logo-mini.png' }],
     
-    // Umami Analytics (replace with your actual Umami script URL and website ID)
+    // Umami Analytics
     ['script', {
       async: 'true',
       defer: 'true',

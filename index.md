@@ -27,7 +27,7 @@ features:
   - icon: 🎪
     title: Booths
     details: Want to know the specs? What to do to make your booth shine?
-    link: /booths
+    link: /booths/getting-started
     linkText: Right here!
   - icon: 🛠️
     title: SDK? Booth buttons?

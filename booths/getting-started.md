@@ -1,4 +1,4 @@
-# Booth Creation Options
+# Gettings started with booths
 
 <div class="booths-index-page">
 

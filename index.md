@@ -10,7 +10,7 @@ hero:
   actions:
     - theme: brand
       text: Get readin'
-      link: /get-readin
+      link: /info/welcome
     # - theme: alt
     #   text: Want to join as a rep?
     #   link: /info/rep-signup-info

@@ -59,24 +59,20 @@ export default defineConfig({
     ],
 
     sidebar: [
-      // {
-      //   text: 'Core Information',
-      //   items: [
-      //     { text: 'How to Become a Representative', link: '/info/how-to-rep' },
-      //   ]
-      // },
-      // {
-      //   text: 'PJKT Account',
-      //   items: [
-      //     { text: 'Creating an Account', link: '/info/account-creation' },
-      //   ]
-      // },
+      {
+        text: 'Core Information',
+        items: [
+          { text: 'Welcome to PJKT:DOCS', link: '/info/welcome' },
+        ]
+      },
       {
         text: 'Booths & PJKT SDK',
         items: [
-          { text: 'Getting started', link: '/booths/getting-started' },
+          { text: 'Getting Started', link: '/booths/index' },
+          { text: 'Web Booth Creator', link: '/booths/web-booth-creator' },
+          { text: 'Getting started with the SDK', link: '/booths/getting-started-with-sdk' },
           { text: 'Booth Specifications', link: '/booths/specifications' },
-          { text: 'Buttons & Components', link: '/booths/button-components' }
+          { text: 'Buttons & Components', link: '/booths/components' }
         ]
       }
     ],
@@ -93,7 +89,7 @@ export default defineConfig({
 
     // Footer
     footer: {
-      message: 'Made with 🐦 and ☕'
+      message: 'Made with 🐦 and ☕.'
     }
   },
 

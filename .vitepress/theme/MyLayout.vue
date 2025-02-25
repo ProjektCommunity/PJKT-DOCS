@@ -74,6 +74,12 @@ const selectBirdEmoji = () => {
   return birdEmojis[Math.floor(Math.random() * (birdEmojis.length - 1)) + 1]
 }
 
+const goBack = () => {
+  if (typeof window !== 'undefined') {
+    window.history.back()
+  }
+}
+
 onMounted(() => {
   window.addEventListener('mousemove', onDrag)
   window.addEventListener('mouseup', endDrag)
@@ -141,10 +147,16 @@ onUnmounted(() => {
                  @touchstart.prevent="startDrag(bird, $event)"
                  @touchmove.prevent>{{ bird.emoji }}</div>
           </div>
-          <a class="vp-button brand" href="/">
-            <i class="fas fa-home"></i>
-            <span>Fly Home</span>
-          </a>
+          <div class="button-group">
+            <button class="vp-button brand" @click="goBack">
+              <i class="fas fa-arrow-left"></i>
+              <span>Go Back</span>
+            </button>
+            <a class="vp-button brand" href="/">
+              <i class="fas fa-home"></i>
+              <span>Fly Home</span>
+            </a>
+          </div>
         </div>
       </div>
     </template>
@@ -369,6 +381,14 @@ onUnmounted(() => {
     box-shadow: 0 0 30px rgba(255, 228, 0, 0.4),
                 inset 0 0 15px rgba(255, 228, 0, 0.3);
   }
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
 }
 
 @media (max-width: 640px) {

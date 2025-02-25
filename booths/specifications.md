@@ -388,7 +388,7 @@ const formatNumber = (num) => num.toLocaleString()
 </div>
 
 ::: warning IMPORTANT NOTE
-Before creating your booth, make sure to review all specifications carefully. Staff may contact you for adjustments if needed.
+Before creating your booth, make sure to review all specifications carefully. The SDK makes sure everything is correct but staff may contact you for adjustments if needed.
 :::
 
 ## 📐 Geometry and Gameobjects
@@ -496,8 +496,8 @@ If you are not sure how to set these flags, the SDK will automatically set them 
 
 **Poiyomi Shader Notes**  
 - **Avoid:** Poiyomi PRO shaders  
-- **Use Instead:** Poiyomi Lite/World shaders, Creator Companion VPM releases recommended
-- Ensure that all Poiyomi shaders are locked before building your booth.
+- **Use Instead:** Poiyomi Lite/World shaders, **Creator Companion VPM releases recommended** for compatibility purposes.
+- **Ensure that all Poiyomi shaders are locked before building your booth.**
 
 ### Audio Requirements
 - Sound effects only

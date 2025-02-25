@@ -16,7 +16,8 @@ This site is here to help booth exhibitors and representatives understand everyt
 
 Our [booth documentation](/booths) covers everything you need to know about creating and managing your booth:
 
-- **Booth Specifications**: Technical requirements and limitations
+- [**Booth Buttons & Components**](/booths/components.md): Prefabs and scripts to help you build your booth
+- [**Booth Specifications**](/booths/specifications.md): Technical requirements and limitations
 
 ## ⚠️ Important Note
 

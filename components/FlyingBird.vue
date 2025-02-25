@@ -14,7 +14,7 @@ function isEmojiSupported(emoji) {
 }
 
 // Collection of different bird emojis
-const allBirdEmojis = ['🕊️', '🦅', '🦆', '🦉', '🦜', '🦢', '🦤', '🦩', '🐦', '🐧', '🪽', '🦚']
+const allBirdEmojis = ['🕊️', '🦅', '🦆', '🦉', '🦜', '🦢', '🦩', '🐦', '🐧', '🦚']
 const birdEmojis = ref([])
 const activeBirds = ref([])
 

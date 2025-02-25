@@ -33,6 +33,15 @@ onMounted(() => {
 </script>
 
 <div class="welcome-page">
+      <div class="doc-overview">
+        <div class="overview-callout">
+          <div class="callout-icon">💡</div>
+          <div class="callout-content">
+            <h3>New to being a rep?</h3>
+            <p>Make sure you have an <B>invitation code</B>, then explore our documentation sections below to learn more about specific topics.</p>
+          </div>
+        </div>
+      </div>
 
 ## 🎨 Need a booth? Choose Your Path:
 
@@ -68,17 +77,6 @@ onMounted(() => {
   </div>
 </div>
 
-## 📚 Documentation Overview
-
-<div class="doc-overview">
-  <div class="overview-callout">
-    <div class="callout-icon">💡</div>
-    <div class="callout-content">
-      <h3>New to being a rep?</h3>
-      <p>Make sure you have an <B>invitation code</B>, then explore our documentation sections below to learn more about specific topics.</p>
-    </div>
-  </div>
-</div>
 
 ## 🧭 Documentation Sections
 
@@ -155,7 +153,7 @@ The documentation is organized to help you quickly find what you need:
           <div class="node-details">Booth creation guides and technical specifications</div>
         </div>
       </div>
-      <div class="structure-branch">
+      <!-- <div class="structure-branch">
         <div class="branch-line"></div>
         <div class="structure-node">
           <div class="node-content">
@@ -164,7 +162,7 @@ The documentation is organized to help you quickly find what you need:
           </div>
           <div class="node-details">Reusable UI and functional components</div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
@@ -404,7 +402,7 @@ The documentation is organized to help you quickly find what you need:
   display: inline-block;
   padding: 0.6rem 1.2rem;
   background: var(--vp-c-brand);
-  color: var(--vp-c-bg); /* Changed from white to background color for better contrast */
+  color: var(--vp-c-bg) !important; /* Changed from white to background color for better contrast */
   text-decoration: none;
   border-radius: 6px;
   font-weight: 600; /* Increased from 500 to 600 for better readability */
@@ -413,8 +411,10 @@ The documentation is organized to help you quickly find what you need:
 }
 
 .featured-link a:hover {
-  background: var(--vp-c-brand-dark);
-  color: var(--vp-c-bg);
+  background: linear-gradient(90deg, var(--pjkt-yellow), #FFD700);
+  color: var(--vp-c-black) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 228, 0, 0.3);
 }
 
 .structure-diagram {

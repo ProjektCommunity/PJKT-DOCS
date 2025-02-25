@@ -38,7 +38,10 @@ onMounted(() => {
           <div class="callout-icon">💡</div>
           <div class="callout-content">
             <h3>New to being a rep?</h3>
-            <p>Make sure you have an <B>invitation code</B>, then explore our documentation sections below to learn more about specific topics.</p>
+            <p>Before you continue lurking around. Make sure to read the guide for new Reps</p>
+            <div class="button-container">
+              <a href="/info/new-representatives" class="action-button">Read it right here!</a>
+            </div>
           </div>
         </div>
       </div>
@@ -647,18 +650,22 @@ The documentation is organized to help you quickly find what you need:
   text-decoration: none;
   font-weight: 600;
   transition: all 0.3s ease;
-  color: var(--vp-c-black);
   position: relative;
   overflow: hidden;
   text-shadow: none;
+  background-color: var(--vp-c-brand);
+  color: var(--vp-c-bg) !important;
+  border: 1px solid transparent;
 }
 
 .web-button {
-  background-color: var(--pjkt-cyan);
+  background: var(--pjkt-cyan);
+  color: var(--vp-c-black) !important;
 }
 
 .sdk-button {
-  background-color: var(--pjkt-purple);
+  background: var(--pjkt-purple);
+  color: var(--vp-c-black) !important;
 }
 
 .action-button:hover {

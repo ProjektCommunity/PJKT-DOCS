@@ -63,6 +63,8 @@ export default defineConfig({
         text: 'Core Information',
         items: [
           { text: 'Welcome to PJKT:DOCS', link: '/info/welcome' },
+          { text: 'New Representatives Guide', link: '/info/new-representatives' },
+          { text: 'Representative FAQ', link: '/info/representative-faq' },
         ]
       },
       {

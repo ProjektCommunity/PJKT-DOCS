@@ -116,7 +116,15 @@ export default defineConfig({
     ['meta', { name: 'twitter:site', content: '@PJKT_COM' }],
     ['meta', { name: 'twitter:title', content: 'PJKT:DOCS' }],
     ['meta', { name: 'twitter:description', content: 'Documentation for developers and booth exhibitors using our tools.' }],
-    ['meta', { name: 'twitter:image', content: 'https://docs.pjkt.net/images/logo-mini.png' }]
+    ['meta', { name: 'twitter:image', content: 'https://docs.pjkt.net/images/logo-mini.png' }],
+    
+    // Umami Analytics (replace with your actual Umami script URL and website ID)
+    ['script', {
+      async: 'true',
+      defer: 'true',
+      'data-website-id': '9467fb56-cd2c-468f-9230-543d03b1b4d1',
+      src: 'https://cloud.umami.is/script.js'
+    }],
   ],
 
   // Markdown config

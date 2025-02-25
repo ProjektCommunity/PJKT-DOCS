@@ -1,4 +1,4 @@
-# Welcome to PJKT Documentation
+# Welcome to PJKT:DOCS
 
 <script setup>
 import { ref, onMounted } from 'vue'

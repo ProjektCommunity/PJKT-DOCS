@@ -50,25 +50,24 @@
       </div>
     </div>
   </div>
-
-  <div class="step-card featured">
+  <div class="step-card">
     <div class="step-header">
       <div class="step-number">2</div>
       <h3>Create New World Project</h3>
     </div>
     <div class="step-content">
-      <div class="step-grid">
-        <div class="grid-item">
-          <h4>📂 VCC Setup</h4>
-          <ol class="step-list">
-            <li>Open the "Projects" tab</li>
-            <li>Click "Create New Project"</li>
-            <li>Select "Unity 2022 World" project type</li>
-            <li>Choose "Unity 2022 Worlds Project"</li>
-            <li>Enter your project name</li>
-            <li>Click "Create Project"</li>
-          </ol>
-          </div>
+      <p>Set up a new Unity world project in VCC:</p>
+      <ol class="step-list">
+        <li>Open the "Projects" tab</li>
+        <li>Click "Create New Project"</li>
+        <li>Select "Unity 2022 World" project type</li>
+        <li>Choose "Unity 2022 Worlds Project"</li>
+        <li>Enter your project name</li>
+        <li>Click "Create Project"</li>
+      </ol>
+      <div class="step-note">
+        <span class="note-icon">ℹ️</span>
+        <span>Make sure to give your project a descriptive name related to your booth.</span>
       </div>
     </div>
   </div>

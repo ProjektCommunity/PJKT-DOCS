@@ -68,7 +68,7 @@ export default defineConfig({
       {
         text: 'Booths & PJKT SDK',
         items: [
-          { text: 'Getting Started', link: '/booths/index' },
+          { text: 'Getting Started', link: '/booths/getting-started' },
           { text: 'Web Booth Creator', link: '/booths/web-booth-creator' },
           { text: 'Getting started with the SDK', link: '/booths/getting-started-with-sdk' },
           { text: 'Booth Specifications', link: '/booths/specifications' },

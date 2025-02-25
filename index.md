@@ -2,7 +2,7 @@
 layout: home
 
 hero:
-  name: "⚠️EARLY ALPHA WIP⚠️"
+  name: "PJKT:DOCS"
   text: "Documentations for our booth exhibitors and representatives."
   image:
     src: /images/logo.png
@@ -22,7 +22,7 @@ features:
   - icon: 📚
     title: Info you should know
     details: See what you need to get your neat booth out there!
-    link: /info/getting-started
+    link: /info/welcome
     linkText: Tell me
   - icon: 🎪
     title: Booths

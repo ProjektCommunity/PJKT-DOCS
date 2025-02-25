@@ -5,7 +5,7 @@ import { h } from 'vue'
 </script>
 
 <div class="components-page">
-
+<!-- 
 ::: info Button Prefabs Available
 <div class="prefabs-grid">
   <div class="prefab-card">
@@ -37,7 +37,7 @@ import { h } from 'vue'
     </div>
   </div>
 </div>
-:::
+::: -->
 
 ## 📖 Getting Started
 
@@ -47,7 +47,7 @@ import { h } from 'vue'
     <div class="step-content">
       <h3>Install SDK</h3>
       <p>Make sure you have the PJKT SDK installed and are logged in with a representative account.</p>
-      <div class="step-note">Need help? Check the <a href="/info/getting-started">Getting Started Guide</a></div>
+      <div class="step-note">Need help? Check the <a href="/booths/getting-started-with-sdk">Getting Started Guide</a></div>
     </div>
   </div>
   

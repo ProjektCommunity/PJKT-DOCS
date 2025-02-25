@@ -175,7 +175,7 @@ The documentation is organized to help you quickly find what you need:
     <div class="help-content">
       <h3>Join Our Discord</h3>
       <p>Connect with the community and get real-time assistance from our team</p>
-      <a href="https://discord.gg/projekt" class="help-button" target="_blank">Join Discord</a>
+      <a href="https://discord.com/invite/pjkt" class="help-button" target="_blank">Join Discord</a>
     </div>
   </div>
   <div class="help-card">

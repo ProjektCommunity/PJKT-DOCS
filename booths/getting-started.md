@@ -1,9 +1,3 @@
----
-next:
-  text: 'Getting Started'
-  link: '/booths/getting-started'
----
-
 # Booth Creation Options
 
 <div class="booths-index-page">

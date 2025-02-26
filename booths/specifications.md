@@ -479,6 +479,26 @@ If you are not sure how to set these flags, the SDK will automatically set them 
   </div>
 </div>
 
+## 📱 Mobile & Quest Compatibility
+
+::: warning Mobile & Quest Limitations
+- All booth texture assets are limited to a maximum size of **1024x1024** (1K) on Quest platforms
+- Many advanced shader features do not function properly on Quest
+- Mobile & Quest users may have different visual experience due to this compared to PC users
+- Test your booth on Quest if possible before submission, VRChat supports testing on Android based devices (Phones, Quests, Picos, etc)
+:::
+
+### Quest Shader Considerations
+- **Avoid** complex effects like, not only for performance but also for compatibility
+- **Test** your booth on a Quest if possible, ask staff for help if needed
+- **Provide** simplified materials for Quest users when using complex shaders
+
+### Quest Performance Tips
+- Optimize texture usage - fewer, smaller textures perform better, **Also will make sure readability is good on Quest**
+- You can use TMP for text instead of a texture to retain sharpness and readability while saving on texture size
+- Consider providing a Quest-optimized version of your booth that uses fewer resources, helps with performance and compatibility and helps visitors around your booth!
+::: warning You might be contacted by staff for adjustments if your booth does not show up right on Mobile & Quest.
+
 ## 🎨 Visuals and Audio
 
 ### Lighting Requirements

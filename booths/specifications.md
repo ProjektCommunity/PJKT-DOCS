@@ -497,7 +497,7 @@ If you are not sure how to set these flags, the SDK will automatically set them 
 - Optimize texture usage - fewer, smaller textures perform better, **Also will make sure readability is good on Quest**
 - You can use TMP for text instead of a texture to retain sharpness and readability while saving on texture size
 - Consider providing a Quest-optimized version of your booth that uses fewer resources, helps with performance and compatibility and helps visitors around your booth!
-::: warning You might be contacted by staff for adjustments if your booth does not show up right on Mobile & Quest.
+
 
 ## 🎨 Visuals and Audio
 

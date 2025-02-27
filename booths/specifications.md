@@ -600,7 +600,7 @@ If you are not sure how to set these flags, the SDK will automatically set them 
 :::
 
 ::: tip Support
-- Need buttons? Check out the [components page](/booths/components) ⚠️WIP
+- Need buttons? Check out the [components page](/booths/components)
 - Have question? Feedback? Shoot us a message in our Discord representative channels
 :::
 

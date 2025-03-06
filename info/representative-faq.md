@@ -157,7 +157,7 @@
       <h3>🏢 What is the of department Community Relations?</h3>
     </summary>
     <div class="faq-answer">
-      <p>Community Relations</strong>, will be taking the helm and making sure there is more clear communication from the staff to all of the communities and creators!</p>
+      <p><strong>Community Relations</strong>, will be taking the helm and making sure there is more clear communication from the staff to all of the communities and creators!</p>
     </div>
   </details>
 

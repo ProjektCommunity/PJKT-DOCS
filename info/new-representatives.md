@@ -127,6 +127,31 @@
   </div>
 </div>
 
+## 🎪 Automatic Acceptance for Upcoming Years
+
+<div class="info-card">
+  <div class="info-content">
+    <p>Once you've been accepted, you will be automatically accepted for upcoming years for FEST booth submission. No need to reapply next year for FEST. (This doesn't include HorrorCon or other events that need separate application)</p>
+  </div>
+</div>
+
+## 🏢 Community Relations department
+
+<div class="info-card">
+  <div class="info-content">
+    <p><strong>Community Relations</strong>, will be taking the helm and making sure there is more clear communication from the staff to all of the communities and creators!</p>
+  </div>
+</div>
+
+## 🌍 Multiple Worlds
+
+<div class="info-card">
+  <div class="info-content">
+    <p>Yes, there will be multiple worlds which will be based on Communities and Creators!</p>
+    <p>Communities will be in the main world and creators will be in a separate "artist mall" for the separate world sections.</p>
+  </div>
+</div>
+
 ## 🤝 Need Help?
 
 <div class="help-container">

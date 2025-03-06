@@ -142,6 +142,54 @@
       </div>
     </div>
   </details>
+
+  <details class="faq-item">
+    <summary class="faq-question">
+      <h3>🎪 Do we have to reapply each year for PJKT Fest?</h3>
+    </summary>
+    <div class="faq-answer">
+      <p>Once you've been accepted, you will be automatically accepted for upcoming years for FEST booth submission. No need to reapply next year for FEST. (This doesn't include HorrorCon or other events that need separate application)</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary class="faq-question">
+      <h3>🏢 What is the of department Community Relations?</h3>
+    </summary>
+    <div class="faq-answer">
+      <p>Community Relations</strong>, will be taking the helm and making sure there is more clear communication from the staff to all of the communities and creators!</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary class="faq-question">
+      <h3>📝 What are the booth submission types?</h3>
+    </summary>
+    <div class="faq-answer">
+      <p>Wanting to submit a Template Booth, using images to showcase you or community? Check out our <a href="/booths/web-booth-creator">Web Booth Creator</a>.</p>
+      <p>Wanting to make a Custom Booth? You will need to submit using our SDK which can be added to your VRChat Creator Companion or downloaded manually by going <a href="/booths/getting-started-with-sdk">here</a>.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary class="faq-question">
+      <h3>🌍 Will there be multiple worlds for this year's Fest?</h3>
+    </summary>
+    <div class="faq-answer">
+      <p>Yes, there will be multiple worlds which will be based on Communities and Creators!</p>
+      <p>Communities will be in the main world and creators will be in a separate "artist mall" for the separate world sections.</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary class="faq-question">
+      <h3>🤝 I want to do a collab booth with another community/creator, is this allowed?</h3>
+    </summary>
+    <div class="faq-answer">
+      <p>While we appreciate wanting to collaborate on booths, we will not be allowing it. However, this could be a possibility in the future.</p>
+      <p>All communities showcased on all individual booths must be approved by having the Representative/Creator Rep Role. However, if you have partnered or collaborative communities, you are allowed to showcase their logo on the booth, but no group codes or anything else. This is to prevent unfair representation by trying to bypass the submission process.</p>
+    </div>
+  </details>
 </div>
 
 <style scoped>

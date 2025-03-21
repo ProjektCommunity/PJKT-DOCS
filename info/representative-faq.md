@@ -157,7 +157,21 @@
       <h3>🏢 What is the of department Community Relations?</h3>
     </summary>
     <div class="faq-answer">
-      <p>Community Relations</strong>, will be taking the helm and making sure there is more clear communication from the staff to all of the communities and creators!</p>
+      <p>Community Relations will be taking the helm and making sure there is more clear communication from the staff to all of the communities and creators!</p>
+    </div>
+  </details>
+
+  <details class="faq-item">
+    <summary class="faq-question">
+      <h3>🔄 If my Group rebrands or renames itself, do we need to reapply?</h3>
+    </summary>
+    <div class="faq-answer">
+      <p>It depends on the nature of the change:</p>
+      <ul>
+        <li>If the only change is a name change and everything else is the same within the group, then please let the Community Relations Team know, so we can fix stuff on our end.</li>
+        <li>If the group is an entirely different entity and has no relation to the group prior to the rebrand, you will have to reapply.</li>
+        <li>Please let staff know if the old group/community will not exist or will belong to another representative so we can keep logs on our end.</li>
+      </ul>
     </div>
   </details>
 

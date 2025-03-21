@@ -30,6 +30,7 @@
   </div>
 </div>
 
+
 ## 👥 Representative Types
 
 <div class="types-grid">
@@ -149,6 +150,19 @@
   <div class="info-content">
     <p>Yes, there will be multiple worlds which will be based on Communities and Creators!</p>
     <p>Communities will be in the main world and creators will be in a separate "artist mall" for the separate world sections.</p>
+  </div>
+</div>
+
+## 🔄 Group Rebranding or Renaming
+
+<div class="info-card">
+  <div class="info-content">
+    <p>If your group undergoes a rebrand or name change:</p>
+    <ul class="feature-list">
+      <li>✅ If the only change is a name change and everything else is the same within the group, please let the Community Relations Team know so we can update our records.</li>
+      <li>❌ If the group is an entirely different entity and has no relation to the group prior to the rebrand, you will have to reapply.</li>
+      <li>ℹ️ Please inform staff if the old group/community will no longer exist or will belong to another representative so we can keep accurate logs on our end.</li>
+    </ul>
   </div>
 </div>
 

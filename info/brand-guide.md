@@ -5,12 +5,12 @@
 Our logo is the most viewed asset across our brand. It represents our style and attitude within the community.
 
 ### Main Logo
-![Main Logo](../images/logo.png)
-[Download Main Logo](../images/logo.png)
+![Main Logo](/images/logo.png)
+[Download Main Logo](/images/logo.png)
 
 ### Icon & Watermarks
-![Icon & Watermark](../images/logo-mini.png)
-[Download Icon & Watermark](../images/logo-mini.png)
+![Icon & Watermark](/images/logo-mini.png)
+[Download Icon & Watermark](/images/logo-mini.png)
 
 ---
 

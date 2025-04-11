@@ -5,9 +5,11 @@
     "docs:build": "vitepress build",
     "docs:preview": "vitepress preview",
     "dev": "vitepress dev",
-    "preview-embed": "vitepress build && vitepress preview --port 3000"
+    "preview-embed": "vitepress build && vitepress preview --port 3000",
+    "prepare": "husky"
   },
   "devDependencies": {
+    "husky": "^9.1.7",
     "vitepress": "^1.0.0-rc.31"
   },
   "dependencies": {

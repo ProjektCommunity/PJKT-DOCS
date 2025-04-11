@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "Running docs build to ensure documentation builds correctly..."
+npm run docs:build || (echo "Documentation build failed! Fix the errors before committing." && exit 1)
+
+# If we got this far, the docs build succeeded
+echo "✅ Documentation build successful!"

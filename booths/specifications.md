@@ -505,7 +505,9 @@ If you are not sure how to set these flags, the SDK will automatically set them 
 - All lights must be set to **Baked** mode
 - Light intensity: Maximum 10
 - Light range: Maximum 7m
+- Lightprobes allowed
 - No realtime or mixed lighting allowed
+- No cubemaps allowed
 - Lightmap settings will be enforced by SDK and might be adjusted on our side
 
 ### Shader Guidelines

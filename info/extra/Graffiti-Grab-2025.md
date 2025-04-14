@@ -4,12 +4,11 @@
 
 ## 🔍 Requirements
 
-<div> <!-- Removed class="prerequisites-grid" -->
-  <div class="prereq-card">
-    <div class="prereq-icon">📦</div>
+<div> <!-- Removed class="prerequisites-grid" -->  <div class="prereq-card" style="border: 2px solid var(--vp-c-brand); background: linear-gradient(135deg, var(--vp-c-bg-soft) 0%, var(--vp-c-bg) 100%);">
+    <div class="prereq-icon" style="background: var(--vp-c-brand-soft); color: var(--vp-c-brand-dark);">📦</div>
     <div class="prereq-content">
       <h3>TextMeshPro</h3>
-      <p>If you don't have the essentials imported, Unity will likely prompt you to do so when you first import or use TextMeshPro components.</p>
+      <p><strong>⚠️ IMPORTANT:</strong> If you don't have the essentials imported, Unity will likely prompt you to import TMP Essentials when you first import or use TextMeshPro components. <strong>Make sure to click "Import TMP Essentials" when prompted!</strong></p>
     </div>
   </div>
   <div class="prereq-card">
@@ -87,7 +86,7 @@ This guide explains how to import the Graffiti Grab Unity package into your proj
     </div>    <div class="step-content">
       <ul>
         <li>In the <strong>Hierarchy</strong> window, expand the <code>Graffiti Grab 2025</code> GameObject.</li>
-        <li>Select both the <code>Instruction Board</code> and the <code>Skate Board</code> child GameObjects (you can <code>Ctrl+Click</code> to select multiple objects).</li>
+        <li>Select both the <code>Instruction Board</code> and the <code>Egg Basket + Manager</code> child GameObjects (you can <code>Ctrl+Click</code> to select multiple objects).</li>
         <li>Using positioning tools position them somewhere around your spawn. Make it nice and visible to the visitor.</li>
       </ul>
     </div>

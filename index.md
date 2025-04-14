@@ -16,22 +16,27 @@ hero:
     #   link: /info/rep-signup-info
 
 features:
-  - icon: ⚠️
-    title: WORK IN PROGRESS - EARLY ACCESS
-    details: This documentation site is currently under heavy development. Pages may be incomplete, links might not work, and content will change frequently. Please bear with us as we build this resource. If you find any issues, let us know!
+  # - icon: ⚠️
+  #   title: WORK IN PROGRESS - EARLY ACCESS
+  #   details: This documentation site is currently under heavy development. Pages may be incomplete, links might not work, and content will change frequently. Please bear with us as we build this resource. If you find any issues, let us know!
   - icon: 📚
-    title: Info you should know
-    details: See what you need to get your neat booth out there!
+    title: New to PJKT?
+    details: This is a place for you to learn about PJKT and how to get started with being a rep.
     link: /info/welcome
-    linkText: Tell me
+    linkText: Show me the ropes
   - icon: 🎪
     title: Booths
-    details: Want to know the specs? What to do to make your booth shine?
+    details: Need to know how to set up your booth? This is the place to be.
     link: /booths/getting-started
     linkText: Right here!
   - icon: 🛠️
-    title: SDK? Booth buttons?
-    details: Explore components you can put on your booths.
-    link: /booths/components
-    linkText: Check out components
+    title: Booth specifications
+    details: See what you can cram into your booth!
+    link: /booths/specifications
+    linkText: Check out the specs!
+  - icon: ❓
+    title: FAQ
+    details: Got questions? We got answers!* (Mostly)
+    link: /info/representative-faq
+    linkText: Show me the FAQ!
 ---

@@ -24,7 +24,7 @@
           <span class="countdown-label">Booth deadline:</span>
           <span 
             class="countdown-value" 
-            :class="{ 'countdown-urgent': timeDistance < 300000 }"
+            :class="{ 'countdown-urgent': timeDistance > 0 && timeDistance <= 7 * 24 * 60 * 60 * 1000 }"
             data-tooltip
             role="tooltip"
             tabindex="0"
@@ -131,41 +131,43 @@ export default defineComponent({
     
     // Hehe dummy stupid over-engineered countdown formatter
     const formattedDeadline = computed(() => {
-      if (!deadline.value) return ''
-      if (!timeDistance.value && timeDistance.value !== 0) return ''
-      
-      const days = Math.floor(timeDistance.value / (1000 * 60 * 60 * 24))
-      const months = Math.floor(days / 30.44)
-      
-      if (months > 0) {
-        const remainingDays = Math.floor(days % 30.44)
-        return `${months}m ${remainingDays}d`
-      }
-      
-      if (days > 0) {
-        const hours = Math.floor((timeDistance.value % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
-        return `${days}d ${hours}h`
+      if (!deadline.value) return ''; 
+
+      const currentDistance = timeDistance.value;
+      const oneWeekInMs = 7 * 24 * 60 * 60 * 1000;
+
+      if (currentDistance <= 0) {
+        return '00D/00H:00M:00S:00MS'; 
       }
 
-      const hours = Math.floor(timeDistance.value / (1000 * 60 * 60))
-      if (hours > 0) {
-        const minutes = Math.floor((timeDistance.value % (1000 * 60 * 60)) / (1000 * 60))
-        return `${hours}h ${minutes}m`
+      // "Doom Clock" mode: if 1 week or less
+      if (currentDistance <= oneWeekInMs) {
+        const days = Math.floor(currentDistance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((currentDistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((currentDistance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((currentDistance % (1000 * 60)) / 1000);
+        const milliseconds = Math.floor((currentDistance % 1000) / 10); // 2 digits for MMs
+
+        return `${days.toString().padStart(2, '0')}D/${hours.toString().padStart(2, '0')}H:${minutes.toString().padStart(2, '0')}M:${seconds.toString().padStart(2, '0')}S:${milliseconds.toString().padStart(2, '0')}MS`;
       }
 
-      const minutes = Math.floor(timeDistance.value / (1000 * 60))
-      if (minutes > 0) {
-        const seconds = Math.floor((timeDistance.value % (1000 * 60)) / 1000)
-        if (timeDistance.value < 300000) { // Only show milliseconds for last 5 minutes
-          const milliseconds = Math.floor((timeDistance.value % 1000) / 10) // Reduced to 2 digits
-          return `${minutes}m ${seconds}.${milliseconds.toString().padStart(2, '0')}s`
-        }
-        return `${minutes}m ${seconds}s`
+      // Standard formatting for times > 1 week
+      const totalDays = Math.floor(currentDistance / (1000 * 60 * 60 * 24));
+      // No need for months, as we are already past the 1-week check for doom clock
+
+      // Weekly scale: if more than 1 week (implicitly, since doom clock handles <= 1 week)
+      const weeks = Math.floor(totalDays / 7);
+      const remainingDaysInWeekContext = totalDays % 7;
+      
+      if (weeks > 0) { // This will always be true if currentDistance > oneWeekInMs
+        return remainingDaysInWeekContext > 0 ? `${weeks}w ${remainingDaysInWeekContext}d` : `${weeks}w`;
       }
       
-      const seconds = Math.floor(timeDistance.value / 1000)
-      const milliseconds = Math.floor((timeDistance.value % 1000) / 10) // Reduced to 2 digits
-      return `${seconds}.${milliseconds.toString().padStart(2, '0')}s`
+      // Fallback, though theoretically unreachable if logic above is correct for > 1 week
+      // This section would only be hit if currentDistance is > oneWeekInMs but somehow totalDays / 7 is 0.
+      // For safety, let's keep a daily format here.
+      const hours = Math.floor((currentDistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      return hours > 0 ? `${totalDays}d ${hours}h` : `${totalDays}d`;
     })
 
     const updateCountdown = () => {
@@ -208,13 +210,23 @@ export default defineComponent({
       // Watch for loading state changes
       watch([isLoading, deadline], ([loading, newDeadline]) => {
         if (!loading && newDeadline) {
-          startNormalUpdates()
+          const oneWeekInMs = 7 * 24 * 60 * 60 * 1000;
+          // Initial check for precise updates
+          if (timeDistance.value > 0 && timeDistance.value <= oneWeekInMs) {
+            startPreciseUpdates();
+          } else {
+            startNormalUpdates();
+          }
 
           const checkInterval = setInterval(() => {
-            if (timeDistance.value < 300000 && !animationFrameId) {
-              startPreciseUpdates()
-            } else if (timeDistance.value <= 0) {
-              if (normalInterval) clearInterval(normalInterval)
+            // Switch to precise updates if time drops to 1 week or less and not already using precise updates
+            if (timeDistance.value > 0 && timeDistance.value <= oneWeekInMs && !animationFrameId) {
+              startPreciseUpdates();
+            // Switch back to normal updates if time is greater than 1 week and precise updates are running
+            } else if (timeDistance.value > oneWeekInMs && animationFrameId) {
+              startNormalUpdates();
+            } else if (timeDistance.value <= 0) { // Countdown ended
+              if (normalInterval) clearInterval(normalInterval);
               if (animationFrameId) cancelAnimationFrame(animationFrameId)
               if (checkInterval) clearInterval(checkInterval)
               // Refetch data when countdown ends
@@ -306,6 +318,11 @@ export default defineComponent({
   }
 }
 
+@keyframes flash {
+  from { color: red; }
+  to { color: white; }
+}
+
 .event-countdown-navbar {
   position: relative;
 }
@@ -348,8 +365,10 @@ export default defineComponent({
 }
 
 .countdown-urgent {
-  color: red;
+  /* The base color is red, animation will override it */
+  color: red; 
   font-weight: bold;
+  animation: flash 0.8s infinite alternate ease-in-out; 
 }
 
 .countdown-value[data-tooltip] {

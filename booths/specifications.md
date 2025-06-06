@@ -498,6 +498,9 @@ If you are not sure how to set these flags, the SDK will automatically set them 
 - You can use TMP for text instead of a texture to retain sharpness and readability while saving on texture size
 - Consider providing a Quest-optimized version of your booth that uses fewer resources, helps with performance and compatibility and helps visitors around your booth!
 
+::: Warning
+- When using TMP, you will be forced to use our font. It can be found in the [components package.](/booths/components)
+:::
 
 ## 🎨 Visuals and Audio
 

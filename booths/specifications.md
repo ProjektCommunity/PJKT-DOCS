@@ -577,12 +577,8 @@ If you are not sure how to set these flags, the SDK will automatically set them 
 :::
 
 ### Approved Scripts
-<div class="script-container">
-  <div v-for="script in specs.UdonWhitelist" :key="script" class="script-item">
-    <span class="script-icon">📄</span>
-    {{ script.split('/').pop().replace('.asset', '') }}
-  </div>
-</div>
+- Use only the PJKT's Udon scripts in your booth. Other scripts will be removed during submission review.
+- You can find them over here 👉 https://docs.projektcommunity.com/booths/components
 
 ### VRC SDK Components
 <div class="script-container">

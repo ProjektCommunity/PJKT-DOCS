@@ -388,7 +388,7 @@ const formatNumber = (num) => num.toLocaleString()
 </div>
 
 ::: warning IMPORTANT NOTE
-Before creating your booth, make sure to review all specifications carefully. The SDK makes sure everything is correct but staff may contact you for adjustments if needed.
+Before creating your booth, make sure to review all specifications carefully. The SDK makes sure everything is correct but staff may contact you for adjustments if needed. Sometimes the SDK gets a bit silly and may not catch everything.
 :::
 
 ## 📐 Geometry and Gameobjects
@@ -498,8 +498,9 @@ If you are not sure how to set these flags, the SDK will automatically set them 
 - You can use TMP for text instead of a texture to retain sharpness and readability while saving on texture size
 - Consider providing a Quest-optimized version of your booth that uses fewer resources, helps with performance and compatibility and helps visitors around your booth!
 
-::: Warning
-- When using TMP, you will be forced to use our font. It can be found in the [components package.](/booths/components)
+::: warning
+- When using TMP, you may be forced to use our font. It can be found in the [components package.](/booths/components)
+- Enforcement of these specifications may occur due to huge font file, or issues with your font.
 :::
 
 ## 🎨 Visuals and Audio
@@ -528,6 +529,13 @@ If you are not sure how to set these flags, the SDK will automatically set them 
 - Sound effects only
 - Must stay within booth area
 - Non-intrusive to neighbors
+
+### Fonts and TMP
+- Use TextMeshPro for all text elements, we heavily recommend using our font found in the [components package](/booths/components)
+::: warning
+- When using TMP, you may be forced to use our font. It can be found in the [components package.](/booths/components)
+- Enforcement of these specifications may occur due to huge font file, or issues with your font.
+:::
 
 ### Visual Elements
 

@@ -5,24 +5,23 @@ import { onMounted, ref, nextTick, onUnmounted } from 'vue'
 import * as THREE from 'three'
 
 const specs = ref({
-  // Fallback specs in case API is unavailable
   MaxTriangles: 50000,
-  MaxMaterial: 4,          // Updated to 4
+  MaxMaterial: 4,
   MaxStaticMeshes: 100,
-  MaxDims: [6, 6, 7],     // Updated dimensions
+  MaxDims: [6, 7, 6],
   MaxDimsMargin: 0.5,
   MaxBuildSize: 8,
-  MaxFileSize: 50,        // Updated to 50
-  MaxVram: 35,            // Updated to 35
+  MaxFileSize: 50,
+  MaxVram: 35,
   MaxPickups: 10,
   MaxAvatarPedestals: 2,
   MaxPortals: 1,
-  MaxTextMeshPro: 1,      // Updated to 1
-  MaxParticles: 50,       // Updated to 50
+  MaxTextMeshPro: 1,
+  MaxParticles: 50,
   MaxMirrors: 0,
-  MaxSkinnedMeshRenderers: 1,  // Updated to 1
-  MaxAnimators: 1,        // Updated to 1
-  MaxAnimations: 8,       // Updated to 8
+  MaxSkinnedMeshRenderers: 1,
+  MaxAnimators: 1,
+  MaxAnimations: 8,
   MaxUdonScripts: 10,
   UdonWhitelist: [
     'Default SDK Scripts',
@@ -36,7 +35,6 @@ const error = ref(null)
 const eventName = ref('')
 const eventInfo = ref(null)
 
-// Three.js setup for booth preview
 const canvasRef = ref(null)
 let renderer, scene, camera, animationFrameId
 
@@ -44,7 +42,6 @@ function createTextSprite(text, position, color = '#ff69b4') {
   const canvas = document.createElement('canvas')
   const context = canvas.getContext('2d')
   
-  // Tiny text with high resolution for crispness
   const padding = 1
   context.font = 'Bold 8px Inter, -apple-system, BlinkMacSystemFont'
   const textWidth = context.measureText(text).width
@@ -83,7 +80,7 @@ function createTextSprite(text, position, color = '#ff69b4') {
   return sprite
 }
 
-function createMeasurementTick(start, end, color = 0xff69b4) {  // Changed to hot pink
+function createMeasurementTick(start, end, color = 0xff69b4) {
   const geometry = new THREE.BufferGeometry().setFromPoints([start, end])
   const material = new THREE.LineBasicMaterial({ 
     color: color,
@@ -119,19 +116,18 @@ function initThreeJS() {
   gridHelper.material.transparent = true
   scene.add(gridHelper)
 
-  // Add arrow helper to show forward direction
   const arrowDir = new THREE.Vector3(0, 0, 1)
   arrowDir.normalize()
   const arrowOrigin = new THREE.Vector3(0, 0.1, 0)
   const arrowLength = 2
-  const arrowColor = 0x00ff00 // Green color
+  const arrowColor = 0x00ff00
   const headLength = 0.4
   const headWidth = 0.3
   const arrowHelper = new THREE.ArrowHelper(arrowDir, arrowOrigin, arrowLength, arrowColor, headLength, headWidth)
   scene.add(arrowHelper)
 
   if (!specs.value?.MaxDims) return
-  const [width, length, height] = specs.value.MaxDims
+  const [width, height, length] = specs.value.MaxDims
 
   const colors = [
     new THREE.Color(0xff69b4),
@@ -149,24 +145,23 @@ function initThreeJS() {
   const material = new THREE.MeshPhysicalMaterial({
     color: colors[0],
     transparent: true,
-    opacity: 0.1,  // More transparent
+    opacity: 0.1,
     metalness: 0.9,
     roughness: 0.2,
     reflectivity: 0.7,
     clearcoat: 0.3,
     clearcoatRoughness: 0.2,
     side: THREE.DoubleSide,
-    depthWrite: false  // Don't write to depth buffer
+    depthWrite: false
   })
 
   const cube = new THREE.Mesh(geometry, material)
   cube.position.y = height / 2
-  cube.renderOrder = 1  // Render after lines
+  cube.renderOrder = 1
   scene.add(cube)
 
   const edgesGeometry = new THREE.EdgesGeometry(geometry)
   const edgesLayers = colors.map((color, i) => {
-    // Create inner edges
     const innerEdges = new THREE.LineSegments(
       edgesGeometry,
       new THREE.LineBasicMaterial({
@@ -182,7 +177,6 @@ function initThreeJS() {
     innerEdges.renderOrder = 2
     scene.add(innerEdges)
 
-    // Create slightly offset outer edges
     const outerEdges = new THREE.LineSegments(
       edgesGeometry,
       new THREE.LineBasicMaterial({
@@ -328,7 +322,6 @@ onMounted(async () => {
 })
 
 onUnmounted(() => {
-  // Cleanup Three.js resources
   if (animationFrameId) {
     cancelAnimationFrame(animationFrameId)
   }
@@ -357,7 +350,6 @@ const formatNumber = (num) => num.toLocaleString()
 <ClientOnly>
 
 <div class="specifications-page">
-<!-- Wrap all content in a scoped div -->
 
 <div v-if="loading" class="loading">Loading specifications...</div>
 <div v-else-if="error" class="error-message">{{ error }}</div>
@@ -427,8 +419,8 @@ If you are not sure how to set these flags, the SDK will automatically set them 
   </div>
   <div class="dimensions-info">
     <div class="dim">Width: {{ specs.MaxDims[0] }}m</div>
-    <div class="dim">Length: {{ specs.MaxDims[1] }}m</div>
-    <div class="dim">Height: {{ specs.MaxDims[2] }}m</div>
+    <div class="dim">Height: {{ specs.MaxDims[1] }}m</div>
+    <div class="dim">Length: {{ specs.MaxDims[2] }}m</div>
     <div v-if="specs.MaxDimsMargin" class="margin-note">
       ℹ️ Includes {{ specs.MaxDimsMargin }}m safety margin
     </div>
@@ -623,9 +615,7 @@ If you are not sure how to set these flags, the SDK will automatically set them 
 </ClientOnly>
 
 <style scoped>
-/* Scope all styles to specifications-page */
 .specifications-page {
-  /* Base wrapper styles */
   width: 100%;
   max-width: 100%;
 }

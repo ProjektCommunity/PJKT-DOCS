@@ -38,15 +38,15 @@ const eventInfo = ref(null)
 const canvasRef = ref(null)
 let renderer, scene, camera, animationFrameId
 
-function createTextSprite(text, position, color = '#ff69b4') {
+function createTextSprite(text, position, color = '#ff69b4', opacity = 1.0) {
   const canvas = document.createElement('canvas')
   const context = canvas.getContext('2d')
   
-  const padding = 1
+  const padding = 12
   context.font = 'Bold 8px Inter, -apple-system, BlinkMacSystemFont'
   const textWidth = context.measureText(text).width
   const width = textWidth + padding * 2
-  const height = 9
+  const height = 9 + 4
   
   canvas.width = width * 8
   canvas.height = height * 8
@@ -64,6 +64,7 @@ function createTextSprite(text, position, color = '#ff69b4') {
   const spriteMaterial = new THREE.SpriteMaterial({ 
     map: texture,
     transparent: true,
+    opacity: opacity,
     depthTest: false,
     sizeAttenuation: false
   })
@@ -116,41 +117,59 @@ function initThreeJS() {
   gridHelper.material.transparent = true
   scene.add(gridHelper)
 
-  const arrowDir = new THREE.Vector3(0, 0, 1)
-  arrowDir.normalize()
-  const arrowOrigin = new THREE.Vector3(0, 0.1, 0)
-  const arrowLength = 2
-  const arrowColor = 0x00ff00
-  const headLength = 0.4
-  const headWidth = 0.3
-  const arrowHelper = new THREE.ArrowHelper(arrowDir, arrowOrigin, arrowLength, arrowColor, headLength, headWidth)
-  scene.add(arrowHelper)
-
   if (!specs.value?.MaxDims) return
   const [width, height, length] = specs.value.MaxDims
 
-  const colors = [
-    new THREE.Color(0xff69b4),
-    new THREE.Color(0xff1493),
-    new THREE.Color(0xda70d6),
-    new THREE.Color(0x9370db),
-    new THREE.Color(0x8a2be2)
-  ]
+  // Add stylized floor arrow for Front
+  const arrowShape = new THREE.Shape()
+  const arrowL = 1.5
+  const arrowW = 1.0
+  const notch = 0.5
   
-  let colorIndex = 0
-  let nextColorIndex = 1
-  let colorTransition = 0
+  // Create chevron shape
+  arrowShape.moveTo(0, arrowL)
+  arrowShape.lineTo(arrowW/2, 0)
+  arrowShape.lineTo(0, notch)
+  arrowShape.lineTo(-arrowW/2, 0)
+  arrowShape.lineTo(0, arrowL)
+
+  const arrowGeom = new THREE.ShapeGeometry(arrowShape)
+  const arrowMat = new THREE.MeshBasicMaterial({
+    color: 0x00ff00,
+    transparent: true,
+    opacity: 0.2,
+    side: THREE.DoubleSide,
+    depthWrite: false
+  })
+  
+  const arrowMesh = new THREE.Mesh(arrowGeom, arrowMat)
+  arrowMesh.rotation.set(-Math.PI / 2, 0, Math.PI)
+  arrowMesh.position.y = 0.05
+  arrowMesh.position.z = (length / 2) + 0.2
+  scene.add(arrowMesh)
+
+  // Add glow outline to arrow
+  const arrowEdges = new THREE.EdgesGeometry(arrowGeom)
+  const arrowLines = new THREE.LineSegments(
+    arrowEdges,
+    new THREE.LineBasicMaterial({ color: 0x00ff00, transparent: true, opacity: 0.6 })
+  )
+  arrowLines.rotation.copy(arrowMesh.rotation)
+  arrowLines.position.copy(arrowMesh.position)
+  scene.add(arrowLines)
+
+  // Smaller detailed label
+  const frontLabel = createTextSprite("FRONT", { x: 0, y: 0.3, z: (length / 2) + arrowL + 1.2 }, '#ffffff', 0.6)
+  frontLabel.scale.multiplyScalar(0.4)
+  scene.add(frontLabel)
 
   const geometry = new THREE.BoxGeometry(width, height, length)
   const material = new THREE.MeshPhysicalMaterial({
-    color: colors[0],
+    color: 0xffffff,
     transparent: true,
     opacity: 0.1,
-    metalness: 0.9,
-    roughness: 0.2,
-    reflectivity: 0.7,
-    clearcoat: 0.3,
-    clearcoatRoughness: 0.2,
+    metalness: 0.1,
+    roughness: 0.1,
     side: THREE.DoubleSide,
     depthWrite: false
   })
@@ -160,40 +179,38 @@ function initThreeJS() {
   cube.renderOrder = 1
   scene.add(cube)
 
+  // Setup fancy gradient edges
   const edgesGeometry = new THREE.EdgesGeometry(geometry)
-  const edgesLayers = colors.map((color, i) => {
-    const innerEdges = new THREE.LineSegments(
+  const count = edgesGeometry.attributes.position.count
+  const colorsArr = new Float32Array(count * 3)
+  edgesGeometry.setAttribute('color', new THREE.BufferAttribute(colorsArr, 3))
+
+  const createEdgeLayer = (opacity, scale) => {
+    const mesh = new THREE.LineSegments(
       edgesGeometry,
       new THREE.LineBasicMaterial({
-        color,
+        vertexColors: true,
         transparent: true,
-        opacity: 0.9,
+        opacity: opacity,
         depthTest: false,
-        depthWrite: false,
-        linewidth: 2
+        depthWrite: false
       })
     )
-    innerEdges.position.y = height / 2
-    innerEdges.renderOrder = 2
-    scene.add(innerEdges)
+    mesh.position.y = height / 2
+    mesh.scale.set(scale, scale, scale)
+    return mesh
+  }
 
-    const outerEdges = new THREE.LineSegments(
-      edgesGeometry,
-      new THREE.LineBasicMaterial({
-        color,
-        transparent: true,
-        opacity: 0.6,
-        depthTest: false,
-        depthWrite: false,
-        linewidth: 1
-      })
-    )
-    outerEdges.position.y = height / 2
-    outerEdges.scale.set(1.001 + i * 0.001, 1.001 + i * 0.001, 1.001 + i * 0.001)
-    outerEdges.renderOrder = 3
-    scene.add(outerEdges)
-
-    return { inner: innerEdges, outer: outerEdges }
+  // Multiple layers for "glow" effect since linewidth is limited in browsers
+  const edgeLayers = [
+    createEdgeLayer(0.9, 1.0),
+    createEdgeLayer(0.5, 1.01),
+    createEdgeLayer(0.3, 1.02)
+  ]
+  
+  edgeLayers.forEach((layer, i) => {
+    layer.renderOrder = 2 + i
+    scene.add(layer)
   })
 
   const labels = [
@@ -215,31 +232,36 @@ function initThreeJS() {
     if (!scene || !camera) return
     
     animationFrameId = requestAnimationFrame(animate)
-    theta += 0.001
+    theta += 0.0002
+    time += 0.002
 
     camera.position.x = radius * Math.cos(theta)
     camera.position.z = radius * Math.sin(theta)
     camera.lookAt(0, height/4, 0)
 
-    colorTransition += 0.005
-    if (colorTransition >= 1) {
-      colorTransition = 0
-      colorIndex = nextColorIndex
-      nextColorIndex = (nextColorIndex + 1) % colors.length
+    // Smooth rainbow cycle using HSL
+    const hueBase = time % 1.0
+    material.color.setHSL(hueBase, 0.5, 0.3) // Dimmer face color
+
+    // Update gradient on edges
+    const positions = edgesGeometry.attributes.position.array
+    const colors = edgesGeometry.attributes.color.array
+    const tempColor = new THREE.Color()
+
+    for(let i = 0; i < count; i++) {
+        const y = positions[i * 3 + 1]
+        // Normalize Y relative to height for gradient effect
+        const normalizedY = (y + height/2) / height
+        // Create diagonal rainbow gradient moving up
+        const hue = (hueBase + normalizedY * 0.5) % 1.0
+        
+        tempColor.setHSL(hue, 0.9, 0.6) // Specific saturation/lightness for visibility
+        
+        colors[i*3] = tempColor.r
+        colors[i*3+1] = tempColor.g
+        colors[i*3+2] = tempColor.b
     }
-
-    const currentColor = colors[colorIndex]
-    const nextColor = colors[nextColorIndex]
-    const lerpedColor = new THREE.Color()
-    lerpedColor.lerpColors(currentColor, nextColor, colorTransition)
-
-    material.color.copy(lerpedColor)
-    edgesLayers.forEach(({ inner, outer }, i) => {
-      const edgeColor = new THREE.Color()
-      edgeColor.lerpColors(currentColor, nextColor, colorTransition + i * 0.2)
-      inner.material.color.copy(edgeColor)
-      outer.material.color.copy(edgeColor)
-    })
+    edgesGeometry.attributes.color.needsUpdate = true
 
     scene.traverse((object) => {
       if (object.isSprite && object.onBeforeRender) {
@@ -251,6 +273,7 @@ function initThreeJS() {
   }
 
   let theta = 0
+  let time = 0
   animate()
 
   const handleResize = () => {

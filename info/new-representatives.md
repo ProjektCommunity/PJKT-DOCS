@@ -73,10 +73,10 @@
   <div class="step-card">
     <div class="step-header">
       <div class="step-number">1</div>
-      <h3>Check Your Discord Role</h3>
+      <h3>Join the Exhibitors Discord</h3>
     </div>
     <div class="step-content">
-      <p>You should have received a Representative or Creator Rep role in the PJKT Discord. This role was assigned by the staff who sent your acceptance message.</p>
+      <p>Upon acceptance of your application, you should have received a link to the PJKT Exhibitors Discord. This will include your respective Representation Role for the Event you signed up for.</p>
       <div class="alert warning">
         <span class="alert-icon">⚠️</span>
         <span>If you haven't received your role yet, please contact the staff member who sent your acceptance message via DM.</span>
@@ -87,13 +87,13 @@
   <div class="step-card">
     <div class="step-header">
       <div class="step-number">2</div>
-      <h3>Explore the Representatives Discord Category</h3>
+      <h3>Explore the Exhibitors Discord Category</h3>
     </div>
     <div class="step-content">
-      <p>Take some time to explore the Community Representatives category in the Discord server. You'll find:</p>
+      <p>Take some time to explore the PJKT Exhibitors Discord server. You'll find:</p>
       <ul class="feature-list">
         <li>📢 Announcements about updates and important information</li>
-        <li>🗓️ Information about Representative Round Tables for feedback discussions</li>
+        <li>🗓️ Information about Exhibitor Round Tables for feedback discussions</li>
         <li>❓ Booth-help text and voice channels for assistance</li>
         <li>💡 Suggestion box for future events</li>
       </ul>
@@ -144,14 +144,6 @@
   </div>
 </div>
 
-## 🌍 Multiple Worlds
-
-<div class="info-card">
-  <div class="info-content">
-    <p>Yes, there will be multiple worlds which will be based on Communities and Creators!</p>
-    <p>Communities will be in the main world and creators will be in a separate "artist mall" for the separate world sections.</p>
-  </div>
-</div>
 
 ## 🔄 Group Rebranding or Renaming
 

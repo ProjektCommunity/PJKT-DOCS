@@ -118,12 +118,13 @@ export default defineConfig({
     ['meta', { name: 'twitter:description', content: 'Documentation for developers and booth exhibitors using our tools.' }],
     ['meta', { name: 'twitter:image', content: 'https://docs.pjkt.net/images/logo-mini.png' }],
     
-    // Umami Analytics
+    // Rybbit Analytics
     ['script', {
-      async: 'true',
-      defer: 'true',
-      'data-website-id': '9467fb56-cd2c-468f-9230-543d03b1b4d1',
-      src: 'https://cloud.umami.is/script.js'
+      src: 'https://pjkttracking.pesky.zone/api/script.js',
+      'data-site-id': '2',
+      'data-track-errors': 'true',
+      'data-session-replay': 'true',
+      defer: ''
     }],
   ],
 

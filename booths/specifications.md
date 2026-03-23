@@ -615,6 +615,11 @@ If you are not sure how to set these flags, the SDK will automatically set them 
   </div>
 </div>
 
+
+### MISC Guidelines
+- Cameras are not allowed in booths, they will be removed during submission review
+- If we don't mention a REMEMBER if we don't mention a component or feature, it doesn't necessarily mean it's allowed or not, ask staff for clarification to be safe.
+
 ## ⚠️ Final Notes
 
 ::: danger Important

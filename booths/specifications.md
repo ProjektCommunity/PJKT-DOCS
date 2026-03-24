@@ -540,6 +540,8 @@ If you are not sure how to set these flags, the SDK will automatically set them 
 - **Use Instead:** Poiyomi Lite/World shaders, **Creator Companion VPM releases recommended** for compatibility purposes.
 - **Ensure that all Poiyomi shaders are locked before building your booth.**
 
+**If you are trying to use "Contribute GI" static flag for your materials, make sure to use a compatible shader that supports it, such as the VRChat's Standard shader. If your shader does not support lightmaps, your booth will not recieve any baked lighting.**
+
 ### Audio Requirements
 - Sound effects only
 - Must stay within booth area

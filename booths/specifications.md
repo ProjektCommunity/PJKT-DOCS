@@ -528,6 +528,7 @@ If you are not sure how to set these flags, the SDK will automatically set them 
 - No realtime or mixed lighting allowed
 - No cubemaps allowed
 - Lightmap settings will be enforced by SDK and might be adjusted on our side
+- Lighting specular directional will be baked using regular Dominant Directional for booths
 
 ### Shader Guidelines
 

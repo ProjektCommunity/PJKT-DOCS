@@ -558,6 +558,74 @@ body {
   opacity: 1;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .VPButton,
+  .VPButton::before,
+  .vp-button,
+  .vp-button::before,
+  .action-button,
+  .action-button::before,
+  .help-button,
+  .help-button::before,
+  .featured-link a,
+  .featured-link a::before,
+  .vcc-link,
+  .vcc-link::before,
+  .copy-button,
+  .copy-button::before {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .VPButton,
+  .VPButton:hover,
+  .VPButton:active,
+  .vp-button,
+  .vp-button:hover,
+  .vp-button:active,
+  .action-button,
+  .action-button:hover,
+  .action-button:active,
+  .help-button,
+  .help-button:hover,
+  .help-button:active,
+  .featured-link a,
+  .featured-link a:hover,
+  .featured-link a:active,
+  .vcc-link,
+  .vcc-link:hover,
+  .vcc-link:active,
+  .copy-button,
+  .copy-button:hover,
+  .copy-button:active {
+    transform: none !important;
+  }
+
+  .VPButton::before,
+  .VPButton:hover::before,
+  .VPButton:active::before,
+  .vp-button::before,
+  .vp-button:hover::before,
+  .vp-button:active::before,
+  .action-button::before,
+  .action-button:hover::before,
+  .action-button:active::before,
+  .help-button::before,
+  .help-button:hover::before,
+  .help-button:active::before,
+  .featured-link a::before,
+  .featured-link a:hover::before,
+  .featured-link a:active::before,
+  .vcc-link::before,
+  .vcc-link:hover::before,
+  .vcc-link:active::before,
+  .copy-button::before,
+  .copy-button:hover::before,
+  .copy-button:active::before {
+    transform: none !important;
+  }
+}
+
 /* Hide theme toggle */
 .VPNavBarAppearance {
   display: none !important;

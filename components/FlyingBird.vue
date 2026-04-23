@@ -1,96 +1,132 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 
-// Function to check if an emoji is supported
-function isEmojiSupported(emoji) {
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
-  ctx.fillStyle = '#000000';
-  ctx.textBaseline = 'top';
-  ctx.font = '16px Arial';
-  ctx.fillText(emoji, 0, 0);
-  const width = ctx.measureText(emoji).width;
-  return width > 0;
-}
-
-// Collection of different bird emojis
 const allBirdEmojis = ['🕊️', '🦅', '🦆', '🦉', '🦜', '🦢', '🦩', '🐦', '🐧', '🦚']
 const birdEmojis = ref([])
 const activeBirds = ref([])
 
-// Initialize supported emojis on mount
-onMounted(() => {
-  // Filter out unsupported emojis
-  birdEmojis.value = allBirdEmojis.filter(emoji => isEmojiSupported(emoji))
-})
+const birdStartOffset = 50
+const birdEndOffset = -50
+const birdViewportPadding = 100
 
-// Select a random bird emoji
+let animationFrameId = 0
+let nextBirdId = 0
+let cachedSupportedBirdEmojis
+
+function isEmojiSupported(emoji) {
+  const canvas = document.createElement('canvas')
+  const context = canvas.getContext('2d')
+
+  if (!context) {
+    return false
+  }
+
+  context.fillStyle = '#000000'
+  context.textBaseline = 'top'
+  context.font = '16px Arial'
+  context.fillText(emoji, 0, 0)
+
+  return context.measureText(emoji).width > 0
+}
+
+function getSupportedBirdEmojis() {
+  if (cachedSupportedBirdEmojis) {
+    return cachedSupportedBirdEmojis
+  }
+
+  cachedSupportedBirdEmojis = allBirdEmojis.filter((emoji) => isEmojiSupported(emoji))
+
+  if (!cachedSupportedBirdEmojis.length) {
+    cachedSupportedBirdEmojis = ['🐦']
+  }
+
+  return cachedSupportedBirdEmojis
+}
+
 function getRandomBird() {
-  return birdEmojis.value[Math.floor(Math.random() * birdEmojis.value.length)]
+  return birdEmojis.value[Math.floor(Math.random() * birdEmojis.value.length)] ?? '🐦'
+}
+
+function stopAnimationLoop() {
+  if (animationFrameId) {
+    cancelAnimationFrame(animationFrameId)
+    animationFrameId = 0
+  }
+}
+
+function animateBirds() {
+  if (!activeBirds.value.length) {
+    animationFrameId = 0
+    return
+  }
+
+  for (let index = activeBirds.value.length - 1; index >= 0; index -= 1) {
+    const bird = activeBirds.value[index]
+    bird.x -= bird.speed
+
+    if (bird.x < birdEndOffset) {
+      activeBirds.value.splice(index, 1)
+    }
+  }
+
+  animationFrameId = requestAnimationFrame(animateBirds)
+}
+
+function ensureAnimationLoop() {
+  if (!animationFrameId) {
+    animationFrameId = requestAnimationFrame(animateBirds)
+  }
 }
 
 function flyAcrossScreen() {
-  // Create a new bird - starting from right side
-  const bird = {
-    id: Date.now() + Math.random(),
-    x: window.innerWidth + 50, // Start position off-screen to the right
-    y: Math.random() * (window.innerHeight - 100),
-    emoji: getRandomBird(),
-    speed: 3 + Math.random() * 3 // Varying speed between 3-6 pixels per frame
-  }
-  
-  activeBirds.value.push(bird)
-  
-  const animate = () => {
-    const birdIndex = activeBirds.value.findIndex(b => b.id === bird.id)
-    if (birdIndex === -1) return
+  const maxY = Math.max(window.innerHeight - birdViewportPadding, birdViewportPadding)
 
-    activeBirds.value[birdIndex].x -= activeBirds.value[birdIndex].speed // Move from right to left
-    
-    // Remove bird when it leaves the screen to the left
-    if (activeBirds.value[birdIndex].x < -50) {
-      activeBirds.value.splice(birdIndex, 1)
-      return
-    }
-    
-    requestAnimationFrame(animate)
-  }
-  
-  animate()
+  activeBirds.value.push({
+    id: nextBirdId,
+    x: window.innerWidth + birdStartOffset,
+    y: Math.random() * maxY,
+    emoji: getRandomBird(),
+    speed: 3 + Math.random() * 3
+  })
+
+  nextBirdId += 1
+  ensureAnimationLoop()
 }
 
-function onKeyPress(e) {
-  if (e.key.toLowerCase() === 'b') {
+function onKeyPress(event) {
+  if (event.key.toLowerCase() === 'b') {
     flyAcrossScreen()
   }
 }
 
 onMounted(() => {
-    // Trigger bird flight very rarely (every 10-30 minutes) with only a 20% chance
-    setInterval(() => {
-        // 20% chance of a bird appearing when the interval triggers
-        if (Math.random() < 0.01) {
-            flyAcrossScreen()
-        }
-    }, Math.random() * 120000 + 300000) // 5-7 minutes
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return
+  }
 
-    // Add keyboard listener
-    window.addEventListener('keydown', onKeyPress)
+  birdEmojis.value = getSupportedBirdEmojis()
+  window.addEventListener('keydown', onKeyPress)
 })
 
 onUnmounted(() => {
-  // Remove keyboard listener
+  stopAnimationLoop()
+
+  activeBirds.value = []
   window.removeEventListener('keydown', onKeyPress)
 })
 </script>
 
 <template>
-  <div>
-    <div v-for="bird in activeBirds" :key="bird.id" class="flying-bird" :style="{
-      left: bird.x + 'px',
-      top: bird.y + 'px'
-    }">
-      {{ bird.emoji }}
+  <div aria-hidden="true">
+    <div
+      v-for="bird in activeBirds"
+      :key="bird.id"
+      class="flying-bird"
+      :style="{
+        transform: `translate3d(${bird.x}px, ${bird.y}px, 0)`
+      }"
+    >
+      <span class="flying-bird__emoji">{{ bird.emoji }}</span>
     </div>
   </div>
 </template>
@@ -98,15 +134,27 @@ onUnmounted(() => {
 <style scoped>
 .flying-bird {
   position: fixed;
+  top: 0;
+  left: 0;
   z-index: 1000;
-  font-size: 24px;
   pointer-events: none;
-  transform: scaleX(1);
-  animation: flapWings 0.4s infinite;
+  will-change: transform;
+}
+
+.flying-bird__emoji {
+  display: block;
+  font-size: 24px;
+  transform: translateZ(0);
+  animation: flapWings 400ms linear infinite;
 }
 
 @keyframes flapWings {
-  0%, 100% { transform: translateY(0) scaleX(1); }
-  50% { transform: translateY(-5px) scaleX(1.1); }
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scaleX(1);
+  }
+
+  50% {
+    transform: translate3d(0, -5px, 0) scaleX(1.06);
+  }
 }
 </style>

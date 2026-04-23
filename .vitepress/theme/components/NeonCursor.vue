@@ -48,6 +48,9 @@ function animate() {
 }
 
 onMounted(() => {
+  // Skip cursor effect if user prefers reduced motion
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
   document.addEventListener('mousemove', updateCursorPosition)
   animate()
   // Don't hide the default cursor

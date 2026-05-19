@@ -102,7 +102,7 @@
           </ol>
           <div class="step-note">
             <span class="note-icon">ℹ️</span>
-            <span>Don't forget to come back to this step occasionally to check for updates.</span>
+            <span>Check VCC for SDK updates before you build or upload.</span>
           </div>
         </div>
       </div>
@@ -152,13 +152,79 @@
   </div>
 </div>
 
+<div class="steps-container">
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-number">8</div>
+      <h3>Log In to the SDK Window</h3>
+    </div>
+    <div class="step-content">
+      <p>Go to <code>PJKT SDK → Show SDK Window</code> in the Unity menu bar. Sign in with your PJKT representative account.</p>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-number">9</div>
+      <h3>Add a Booth Descriptor</h3>
+    </div>
+    <div class="step-content">
+      <p>Create an empty GameObject in your scene and name it after your community. Add the <strong>Booth Descriptor</strong> component via <code>Add Component → PJKT → Booth Descriptor</code>.</p>
+      <ol class="step-list">
+        <li>Optionally fill in the three <strong>Representatives</strong> fields with the names you want on the booth record, these fields may or may not have a use in FEST worlds.</li>
+        <li>Build your booth content as children of this root GameObject, like you would with an avatar.</li>
+      </ol>
+      <div class="step-note">
+        <span class="note-icon">ℹ️</span>
+        <span>A gizmo box shows the maximum booth footprint in the Scene view. Keep all your meshes inside it.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-number">10</div>
+      <h3>Validate Your Booth</h3>
+    </div>
+    <div class="step-content">
+      <p>Open the <strong>Booths</strong> tab in the SDK and click your booth card. The SDK runs validation when you select the booth in the SDK</p>
+      <p style="margin-top: 0.75rem;">The booth panel shows the current report and checks for when something being out of specification.</p>
+      <div class="alert danger">
+        <span class="alert-icon">⚠️</span>
+        <span>Fix every issue on the booth card before you press upload.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-number">11</div>
+      <h3>Upload Your Booth</h3>
+    </div>
+    <div class="step-content">
+      <p>Open the <strong>Events</strong> tab only if you need to switch to a different event. Then return to the <strong>Booths</strong> tab and press <strong>Build and upload Booth</strong>.</p>
+      <ol class="step-list">
+        <li>Select the community on the booth card first. The upload button stays disabled until you do.</li>
+        <li>Read and accept the rights disclaimer.</li>
+        <li>Read and accept the booth change list. The SDK will adjust booth settings before it builds in some cases.</li>
+        <li>The SDK builds the booth, does additional checks, and uploads the result!</li>
+      </ol>
+      <div class="step-note">
+        <span class="note-icon">ℹ️</span>
+        <span>Your account also needs upload access for the selected community. If the SDK rejects the upload, read the booth card message and the notification toast.</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
 ## 🎉 Congratulations!
 
 <div class="success-panel">
   <div class="success-icon">🎯</div>
   <div class="success-content">
-    <h3>Your PJKT Booth Project is Ready!</h3>
-    <p>You can now start building your booth in Unity.</p>
+    <h3>Upload complete</h3>
+    <p>When the upload finishes, the SDK shows a success! Now to finally drink that (now) cold coffee...</p>
   </div>
 </div>
 
@@ -586,6 +652,21 @@ kbd {
     align-items: center;
     text-align: center;
   }
+}
+
+.validation-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin: 0.75rem 0;
+  padding: 0.75rem 1rem;
+  background: var(--vp-c-bg);
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.legend-item {
+  color: var(--vp-c-text-2);
 }
 </style>
 

@@ -2,65 +2,40 @@
 
 <div class="booths-index-page">
 
-## 🎨 Choose Your Path
+## Create Your Booth
 
-<div class="options-grid">
-  <div class="option-card web-booth">
-    <div class="option-icon">🌐</div>
-    <div class="option-content">
+<div class="booth-choice">
+  <!-- Primary: Web Booth Creator -->
+  <div class="booth-card web-booth">
+    <div class="booth-icon">🌐</div>
+    <div class="booth-header">
       <h3>Web Booth Creator</h3>
-      <p class="option-desc">For those who value their sanity and free time</p>
-      <ul class="feature-list">
-        <li>✨ No coding experience required</li>
-        <li>🎯 Simple web-based interface</li>
-        <li>⚡ Quick setup and customization</li>
-        <li>🧘‍♂️ Zero Unity-induced headaches</li>
-      </ul>
-      <a href="./web-booth-creator" class="action-button web-button">Choose Peace of Mind</a>
+      <p class="booth-tagline">For those who want a booth without the hassle</p>
     </div>
+    <ul class="booth-features">
+      <li>✨ No coding experience, we gotchu</li>
+      <li>🎯 All done on the web</li>
+      <li>⚡ Quick setup</li>
+      <li>🧘‍♂️ Zero Unity-induced pain</li>
+    </ul>
+    <a href="./web-booth-creator" class="booth-cta web-cta">Choose Peace of Mind</a>
   </div>
 
-  <div class="option-card sdk-booth">
-    <div class="option-icon">💻</div>
-    <div class="option-content">
+  <!-- Secondary: PJKT SDK -->
+  <div class="booth-card sdk-booth">
+    <div class="booth-icon">💻</div>
+    <div class="booth-header">
       <h3>PJKT SDK</h3>
-      <p class="option-desc">For the brave souls who enjoy debugging Unity at 3 AM</p>
-      <ul class="feature-list">
-        <li>🎨 Complete customization freedom</li>
-        <li>🔧 Advanced interactive features</li>
-        <li>🎮 Full Unity power (and its quirks)</li>
-        <li>☕ Recommended caffeine intake: High</li>
-      </ul>
-      <a href="./getting-started-with-sdk" class="action-button sdk-button">Embrace the Challenge</a>
+      <p class="booth-tagline">Brave souls who enjoy debugging Unity at 3 AM</p>
     </div>
+    <ul class="booth-features">
+      <li>🎨 Complete customization</li>
+      <li>🔧 Cool interactive features</li>
+      <li>🎮 Full Unity (and its pain)</li>
+      <li>☕ I would grab a coffee...</li>
+    </ul>
+    <a href="./getting-started-with-sdk" class="booth-cta sdk-cta">Embrace the Challenge</a>
   </div>
-</div>
-
-## 📚 Essential Resources
-
-<div class="resources-grid">
-  <a href="./specifications" class="resource-card">
-    <div class="resource-icon">📋</div>
-    <h4>Booth Specifications</h4>
-    <p>Technical requirements and limitations</p>
-  </a>
-
-  <a href="./components" class="resource-card">
-    <div class="resource-icon">🧩</div>
-    <h4>Components Reference</h4>
-    <p>Available components and features</p>
-  </a>
-</div>
-
-## ❓ Need Help?
-
-<div class="help-section">
-  <p>If you encounter any issues or have questions:</p>
-  <ul class="help-list">
-    <li>📚 Check the specifications and guidelines</li>
-    <li>📖 Review our documentation</li>
-    <li>💬 Contact our staff team for specific concerns</li>
-  </ul>
 </div>
 
 </div>
@@ -333,20 +308,163 @@
   }
 }
 
-@media (max-width: 640px) {
-  .options-grid {
+/* Booth choice layout */
+.booth-choice {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin: 2rem 0;
+  align-items: stretch;
+}
+
+.booth-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--vp-c-bg-soft);
+  border-radius: 16px;
+  padding: 2rem;
+  border: 1px solid var(--vp-c-divider);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.web-booth {
+  border-left: 4px solid var(--pjkt-cyan);
+}
+
+.sdk-booth {
+  border-left: 4px solid var(--pjkt-purple);
+}
+
+.web-booth:hover {
+  box-shadow: 0 4px 20px rgba(0, 198, 255, 0.08);
+}
+
+.sdk-booth:hover {
+  box-shadow: 0 4px 20px rgba(160, 4, 255, 0.08);
+}
+
+.booth-badge {
+  display: inline-block;
+  padding: 0.35rem 0.85rem;
+  background: var(--pjkt-yellow);
+  color: var(--vp-c-black);
+  font-size: 0.7rem;
+  font-weight: 700;
+  border-radius: 4px;
+  margin-bottom: 1.25rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.booth-chip {
+  display: inline-block;
+  padding: 0.3rem 0.6rem;
+  background: var(--vp-c-bg-mute);
+  color: var(--vp-c-text-2);
+  font-size: 0.65rem;
+  font-weight: 600;
+  border-radius: 3px;
+  margin-bottom: 1.25rem;
+  border: 1px solid var(--vp-c-divider);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.booth-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1.25rem;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: var(--vp-c-bg);
+}
+
+.web-booth .booth-icon {
+  box-shadow: 0 0 0 2px rgba(0, 198, 255, 0.2);
+}
+
+.sdk-booth .booth-icon {
+  box-shadow: 0 0 0 2px rgba(160, 4, 255, 0.2);
+}
+
+.booth-header h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--vp-c-text-1);
+  letter-spacing: -0.02em;
+}
+
+.booth-tagline {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--vp-c-text-2);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.booth-features {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+  flex-grow: 1;
+}
+
+.booth-features li {
+  margin: 0.6rem 0;
+  color: var(--vp-c-text-1);
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.booth-cta {
+  display: block;
+  padding: 0.9rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-align: center;
+  transition: all 0.2s ease;
+  margin-top: auto;
+}
+
+.web-cta {
+  background: var(--pjkt-cyan);
+  color: var(--pjkt-black);
+}
+
+.web-cta:hover {
+  background: #00b8e6;
+  color: var(--pjkt-black);
+  transform: translateY(-1px);
+}
+
+.sdk-cta {
+  background: var(--pjkt-purple);
+  color: var(--pjkt-white);
+}
+
+.sdk-cta:hover {
+  background: #8a00d4;
+  color: var(--pjkt-white);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+  .booth-choice {
     grid-template-columns: 1fr;
   }
   
-  .option-card {
+  .booth-card {
     padding: 1.5rem;
-  }
-  
-  .option-icon {
-    width: 60px;
-    height: 60px;
-    font-size: 2rem;
-    margin-bottom: 1rem;
   }
 }
 </style>

@@ -444,9 +444,6 @@ If you are not sure how to set these flags, the SDK will automatically set them 
     <div class="dim">Width: {{ specs.MaxDims[0] }}m</div>
     <div class="dim">Height: {{ specs.MaxDims[1] }}m</div>
     <div class="dim">Length: {{ specs.MaxDims[2] }}m</div>
-    <div v-if="specs.MaxDimsMargin" class="margin-note">
-      ℹ️ Includes {{ specs.MaxDimsMargin }}m safety margin
-    </div>
   </div>
 </div>
 

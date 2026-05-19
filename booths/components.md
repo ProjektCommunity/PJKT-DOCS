@@ -1,814 +1,434 @@
-# Booth Buttons & Components 2025
+# 🧩 Booth Components
 
-<script setup>
-import { h } from 'vue'
-</script>
+SDK prefabs for interactive booth elements. All prefabs ship in `Assets\PJKT\Pjkt Prefabs` after you import the package.
 
-<div class="components-page">
-<!-- 
-::: info Button Prefabs Available
-<div class="prefabs-grid">
-  <div class="prefab-card">
-    <div class="prefab-icon">🔄</div>
-    <div class="prefab-content">
-      <h3>Object Toggles</h3>
-      <p>Toggle visibility of objects</p>
-    </div>
-  </div>
-  <div class="prefab-card">
-    <div class="prefab-icon">👥</div>
-    <div class="prefab-content">
-      <h3>Open Group</h3>
-      <p>Group info & store buttons</p>
-    </div>
-  </div>
-  <div class="prefab-card">
-    <div class="prefab-icon">↩️</div>
-    <div class="prefab-content">
-      <h3>Pickup Resets</h3>
-      <p>Reset object positions</p>
-    </div>
-  </div>
-  <div class="prefab-card">
-    <div class="prefab-icon">⚡</div>
-    <div class="prefab-content">
-      <h3>Teleports</h3>
-      <p>Player transportation</p>
-    </div>
-  </div>
-</div>
-::: -->
+## ⭐ Getting Started
 
-## 📖 Getting Started
+<div class="getting-started-grid">
+  <div class="setting-card getting-started-card">
+    <div class="getting-started-card__step">Step 1</div>
+    <h3>Install the SDK</h3>
+    <p>Set up the SDK and sign in with your representative account before you import any prefabs.</p>
+    <a class="getting-started-card__link" href="/booths/getting-started-with-sdk">Open the setup guide →</a>
+  </div>
 
-<div class="setup-steps">
-  <div class="step-card">
-    <div class="step-number">1</div>
-    <div class="step-content">
-      <h3>Install SDK</h3>
-      <p>Make sure you have the PJKT SDK installed and are logged in with a representative account.</p>
-      <div class="step-note">Need help? Check the <a href="/booths/getting-started-with-sdk">Getting Started Guide</a></div>
-    </div>
-  </div>
-  
-  <div class="step-card">
-    <div class="step-number">2</div>
-    <div class="step-content">
-      <h3>Import Package</h3>
-      <p>Navigate to <code>PJKT SDK > SDK2</code> and find the <code>PJKT 2025 Button Prefabs</code> under ⚙️ Settings.</p>
-    </div>
-  </div>
-  
-  <div class="step-card">
-    <div class="step-number">3</div>
-    <div class="step-content">
-      <h3>Use Prefabs</h3>
-      <p>Find prefabs in <code>Assets\PJKT\Button Prefabs 2025\Prefabs</code>. Choose from:</p>
-      <ul class="prefab-types">
-        <li><strong>Buttons:</strong> UI Button triggered</li>
-        <li><strong>Collision:</strong> Collider activated</li>
-        <li><strong>Toggle:</strong> UI Toggle with state</li>
-      </ul>
-    </div>
-  </div>
-  
-  <div class="step-card">
-    <div class="step-number">4</div>
-    <div class="step-content">
-      <h3>Configure & Test</h3>
-      <p>Set required properties in the inspector and test in Play Mode or Build & Test.</p>
-      <div class="step-note">Check the demo scene at <code>Assets\PJKT\Button Prefabs 2025\Demo Scene\Demo Scene.unity</code></div>
-    </div>
+  <div class="setting-card getting-started-card">
+    <div class="getting-started-card__step">Step 2</div>
+    <h3>Add the prefab package</h3>
+    <p>Open <code>PJKT SDK → ⚙️ Settings</code>, find <strong>PJKT Prefabs</strong>, and click <strong>Add to scene</strong>.</p>
+    <p class="getting-started-card__note">If you already imported an older version, remove <code>Assets\PJKT\Pjkt Prefabs</code> first.</p>
   </div>
 </div>
 
-## ➡️ TeleportPlayer
 
-<div class="component-section">
-  <div class="component-header">
-    <div class="component-title">
-      <div class="component-icon">⚡</div>
-      <h3>Teleport Player Component</h3>
-    </div>
-    <div class="component-description">
-      Instantly transport players to designated locations with configurable usage settings.
-    </div>
-  </div>
+## ⚡ Example Prefabs
 
-  <div class="demo-container">
-    <div class="demo-tabs">
-      <div class="demo-tab-header">
-        <h4>🎮 In-Game Demonstration</h4>
-      </div>
-      <video controls>
-        <source src="/Booths/TeleportDemo.mp4" type="video/mp4">
-      </video>
-    </div>
-    <div class="demo-tabs">
-      <div class="demo-tab-header">
-        <h4>🛠️ Editor Tool Setup</h4>
-      </div>
-      <video controls>
-        <source src="/Booths/TeleportEditorToolDemo.mp4" type="video/mp4">
-      </video>
-    </div>
-  </div>
+- Example prefabs for each component can be found in `Assets\PJKT\PJKT Prefabs`. These are fully functional, fully setup and can be used as-is.
 
-  <div class="settings-panel">
-    <h4>📝 Configuration Options</h4>
-    <div class="settings-grid">
-      <div class="setting-item">
-        <div class="setting-name">Teleport Destination</div>
-        <div class="setting-desc">Transform reference for the target teleport location</div>
-      </div>
-      <div class="setting-item">
-        <div class="setting-name">UI Buttons</div>
-        <div class="setting-desc">Optional Unity UI button references for trigger activation</div>
-      </div>
-      <div class="setting-item">
-        <div class="setting-name">One-time Use</div>
-        <div class="setting-desc">Toggle for single-use functionality</div>
-      </div>
-    </div>
-  </div>
+## 📍 TeleportPlayer
 
-  <div class="component-tip">
-    <span class="tip-icon">💡</span>
-    <span class="tip-text">Use the inspector's visual guides and gizmos to easily set up teleport locations</span>
-  </div>
+Moves visitors to a fixed destination. Use this when you want a button or interact trigger that sends someone to a specific spot in your booth.
+
+<div class="setting-card">
+<strong>Teleport Destination</strong> <span class="req">required</span><br>
+The Transform where players land.
 </div>
 
-## 🔄 ResetPickups
-
-<div class="component-section">
-  <div class="component-header">
-    <div class="component-title">
-      <div class="component-icon">↩️</div>
-      <h3>Reset Pickups Component</h3>
-    </div>
-    <div class="component-description">
-      Reset VRCObjectSync pickups to their original positions with optional user restrictions.
-    </div>
-  </div>
-
-  <div class="demo-container single">
-    <div class="demo-tabs">
-      <div class="demo-tab-header">
-        <h4>🎮 Functionality Demo</h4>
-      </div>
-      <video controls>
-        <source src="/Booths/PickupResetDemo.mp4" type="video/mp4">
-      </video>
-    </div>
-  </div>
-
-  <div class="settings-panel">
-    <h4>📝 Configuration Options</h4>
-    <div class="settings-grid">
-      <div class="setting-item">
-        <div class="setting-name">Pickups To Reset</div>
-        <div class="setting-desc">List of VRCObjectSync components to be reset</div>
-      </div>
-      <div class="setting-item">
-        <div class="setting-name">Use Whitelist</div>
-        <div class="setting-desc">Enable user access restrictions</div>
-      </div>
-      <div class="setting-item">
-        <div class="setting-name">Allowed Users</div>
-        <div class="setting-desc">List of usernames with reset permissions</div>
-      </div>
-      <div class="setting-item">
-        <div class="setting-name">UI Buttons</div>
-        <div class="setting-desc">Optional Unity UI button references</div>
-      </div>
-    </div>
-  </div>
+<div class="setting-card">
+<strong>UI Buttons</strong><br>
+Unity UI buttons that trigger the teleport when clicked.
 </div>
+
+<div class="setting-card">
+<strong>One-time Use</strong><br>
+Disables the teleport after its first use.
+</div>
+
+::: tip
+Use the inspector gizmos to preview the landing position.
+:::
+
+<div class="demo-gallery demo-gallery--double">
+  <figure class="demo-card">
+    <figcaption class="demo-card__meta">
+      <strong>In-world demo</strong>
+      <span>Click the preview to expand it.</span>
+    </figcaption>
+    <video class="demo-video" controls preload="metadata">
+      <source src="/Booths/TeleportDemo.mp4" type="video/mp4">
+    </video>
+  </figure>
+
+  <figure class="demo-card">
+    <figcaption class="demo-card__meta">
+      <strong>Editor tool demo</strong>
+      <span>Click the preview to expand it.</span>
+    </figcaption>
+    <video class="demo-video" controls preload="metadata">
+      <source src="/Booths/TeleportEditorToolDemo.mp4" type="video/mp4">
+    </video>
+  </figure>
+</div>
+
+---
+
+## ♻️ ResetPickups
+
+Resets VRCObjectSync objects to their original positions. Use this when your booth has throwable or moveable objects that visitors might scatter around.
+
+<div class="setting-card">
+<strong>Pickups To Reset</strong> <span class="req">required</span><br>
+The VRCObjectSync components to reset.
+</div>
+
+<div class="setting-card">
+<strong>Use Whitelist</strong><br>
+Restricts who can trigger the reset.
+</div>
+
+<div class="setting-card">
+<strong>Allowed Users</strong><br>
+Usernames allowed to reset (when whitelist is on).
+</div>
+
+<div class="setting-card">
+<strong>UI Buttons</strong><br>
+Unity UI buttons that trigger the reset.
+</div>
+
+<div class="demo-gallery">
+  <figure class="demo-card">
+    <figcaption class="demo-card__meta">
+      <strong>Pickup reset demo</strong>
+      <span>Click the preview to expand it.</span>
+    </figcaption>
+    <video class="demo-video" controls preload="metadata">
+      <source src="/Booths/PickupResetDemo.mp4" type="video/mp4">
+    </video>
+  </figure>
+</div>
+
+---
 
 ## 👥 OpenGroupInformationContainer
 
-<div class="component-section">
-  <div class="component-header">
-    <div class="component-title">
-      <div class="component-icon">👥</div>
-      <h3>Group Information Component</h3>
-    </div>
-    <div class="component-description">
-      Display your group's information or store page through interactive elements.
-    </div>
-  </div>
+Opens your VRChat group page or store when a visitor interacts. Use this when you want a direct link button to your community.
 
-  <div class="demo-container single">
-    <div class="demo-tabs">
-      <div class="demo-tab-header">
-        <h4>🎮 Functionality Demo</h4>
-      </div>
-      <video controls>
-        <source src="/Booths/GroupOpenDemo.mp4" type="video/mp4">
-      </video>
-    </div>
-  </div>
-
-  <div class="settings-panel">
-    <h4>📝 Configuration Options</h4>
-    <div class="settings-grid">
-      <div class="setting-item">
-        <div class="setting-name">Group ID</div>
-        <div class="setting-desc">Your group's unique identifier (grp_xxxx-xxxx-xxxx-xxxx)</div>
-      </div>
-      <div class="setting-item">
-        <div class="setting-name">Open To Store</div>
-        <div class="setting-desc">Toggle to open group's store page instead</div>
-      </div>
-      <div class="setting-item">
-        <div class="setting-name">UI Buttons</div>
-        <div class="setting-desc">Optional Unity UI button references</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="component-tip">
-    <span class="tip-icon">💡</span>
-    <span class="tip-text">Find your Group ID in your VRChat group's URL: vrchat.com/home/group/<strong>grp_xxxx...</strong></span>
-  </div>
+<div class="setting-card">
+<strong>Group ID</strong> <span class="req">required</span><br>
+Your group's UUID — `grp_xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`
 </div>
 
-## 🔘 ButtonToggle
-
-<div class="component-section">
-  <div class="component-header">
-    <div class="component-title">
-      <div class="component-icon">🔄</div>
-      <h3>Object Toggle Component</h3>
-    </div>
-    <div class="component-description">
-      Toggle visibility of objects and control animations with customizable states.
-    </div>
-  </div>
-
-  <div class="demo-container single">
-    <div class="demo-tabs">
-      <div class="demo-tab-header">
-        <h4>🎮 Functionality Demo</h4>
-      </div>
-      <video controls>
-        <source src="/Booths/ObjectToggleDemo.mp4" type="video/mp4">
-      </video>
-    </div>
-  </div>
-
-  <div class="settings-panel">
-    <h4>📝 Configuration Options</h4>
-    <div class="settings-grid">
-      <div class="setting-item">
-        <div class="setting-name">Objects To Toggle</div>
-        <div class="setting-desc">GameObjects to be toggled on/off</div>
-      </div>
-      <div class="setting-item">
-        <div class="setting-name">Animator Settings</div>
-        <div class="setting-desc">Animator component and boolean parameters</div>
-      </div>
-      <div class="setting-item">
-        <div class="setting-name">UI Elements</div>
-        <div class="setting-desc">UI buttons and toggles for interaction</div>
-      </div>
-      <div class="setting-item">
-        <div class="setting-name">Starting State</div>
-        <div class="setting-desc">Initial state configuration on player load</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="state-options">
-    <h4>🎯 Starting State Options</h4>
-    <div class="state-grid">
-      <div class="state-item">
-        <div class="state-name">Do Nothing</div>
-        <div class="state-desc">Maintain editor state, invert on press</div>
-      </div>
-      <div class="state-item">
-        <div class="state-name">Enable All</div>
-        <div class="state-desc">Start with all objects enabled</div>
-      </div>
-      <div class="state-item">
-        <div class="state-name">Disable All</div>
-        <div class="state-desc">Start with all objects disabled</div>
-      </div>
-    </div>
-  </div>
+<div class="setting-card">
+<strong>Open To Store</strong><br>
+Opens the store page instead of the group info page.
 </div>
 
-## 🔧 Troubleshooting
-
-<div class="troubleshooting-section">
-  <div class="trouble-grid">
-    <div class="trouble-item">
-      <div class="trouble-icon">⚠️</div>
-      <div class="trouble-content">
-        <h4>Missing Components</h4>
-        <p>Verify that all required colliders or UI components are properly assigned</p>
-      </div>
-    </div>
-    <div class="trouble-item">
-      <div class="trouble-icon">🔍</div>
-      <div class="trouble-content">
-        <h4>Group ID Format</h4>
-        <p>Ensure Group ID matches format: grp_xxxx-xxxx-xxxx-xxxx</p>
-      </div>
-    </div>
-    <div class="trouble-item">
-      <div class="trouble-icon">🎯</div>
-      <div class="trouble-content">
-        <h4>Unity UI Issues</h4>
-        <p>Check UI button connections and event system setup.</p>
-      </div>
-    </div>
-    <div class="trouble-item">
-      <div class="trouble-icon">🎯</div>
-      <div class="trouble-content">
-        <h4>Need help?</h4>
-        <p>Ask in representative channels of our Discord.</p>
-      </div>
-    </div>
-  </div>
+<div class="setting-card">
+<strong>UI Buttons</strong><br>
+Unity UI buttons that trigger the open action.
 </div>
 
-<style scoped>
-.components-page {
-  width: 100%;
-  max-width: 100%;
-}
+::: tip
+Find your Group ID in the URL when viewing your group on VRChat.com: `vrchat.com/home/group/grp_xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`
+:::
 
-.hero {
-  padding: 4rem 2rem;
-  text-align: center;
-  background: linear-gradient(to bottom, var(--vp-c-bg-soft) 0%, var(--vp-c-bg) 100%);
+<div class="demo-gallery">
+  <figure class="demo-card">
+    <figcaption class="demo-card__meta">
+      <strong>Group link demo</strong>
+      <span>Click the preview to expand it.</span>
+    </figcaption>
+    <video class="demo-video" controls preload="metadata">
+      <source src="/Booths/GroupOpenDemo.mp4" type="video/mp4">
+    </video>
+  </figure>
+</div>
+
+---
+
+## 🎛️ ButtonToggle
+
+Shows, hides, or animates objects. Use this when you want an on/off button for decorations, panels, displays, or any game object.
+
+<div class="setting-card">
+<strong>Objects To Toggle</strong><br>
+GameObjects to show/hide.
+</div>
+
+<div class="setting-card">
+<strong>Animator Settings</strong><br>
+Animator reference + boolean parameter names to flip.
+</div>
+
+<div class="setting-card">
+<strong>UI Elements</strong><br>
+UI buttons and toggle controls.
+</div>
+
+<div class="setting-card">
+<strong>Starting State</strong><br>
+Initial state when a player loads in.
+</div>
+
+<div class="setting-card">
+<strong>One-time Use</strong><br>
+Disables itself after first use.
+</div>
+
+**Starting State options**
+
+- **Do Nothing** — Keeps editor state, inverts on each press
+- **Enable All** — Starts with all objects visible
+- **Disable All** — Starts with all objects hidden
+
+<div class="demo-gallery">
+  <figure class="demo-card">
+    <figcaption class="demo-card__meta">
+      <strong>Object toggle demo</strong>
+      <span>Click the preview to expand it.</span>
+    </figcaption>
+    <video class="demo-video" controls preload="metadata">
+      <source src="/Booths/ObjectToggleDemo.mp4" type="video/mp4">
+    </video>
+  </figure>
+</div>
+
+---
+
+## 🌐 PjktLanguageSwitcher
+
+Shows TextMeshPro text in each visitor's VRChat language. Refreshes on join and whenever a player changes their language setting.
+
+<div class="setting-card">
+<strong>Language</strong> <span class="req">required</span><br>
+The language for this text entry.
+</div>
+
+<div class="setting-card">
+<strong>Text Field</strong> <span class="req">required</span><br>
+What to display in that language.
+</div>
+
+<div class="setting-card">
+<strong>Add language override</strong><br>
+Click to add another language entry.
+</div>
+
+::: tip
+A TextMeshProUGUI component will be created automatically if one doesn't already exist on the GameObject.
+:::
+
+---
+
+## 🎨 PjktMaterialSwapper
+
+Applies different materials per build target. Use this when your PC shaders would go pink on Quest, or when you want per-platform material control.
+
+<div class="setting-card">
+<strong>Renderer</strong> <span class="req">required</span><br>
+The Renderer to swap. Auto-wired when you add the component.
+</div>
+
+<div class="setting-card">
+<strong>Windows Materials</strong><br>
+Materials for PC builds.
+</div>
+
+<div class="setting-card">
+<strong>Android Materials</strong><br>
+Materials for Quest builds.
+</div>
+
+<div class="setting-card">
+<strong>iOS Materials</strong><br>
+Materials for iOS builds.
+</div>
+
+---
+
+## 🎬 PjktBoothVideoPlayer
+
+Plays a video on an in-booth screen. Use this when you want video content — trailers, showcases, background footage — on a physical screen in your booth.
+
+<div class="setting-card">
+<strong>Video URL</strong> <span class="req">required</span><br>
+URL of the video to play. Use a VRChat-whitelisted URL.
+</div>
+
+<div class="setting-card">
+<strong>Autoplay</strong><br>
+Starts playback when a player enters the trigger collider. **PC only** — does not work on Quest.
+</div>
+
+<div class="setting-card">
+<strong>Loop</strong><br>
+Restarts the video when it ends.
+</div>
+
+<div class="setting-card">
+<strong>Standby Texture</strong><br>
+Image shown on the screen when no video is active.
+</div>
+
+::: warning
+Autoplay does not run on Quest. Players must also be standing inside the trigger collider before autoplay occurs, on Quest/iOS the play button must be pressed to start the video.
+:::
+
+---
+
+## 🛠️ Troubleshooting
+
+**Components not working?**  
+Check that all required colliders and UI references are assigned. Every prefab needs its inspector fields filled in.
+
+**Group ID not working?**  
+Must match the full UUID format exactly: `grp_xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`
+
+**UI button not doing anything?**  
+Check the On Click events on the button and confirm an EventSystem is present in the scene.
+
+**Still stuck?**  
+Ask in the representative channels on our Discord.
+
+<style>
+.setting-card {
+  margin: 0.75rem 0;
+  padding: 0.85rem 1rem;
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-divider);
   border-radius: 12px;
-  margin: 1rem 0 3rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
 }
-
-.hero-content h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  background: linear-gradient(120deg, var(--vp-c-brand) 0%, var(--vp-c-brand-light) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.hero-tagline {
-  font-size: 1.2rem;
-  color: var(--vp-c-text-2);
-  margin: 0;
-}
-
-.prefabs-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1rem;
-  margin: 1.5rem 0;
-}
-
-.prefab-card {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1.25rem;
-  background: var(--vp-c-bg);
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 8px;
-  transition: all 0.3s ease;
-}
-
-.prefab-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-color: var(--vp-c-brand);
-}
-
-.prefab-icon {
-  font-size: 1.5rem;
-  padding: 0.75rem;
-  background: var(--vp-c-bg-soft);
-  border-radius: 8px;
-}
-
-.prefab-content h3 {
-  margin: 0 0 0rem;
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-.prefab-content p {
-  margin: 0;
-  font-size: 0.9rem;
-  color: var(--vp-c-text-2);
-}
-
-.setup-steps {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  margin: 2rem 0;
-}
-
-.step-card {
-  position: relative;
-  padding: 1.5rem;
-  background: var(--vp-c-bg-soft);
-  border-radius: 10px;
-  border: 1px solid var(--vp-c-divider);
-}
-
-.step-number {
-  position: absolute;
-  top: -1rem;
-  left: -1rem;
-  width: 2rem;
-  height: 2rem;
-  background: var(--vp-c-brand-dark, #0952af);
-  color: white;
-  font-weight: 600;
-  font-size: 1.1rem;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-}
-
-.step-content h3 {
-  margin: 0 0 0.75rem;
-  color: var(--vp-c-text-1);
-}
-
-.step-content p {
-  margin: 0;
-  color: var(--vp-c-text-2);
-}
-
-.step-note {
-  margin-top: 0.75rem;
-  padding: 0.5rem;
-  background: var(--vp-c-bg);
-  border-radius: 6px;
-  font-size: 0.9rem;
-}
-
-.prefab-types {
-  margin: 0.75rem 0 0;
-  padding-left: 1.25rem;
-}
-
-.prefab-types li {
-  margin: 0.25rem 0;
-  color: var(--vp-c-text-2);
-}
-
-.components-page h1 {
-  margin-bottom: 0;
-}
-
-.components-page h2 {
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-}
-
-.components-page .loading {
-  text-align: center;
-  padding: 2rem;
-  color: var(--vp-c-text-2);
-}
-
-.components-page .error-message {
-  color: var(--vp-c-danger);
-  padding: 1rem;
-  border: 1px solid var(--vp-c-danger);
-  border-radius: 6px;
-  margin: 1rem 0;
-}
-
-.components-page .script-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 0.5rem;
-  background: var(--vp-c-bg-soft);
-  border-radius: 8px;
-  padding: 1rem;
-  margin: 1rem 0;
-}
-
-.components-page .script-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem;
-  background: var(--vp-c-bg);
-  border-radius: 4px;
-  font-family: monospace;
-}
-
-.components-page .script-icon {
-  opacity: 0.7;
-}
-
-.components-page .feature-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1rem;
-  margin: 1rem 0;
-}
-
-.components-page .feature-card {
-  padding: 1rem;
-  background: var(--vp-c-bg-soft);
-  border-radius: 8px;
-  text-align: center;
-}
-
-.components-page .feature-title {
-  font-weight: 500;
-  color: var(--vp-c-text-2);
-}
-
-.components-page .feature-value {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin: 0.5rem 0;
-  color: var(--vp-c-brand);
-}
-
-.components-page .feature-note {
-  font-size: 0.9rem;
-  color: var(--vp-c-text-2);
-}
-
-/* Override global styles */
-.components-page hr {
+.setting-card:hover {
+  transform: translateY(-1px);
   border-color: var(--vp-c-divider);
-  margin: 2rem 0;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
-
-.components-page h3 {
-  color: var(--vp-c-text-1);
-  margin: 1.5rem 0 1rem;
-}
-
-.components-page ul {
-  margin: 1rem 0;
-  padding-left: 1.5rem;
-}
-
-.components-page li {
-  color: var(--vp-c-text-1);
-  margin: 0.5rem 0;
-}
-
-/* Style sections */
-.components-page .overview {
-  background: var(--vp-c-bg-soft);
-  border-radius: 8px;
-  padding: 1rem;
-  margin: 1rem 0;
-}
-
-.components-page .key-features {
+.getting-started-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1rem;
-  margin: 1rem 0;
+  margin: 1rem 0 1.5rem;
 }
-
-.components-page .inspector-settings {
-  background: var(--vp-c-bg-soft);
-  border-radius: 8px;
+.getting-started-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin: 0;
   padding: 1rem;
-  margin: 1rem 0;
-}
-
-.component-section {
-  margin: 2.5rem 0;
-  padding: 1.5rem;
-  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-divider);
   border-radius: 12px;
-  border: 1px solid var(--vp-c-divider);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
 }
-
-.component-header {
-  margin-bottom: 2rem;
+.getting-started-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--vp-c-divider);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
-
-.component-title {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 0.5rem;
-}
-
-.component-icon {
-  font-size: 1.5rem;
-  padding: 0.75rem;
-  background: var(--vp-c-bg);
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.component-description {
+.getting-started-card__step {
+  display: inline-flex;
+  align-self: flex-start;
+  padding: 0.3rem 0.65rem;
+  border-radius: 6px;
+  background: var(--vp-c-bg-alt);
   color: var(--vp-c-text-2);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.getting-started-card h3 {
+  margin: 0;
+  color: var(--vp-c-text-1);
   font-size: 1.1rem;
-  margin-left: calc(2.25rem + 1rem);
 }
-
-.demo-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
-  margin: 1.5rem 0;
-}
-
-.demo-container.single {
-  grid-template-columns: 1fr;
-  max-width: 800px;
-  margin: 1.5rem auto;
-}
-
-.demo-tabs {
-  background: var(--vp-c-bg);
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid var(--vp-c-divider);
-}
-
-.demo-tab-header {
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid var(--vp-c-divider);
-}
-
-.demo-tab-header h4 {
+.getting-started-card p {
   margin: 0;
+  color: var(--vp-c-text-2);
+}
+.getting-started-card__link {
+  font-weight: 700;
+  text-decoration: none;
+}
+.getting-started-card__link:hover {
+  text-decoration: underline;
+}
+.getting-started-card__note {
+  padding-top: 0.65rem;
+  border-top: 1px dashed var(--vp-c-divider);
+  font-size: 0.92rem;
+}
+.setting-card strong {
   color: var(--vp-c-text-1);
 }
-
-.demo-tabs video {
-  width: 100%;
+.setting-card .req {
+  color: var(--pjkt-yellow, #FFE400);
+  font-size: 0.85em;
+  font-weight: 600;
+  margin-left: 0.5em;
+}
+.demo-gallery {
+  display: grid;
+  gap: 0.875rem;
+  margin: 1rem 0;
+}
+.demo-gallery--double {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+.demo-card {
+  margin: 0;
+  padding: 0.85rem;
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+.demo-card:hover,
+.demo-card:focus-within {
+  transform: translateY(-2px);
+  border-color: var(--vp-c-divider);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+.demo-card:focus-within {
+  grid-column: 1 / -1;
+}
+.demo-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin-bottom: 0.65rem;
+}
+.demo-card__meta strong {
+  color: var(--vp-c-text-1);
+}
+.demo-card__meta span {
+  color: var(--vp-c-text-2);
+  font-size: 0.9rem;
+}
+.demo-video {
   display: block;
+  width: 100%;
+  max-width: min(100%, 15rem);
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  background: #000;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.24);
+  transition: max-width 0.22s ease, box-shadow 0.22s ease;
 }
-
-.settings-panel {
-  margin: 2rem 0;
-  padding: 1.5rem;
-  background: var(--vp-c-bg);
-  border-radius: 8px;
+.demo-card:focus-within .demo-video {
+  max-width: 100%;
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.3);
 }
-
-.settings-panel h4 {
-  margin: 0 0 1rem;
-  color: var(--vp-c-text-1);
-}
-
-.settings-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
-}
-
-.setting-item {
-  padding: 1rem;
-  background: var(--vp-c-bg-soft);
-  border-radius: 6px;
-}
-
-.setting-name {
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
-.setting-desc {
-  color: var(--vp-c-text-2);
-  font-size: 0.9rem;
-}
-
-.component-tip {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-top: 1.5rem;
-  padding: 1rem;
-  background: var(--vp-c-bg);
-  border-radius: 6px;
-  border-left: 4px solid var(--vp-c-brand);
-}
-
-.tip-icon {
-  font-size: 1.2rem;
-}
-
-.tip-text {
-  color: var(--vp-c-text-2);
-  font-size: 0.95rem;
-}
-
-.state-options {
-  margin: 1.5rem 0;
-  padding: 1.5rem;
-  background: var(--vp-c-bg);
-  border-radius: 8px;
-}
-
-.state-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.state-item {
-  padding: 1rem;
-  background: var(--vp-c-bg-soft);
-  border-radius: 6px;
-}
-
-.state-name {
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
-.state-desc {
-  color: var(--vp-c-text-2);
-  font-size: 0.9rem;
-}
-
-.troubleshooting-section {
-  margin: 2.5rem 0;
-}
-
-.trouble-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-}
-
-.trouble-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  padding: 1.25rem;
-  background: var(--vp-c-bg-soft);
-  border-radius: 8px;
-  border: 1px solid var(--vp-c-divider);
-}
-
-.trouble-icon {
-  font-size: 1.5rem;
-}
-
-.trouble-content h4 {
-  margin: 0 0 0.5rem;
-  color: var(--vp-c-text-1);
-}
-
-.trouble-content p {
-  margin: 0;
-  color: var(--vp-c-text-2);
-  font-size: 0.95rem;
-}
-
-@media (max-width: 640px) {
-  .components-page h1 {
-    font-size: 1.8rem;
-  }
-  
-  .components-page h2 {
-    font-size: 1.4rem;
-  }
-  
-  .prefabs-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .step-card {
-    margin-left: 1rem;
-  }
-  
-  .component-section {
-    padding: 1rem;
-  }
-  
-  .component-description {
-    margin-left: 0;
-    margin-top: 1rem;
-  }
-  
-  .settings-grid,
-  .state-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .trouble-grid {
-    grid-template-columns: 1fr;
+@media (prefers-reduced-motion: reduce) {
+  .getting-started-card,
+  .demo-card,
+  .demo-video {
+    transition: none;
   }
 }
 </style>
-
-</div>

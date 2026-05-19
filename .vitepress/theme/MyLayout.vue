@@ -1,19 +1,12 @@
 <script setup lang="ts">
 import DefaultTheme from 'vitepress/theme'
 import { useData } from 'vitepress'
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, watch, onUnmounted } from 'vue'
 import Glowsticks from './components/Glowsticks.vue'
 import EventCountdown from './components/EventCountdown.vue'
 import WIPBubble from './components/WIPBubble.vue'
 import FlyingBird from '../../components/FlyingBird.vue'
 import NeonCursor from './components/NeonCursor.vue'
-
-interface Bird {
-  x: number
-  y: number
-  delay: number
-  size: number
-}
 
 interface BirdPosition {
   x: number
@@ -27,7 +20,7 @@ interface BirdPosition {
 }
 
 const { Layout } = DefaultTheme
-const { frontmatter } = useData()
+const { frontmatter, page } = useData()
 
 // Bird emojis array
 const birdEmojis = ['🐦', '🦜', '🦤', '🦚', '🦃', '🦢', '🦅', '🦆', '🦉']
@@ -35,11 +28,11 @@ const birdEmojis = ['🐦', '🦜', '🦤', '🦚', '🦃', '🦢', '🦅', '�
 // 404 page logic
 const birds = ref<BirdPosition[]>([])
 const messages = [
-  "This bird took your page away! 🐦",
-  "Looks like our cyber-pigeon got lost...",
-  "Tweet tweet... page not found!",
-  "This nest is empty!",
-  "Our binary birds couldn't fetch this page"
+  "A bird grabbed this page and flew off. Classic. 🐦",
+  "Wrong nest. Whatever you were looking for lives elsewhere.",
+  "This page migrated south. Permanently.",
+  "You found the void between pages. Congrats?",
+  "The birds here refuse to answer for this."
 ]
 const currentMessage = ref(messages[Math.floor(Math.random() * messages.length)])
 
@@ -85,28 +78,54 @@ const goBack = () => {
   }
 }
 
-onMounted(() => {
+let cleanupListeners: (() => void) | null = null
+
+const attachBirdListeners = () => {
+  if (typeof window === 'undefined') return
+  if (cleanupListeners) return
   window.addEventListener('mousemove', onDrag)
   window.addEventListener('mouseup', endDrag)
   window.addEventListener('touchmove', onDrag)
   window.addEventListener('touchend', endDrag)
 
-  for (let i = 0; i < 5; i++) {
-    birds.value.push({
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      delay: Math.random() * 2,
-      size: Math.random() * 20 + 20,
-      emoji: selectBirdEmoji()
-    })
+  if (birds.value.length === 0) {
+    for (let i = 0; i < 5; i++) {
+      birds.value.push({
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        delay: Math.random() * 2,
+        size: Math.random() * 20 + 20,
+        emoji: selectBirdEmoji()
+      })
+    }
   }
-})
+
+  cleanupListeners = () => {
+    window.removeEventListener('mousemove', onDrag)
+    window.removeEventListener('mouseup', endDrag)
+    window.removeEventListener('touchmove', onDrag)
+    window.removeEventListener('touchend', endDrag)
+  }
+}
+
+const detachBirdListeners = () => {
+  cleanupListeners?.()
+  cleanupListeners = null
+}
+
+watch(() => page.value.isNotFound, (isNotFound) => {
+  if (typeof window === 'undefined') return
+  if (isNotFound) {
+    attachBirdListeners()
+  } else {
+    detachBirdListeners()
+    birds.value = []
+    activeBird = null
+  }
+}, { immediate: true })
 
 onUnmounted(() => {
-  window.removeEventListener('mousemove', onDrag)
-  window.removeEventListener('mouseup', endDrag)
-  window.removeEventListener('touchmove', onDrag)
-  window.removeEventListener('touchend', endDrag)
+  detachBirdListeners()
 })
 </script>
 
@@ -132,37 +151,31 @@ onUnmounted(() => {
     <!-- Add 404 page slot -->
     <template #not-found>
       <div class="not-found-container">
+        <div class="bg-number" aria-hidden="true">404</div>
+        <div class="bird-container">
+          <div v-for="(bird, index) in birds"
+               :key="index"
+               class="bird"
+               :class="{ 'dragging': bird.isDragging }"
+               :style="{
+                 '--x': bird.x + '%',
+                 '--y': bird.y + '%',
+                 '--delay': bird.delay + 's',
+                 '--size': bird.size + 'px'
+               }"
+               @mousedown.prevent="startDrag(bird, $event)"
+               @touchstart.prevent="startDrag(bird, $event)"
+               @touchmove.prevent>{{ bird.emoji }}</div>
+        </div>
         <div class="not-found">
-          <h1 class="not-found-heading">4🦜4</h1>
+          <h1 class="not-found-heading" aria-label="Page not found — 404">4🦜4</h1>
           <p class="message">{{ currentMessage }}</p>
-          <div class="wip-warning">
-            <span class="wip-icon">⚠️</span>
-            This site is under construction
-          </div>
-          <div class="bird-container">
-            <div v-for="(bird, index) in birds" 
-                 :key="index" 
-                 class="bird"
-                 :class="{ 'dragging': bird.isDragging }"
-                 :style="{
-                   '--x': bird.x + '%',
-                   '--y': bird.y + '%',
-                   '--delay': bird.delay + 's',
-                   '--size': bird.size + 'px'
-                 }"
-                 @mousedown.prevent="startDrag(bird, $event)"
-                 @touchstart.prevent="startDrag(bird, $event)"
-                 @touchmove.prevent>{{ bird.emoji }}</div>
-          </div>
-          <div class="button-group">
-            <button class="vp-button brand" @click="goBack">
-              <i class="fas fa-arrow-left"></i>
-              <span>Go Back</span>
-            </button>
-            <a class="vp-button brand" href="/">
-              <i class="fas fa-home"></i>
-              <span>Fly Home</span>
-            </a>
+          <div class="footer-row">
+            <span class="wip-badge">⚠️ Still building. Pages may be missing.</span>
+            <div class="button-group">
+              <button class="vp-button brand" @click="goBack">← Back</button>
+              <a class="vp-button brand" href="/">Fly Home</a>
+            </div>
           </div>
         </div>
       </div>
@@ -174,63 +187,68 @@ onUnmounted(() => {
 .not-found-container {
   min-height: calc(100vh - var(--vp-nav-height));
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   position: relative;
-  padding: 2rem;
+  padding: 2rem 8vw;
   box-sizing: border-box;
+  overflow: hidden;
+}
+
+.bg-number {
+  position: absolute;
+  right: -2vw;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: clamp(200px, 30vw, 440px);
+  font-weight: 900;
+  color: rgba(255, 228, 0, 0.04);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  font-family: var(--vp-font-family-headings);
 }
 
 .not-found {
-  text-align: center;
   position: relative;
-  overflow: visible;
+  z-index: 2;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
+  align-items: flex-start;
+  gap: 0.25rem;
+  max-width: 560px;
 }
 
 .not-found-heading {
-  font-size: 120px;
+  font-size: clamp(72px, 11vw, 140px);
   margin: 0;
   padding: 0;
   line-height: 1;
-  background: linear-gradient(315deg, var(--pjkt-purple) 25%, var(--pjkt-cyan));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 15px var(--pjkt-cyan));
-  animation: pulse 2s infinite;
+  color: var(--pjkt-yellow);
+  filter: drop-shadow(0 0 20px rgba(255, 228, 0, 0.5));
   font-family: var(--vp-font-family-headings);
 }
 
 .message {
-  font-size: 24px;
-  margin: 20px 0 40px;
-  color: var(--pjkt-cyan);
-  text-shadow: 0 0 10px var(--pjkt-cyan);
+  font-size: 17px;
+  margin: 10px 0 0;
+  color: rgba(255, 255, 255, 0.55);
+  letter-spacing: 0.01em;
 }
 
-.wip-warning {
-  background: linear-gradient(45deg, rgba(255, 166, 0, 0.2), rgba(255, 217, 0, 0.2));
-  border: 2px solid var(--pjkt-yellow);
-  padding: 8px 16px;
-  border-radius: 8px;
-  color: var(--pjkt-yellow);
-  font-weight: 600;
+.footer-row {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 1rem;
-  box-shadow: 0 0 15px rgba(255, 228, 0, 0.2);
-  animation: wiggle 10s ease-in-out infinite;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.875rem;
+  margin-top: 1.75rem;
 }
 
-.wip-icon {
-  font-size: 1.2em;
+.wip-badge {
+  font-size: 13px;
+  color: rgba(255, 228, 0, 0.6);
+  letter-spacing: 0.02em;
 }
 
 .bird-container {
@@ -243,6 +261,7 @@ onUnmounted(() => {
   left: 50%;
   transform: translate(-50%, -50%);
   cursor: default;
+  z-index: 1;
 }
 
 .bird {
@@ -257,6 +276,15 @@ onUnmounted(() => {
   transform-origin: center;
   will-change: transform, filter;
   transform: translate(var(--drag-x, 0), var(--drag-y, 0));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bird {
+    animation: none;
+  }
+  .bird:not(.dragging) {
+    transition: none;
+  }
 }
 
 .bird:not(.dragging) {
@@ -286,125 +314,75 @@ onUnmounted(() => {
     translate: 0 0;
     rotate: 5deg;
     scale: 1;
-    filter: drop-shadow(0 0 10px var(--pjkt-yellow))
-           drop-shadow(0 0 20px rgba(255, 228, 0, 0.4));
   }
   25% {
     translate: 50px -30px;
     rotate: -10deg;
     scale: 1.1;
-    filter: drop-shadow(0 0 15px var(--pjkt-cyan))
-           drop-shadow(0 0 25px rgba(0, 198, 255, 0.5));
   }
   50% {
     translate: -30px 50px;
     rotate: 15deg;
     scale: 0.9;
-    filter: drop-shadow(0 0 12px var(--pjkt-purple))
-           drop-shadow(0 0 22px rgba(160, 4, 255, 0.4));
   }
   75% {
     translate: -50px -50px;
     rotate: -5deg;
     scale: 1.05;
-    filter: drop-shadow(0 0 13px var(--pjkt-yellow))
-           drop-shadow(0 0 23px rgba(255, 228, 0, 0.5));
   }
 }
-
-@keyframes pulse {
-  0%, 100% {
-    filter: drop-shadow(0 0 15px var(--pjkt-cyan));
-  }
-  50% {
-    filter: drop-shadow(0 0 30px var(--pjkt-purple));
-  }
-}
-
-@keyframes wiggle {
-  0%, 100% { transform: rotate(-1deg); }
-  50% { transform: rotate(1deg); }
-}
-
 .vp-button.brand {
-  font-size: 20px;
-  padding: 12px 32px;
-  border-radius: 8px;
+  font-size: 15px;
+  padding: 9px 22px;
+  border-radius: 6px;
   text-decoration: none;
   position: relative;
-  overflow: hidden;
-  transition: all 0.3s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
   z-index: 1;
   background: var(--pjkt-yellow);
   color: var(--pjkt-black);
-  font-weight: 600;
-  border: 2px solid transparent;
-  box-shadow: 0 0 20px rgba(255, 228, 0, 0.3),
-              inset 0 0 10px rgba(255, 228, 0, 0.2);
+  font-weight: 700;
+  border: none;
+  box-shadow: 0 2px 14px rgba(255, 228, 0, 0.2);
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  animation: buttonPulse 3s infinite;
+  cursor: pointer;
 }
 
-.vp-button.brand i {
-  font-size: 0.9em;
+@media (prefers-reduced-motion: no-preference) {
+  .vp-button.brand:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(255, 228, 0, 0.35);
+  }
 }
 
-.vp-button.brand::before {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  background: linear-gradient(45deg, var(--pjkt-cyan), var(--pjkt-purple));
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.vp-button.brand:hover {
-  transform: translateY(-2px) scale(1.05);
-  color: var(--pjkt-white);
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
-  box-shadow: 0 0 30px rgba(255, 228, 0, 0.4),
-              inset 0 0 15px rgba(255, 228, 0, 0.3);
-}
-
-.vp-button.brand:hover::before {
-  opacity: 1;
+@media (prefers-reduced-motion: reduce) {
+  .vp-button.brand:hover {
+    box-shadow: 0 0 0 2px var(--pjkt-yellow);
+  }
 }
 
 .vp-button.brand:active {
-  transform: translateY(1px) scale(0.98);
-  box-shadow: 0 0 15px rgba(255, 228, 0, 0.3),
-              inset 0 0 5px rgba(255, 228, 0, 0.2);
-}
-
-@keyframes buttonPulse {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(255, 228, 0, 0.3),
-                inset 0 0 10px rgba(255, 228, 0, 0.2);
-  }
-  50% {
-    box-shadow: 0 0 30px rgba(255, 228, 0, 0.4),
-                inset 0 0 15px rgba(255, 228, 0, 0.3);
-  }
+  transform: translateY(0);
+  box-shadow: 0 1px 8px rgba(255, 228, 0, 0.2);
 }
 
 .button-group {
   display: flex;
-  gap: 1rem;
-  justify-content: center;
+  gap: 0.625rem;
+  justify-content: flex-start;
   align-items: center;
-  margin-top: 1rem;
 }
 
 @media (max-width: 640px) {
-  .not-found-heading {
-    font-size: 80px;
+  .not-found-container {
+    padding: 2rem 6vw;
+    justify-content: center;
   }
-  
-  .message {
-    font-size: 20px;
+
+  .bg-number {
+    right: -8vw;
+    color: rgba(255, 228, 0, 0.025);
   }
 }
 </style>

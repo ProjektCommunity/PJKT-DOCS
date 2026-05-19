@@ -2,19 +2,13 @@
 
 <div class="guide-page">
 
-## 🚧 Work In Progress 🚧
-
-<div class="wip-notice">
-  <div class="wip-icon">🏗️</div>
-  <div class="wip-content">
-    <h3>This documentation is currently under construction</h3>
-    <p>We're working hard to complete this guide. Please check back soon for updates!</p>
-  </div>
-</div>
+::: warning Work In Progress
+This documentation is still being completed. The steps below cover the current workflow but some image slot details are pending.
+:::
 
 ## Introduction
 
-The Web Booth Creator is an tool that will allow you to create and customize PJKT booths directly through your web browser, without needing Unity experience.
+The Web Booth Creator lets you create and customise PJKT booths directly in your browser — no Unity experience needed. You upload images for each slot in the booth template and the tool assembles the result.
 
 ## Getting Started with the Editor
 
@@ -24,9 +18,9 @@ The Web Booth Creator is an tool that will allow you to create and customize PJK
   <div class="step-card">
     <div class="step-icon">🌐</div>
     <div class="step-content">
-      <h4>0. Access the Booth Editor</h4>
+      <h4>Step 1 — Access the Booth Editor</h4>
       <div class="step-details">
-        <p>Go to <a href="https://booth.projektcommunity.com/" target="_blank">https://booth.projektcommunity.com/</a> to access the web booth editor.</p>
+        <p>Go to <a href="https://booth.projektcommunity.com/" target="_blank">https://booth.projektcommunity.com/</a> to open the web booth editor.</p>
       </div>
     </div>
   </div>
@@ -34,14 +28,13 @@ The Web Booth Creator is an tool that will allow you to create and customize PJK
   <div class="step-card">
     <div class="step-icon">🔑</div>
     <div class="step-content">
-      <h4>1. Login to the Editor</h4>
+      <h4>Step 2 — Log In</h4>
       <div class="step-details">
-        <p class="step-warning">⚠️ Note: The Unity application may take a moment to load when you first open it.</p>
         <div class="step-progress">
           <span class="progress-item">① Enter your registered email</span>
-          <span class="progress-item">② Type your password</span>
-          <span class="progress-item">③ Click "Login"</span>
-          <span class="progress-success">✓ Success: You'll see your username with "Logout" and "Upload Your Images Here!" options</span>
+          <span class="progress-item">② Enter your password</span>
+          <span class="progress-item">③ Click <strong>Login</strong></span>
+          <span class="progress-success">✓ You'll see your username and the image upload panel</span>
         </div>
       </div>
     </div>
@@ -50,16 +43,8 @@ The Web Booth Creator is an tool that will allow you to create and customize PJK
   <div class="step-card">
     <div class="step-icon">🎯</div>
     <div class="step-content">
-      <h4>2. Choose Your Images</h4>
-      <p>In the right panel, locate the image slots you want to customize (e.g., "TOP BANNER", "NEON ORNAMENT", "LEFT POSTER") and click "Choose File" next to each one.</p>
-    </div>
-  </div>
-
-  <div class="step-card">
-    <div class="step-icon">📐</div>
-    <div class="step-content">
-      <h4>3. Check Requirements</h4>
-      <p>Ensure your images meet the size requirements for each slot (e.g., "3242x432" for banners) to prevent stretching.</p>
+      <h4>Step 3 — Upload Your Images</h4>
+      <p>In the right panel, locate each image slot and click <strong>Choose File</strong> to pick your image. Each slot has a required pixel size — see the table below.</p>
     </div>
   </div>
 
@@ -72,75 +57,43 @@ The Web Booth Creator is an tool that will allow you to create and customize PJK
   </div>
 </div>
 
-## 🎉 Congratulations!
+## 🖼️ Image Slots
 
-  <div class="success-content">
-    <h3>Your booth is now Ready!</h3>
+Each slot in the booth template has a fixed pixel size. Images that do not match will be stretched.
+
+::: tip
+Use the "DOWNLOAD TEMPLATE IMAGES" button to download a zip file with correctly sized placeholder images for each slot. You can design your booth by replacing these placeholders with your own images in your design tool, then export at the same pixel dimensions.
+:::
+
+## 📁 Image Requirements
+
+- **Accepted formats:** PNG, JPG
+- **Colour space:** sRGB
+- **Match the pixel dimensions shown for each slot**
+
+## ❓ Troubleshooting
+
+<div class="trouble-grid">
+  <div class="trouble-item">
+    <div class="trouble-icon">🔴</div>
+    <div class="trouble-content">
+      <h4>Images look stretched</h4>
+      <p>Your image does not match the required slot dimensions. Export from your design tool at the exact pixel size shown next to that slot's file picker.</p>
+    </div>
   </div>
+  <div class="trouble-item">
+    <div class="trouble-icon">💬</div>
+    <div class="trouble-content">
+      <h4>Still stuck?</h4>
+      <p>Ask in the representative channels of the PJKT Discord.</p>
+    </div>
+  </div>
+</div>
 
 <style scoped>
 .guide-page {
   width: 100%;
   max-width: 100%;
-}
-
-.wip-notice {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 2rem;
-  background: var(--vp-c-warning-soft);
-  border-radius: 12px;
-  border: 1px solid var(--vp-c-warning);
-  margin: 2rem 0;
-}
-
-.wip-icon {
-  font-size: 2.5rem;
-}
-
-.wip-content h3 {
-  margin: 0 0 0.5rem;
-  color: var(--vp-c-warning-dark);
-}
-
-.wip-content p {
-  margin: 0;
-  color: var(--vp-c-text-2);
-}
-
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-  margin: 2rem 0;
-}
-
-.feature-card {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  padding: 1.5rem;
-  background: var(--vp-c-bg-soft);
-  border-radius: 8px;
-  border: 1px solid var(--vp-c-divider);
-}
-
-.feature-icon {
-  font-size: 1.5rem;
-  padding: 0.75rem;
-  background: var(--vp-c-bg);
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.feature-content h3 {
-  margin: 0 0 0.5rem;
-}
-
-.feature-content p {
-  margin: 0;
-  color: var(--vp-c-text-2);
 }
 
 .steps-container {
@@ -166,6 +119,7 @@ The Web Booth Creator is an tool that will allow you to create and customize PJK
   background: var(--vp-c-bg);
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  flex-shrink: 0;
 }
 
 .step-content {
@@ -180,15 +134,6 @@ The Web Booth Creator is an tool that will allow you to create and customize PJK
 .step-content p {
   margin: 0;
   color: var(--vp-c-text-2);
-}
-
-.step-warning {
-  padding: 0.5rem 0.75rem;
-  background: var(--vp-c-warning-soft);
-  border-left: 3px solid var(--vp-c-warning);
-  border-radius: 4px;
-  color: var (--vp-c-text-1);
-  font-size: 0.9rem;
 }
 
 .step-details {
@@ -219,32 +164,53 @@ The Web Booth Creator is an tool that will allow you to create and customize PJK
   border-top: 1px dashed var(--vp-c-divider);
 }
 
-@media (max-width: 640px) {
-  .wip-notice {
-    flex-direction: column;
-    text-align: center;
-    padding: 1.5rem;
-  }
+.trouble-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
 
+.trouble-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: var(--vp-c-bg-soft);
+  border-radius: 8px;
+  border: 1px solid var(--vp-c-divider);
+}
+
+.trouble-icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.trouble-content h4 {
+  margin: 0 0 0.5rem;
+  color: var(--vp-c-text-1);
+}
+
+.trouble-content p {
+  margin: 0;
+  color: var(--vp-c-text-2);
+  font-size: 0.95rem;
+}
+
+@media (max-width: 640px) {
   .step-card {
     flex-direction: column;
-    text-align: center;
-    padding: 1.5rem;
   }
 
   .step-icon {
-    margin: 0 auto;
+    margin: 0;
   }
 
-  .step-progress {
-    align-items: center;
-    border-left: none;
-    border-top: 2px solid var(--vp-c-divider);
-    padding-left: 0;
-    padding-top: 0.5rem;
-    margin-top: 0.75rem;
+  .trouble-grid {
+    grid-template-columns: 1fr;
   }
 }
 </style>
 
 </div>
+

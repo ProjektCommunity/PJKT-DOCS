@@ -46,37 +46,39 @@ onMounted(() => {
         </div>
       </div>
 
-## 🎨 Need a booth? Choose Your Path:
+## Create Your Booth
 
-<div class="options-grid">
-  <div class="option-card web-booth">
-    <div class="option-icon">🌐</div>
-    <div class="option-content">
+<div class="booth-choice">
+  <!-- Primary: Web Booth Creator -->
+  <div class="booth-card web-booth">
+    <div class="booth-icon">🌐</div>
+    <div class="booth-header">
       <h3>Web Booth Creator</h3>
-      <p class="option-desc">For those who value their sanity and free time</p>
-      <ul class="feature-list">
-        <li>✨ No coding experience required</li>
-        <li>🎯 Simple web-based interface</li>
-        <li>⚡ Quick setup and customization</li>
-        <li>🧘‍♂️ Zero Unity-induced headaches</li>
-      </ul>
-      <a href="/booths/web-booth-creator" class="action-button web-button">Choose Peace of Mind</a>
+      <p class="booth-tagline">For those who want a booth without the hassle</p>
     </div>
+    <ul class="booth-features">
+      <li>✨ No coding experience, we gotchu</li>
+      <li>🎯 All done on the web</li>
+      <li>⚡ Quick setup</li>
+      <li>🧘‍♂️ Zero Unity-induced pain</li>
+    </ul>
+    <a href="/booths/web-booth-creator" class="booth-cta web-cta">Choose Peace of Mind</a>
   </div>
 
-  <div class="option-card sdk-booth">
-    <div class="option-icon">💻</div>
-    <div class="option-content">
+  <!-- Secondary: PJKT SDK -->
+  <div class="booth-card sdk-booth">
+    <div class="booth-icon">💻</div>
+    <div class="booth-header">
       <h3>PJKT SDK</h3>
-      <p class="option-desc">For the brave souls who enjoy debugging Unity at 3 AM</p>
-      <ul class="feature-list">
-        <li>🎨 Complete customization freedom</li>
-        <li>🔧 Advanced interactive features</li>
-        <li>🎮 Full Unity power (and its quirks)</li>
-        <li>☕ Recommended caffeine intake: High</li>
-      </ul>
-      <a href="/booths/getting-started-with-sdk" class="action-button sdk-button">Embrace the Challenge</a>
+      <p class="booth-tagline">Brave souls who enjoy debugging Unity at 3 AM</p>
     </div>
+    <ul class="booth-features">
+      <li>🎨 Complete customization</li>
+      <li>🔧 Cool interactive features</li>
+      <li>🎮 Full Unity (and its pain)</li>
+      <li>☕ I would grab a coffee...</li>
+    </ul>
+    <a href="/booths/getting-started-with-sdk" class="booth-cta sdk-cta">Embrace the Challenge</a>
   </div>
 </div>
 
@@ -110,85 +112,6 @@ onMounted(() => {
   </div>
 </div>
 
-## 🌟 Featured Resources
-
-<div class="featured-grid">
-  <div class="featured-card">
-    <div class="featured-content">
-      <h3>📐 Booth Specifications</h3>
-      <p>Review the technical requirements and limitations for booth development</p>
-      <div class="featured-link">
-        <a href="/booths/specifications">View Specifications</a>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-## 📝 Documentation Structure
-
-The documentation is organized to help you quickly find what you need:
-
-<div class="structure-diagram">
-  <div class="structure-node root">
-    <div class="node-content">
-      <div class="node-icon">📚</div>
-      <div class="node-label">PJKT Documentation</div>
-    </div>
-    <div class="structure-branches">
-      <div class="structure-branch">
-        <div class="branch-line"></div>
-        <div class="structure-node">
-          <div class="node-content">
-            <div class="node-icon">ℹ️</div>
-            <div class="node-label">Info</div>
-          </div>
-          <div class="node-details">Basic information and onboarding guides</div>
-        </div>
-      </div>
-      <div class="structure-branch">
-        <div class="branch-line"></div>
-        <div class="structure-node">
-          <div class="node-content">
-            <div class="node-icon">🏪</div>
-            <div class="node-label">Booths</div>
-          </div>
-          <div class="node-details">Booth creation guides and technical specifications</div>
-        </div>
-      </div>
-      <!-- <div class="structure-branch">
-        <div class="branch-line"></div>
-        <div class="structure-node">
-          <div class="node-content">
-            <div class="node-icon">🧩</div>
-            <div class="node-label">Components</div>
-          </div>
-          <div class="node-details">Reusable UI and functional components</div>
-        </div>
-      </div> -->
-    </div>
-  </div>
-</div>
-
-## 📌 Need Help?
-
-<div class="help-container">
-  <div class="help-card">
-    <div class="help-icon">💬</div>
-    <div class="help-content">
-      <h3>Join Our Discord</h3>
-      <p>Connect with the community and get real-time assistance from our team</p>
-      <a href="https://discord.com/invite/pjkt" class="help-button" target="_blank">Join Discord</a>
-    </div>
-  </div>
-  <div class="help-card">
-    <div class="help-icon">🔍</div>
-    <div class="help-content">
-      <h3>Search Documentation</h3>
-      <p>Use the search feature at the top of the page to find specific topics</p>
-    </div>
-  </div>
-</div>
 
 </div>
 
@@ -532,21 +455,25 @@ The documentation is organized to help you quickly find what you need:
   color: var(--vp-c-bg) !important;
 }
 
-.options-grid {
+/* Booth choice layout */
+.booth-choice {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
   margin: 2rem 0;
+  align-items: stretch;
 }
 
-.option-card {
+.booth-card {
+  display: flex;
+  flex-direction: column;
   background: var(--vp-c-bg-soft);
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 2rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid var(--vp-c-divider);
   position: relative;
   overflow: hidden;
-  border: 1px solid var(--vp-c-divider);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .web-booth {
@@ -557,151 +484,134 @@ The documentation is organized to help you quickly find what you need:
   border-left: 4px solid var(--pjkt-purple);
 }
 
-.option-card:hover {
-  transform: translateY(-4px);
-}
-
 .web-booth:hover {
-  box-shadow: 0 8px 24px rgba(0, 198, 255, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 198, 255, 0.08);
 }
 
 .sdk-booth:hover {
-  box-shadow: 0 8px 24px rgba(160, 4, 255, 0.15);
+  box-shadow: 0 4px 20px rgba(160, 4, 255, 0.08);
 }
 
-.option-icon {
+.booth-badge {
+  display: inline-block;
+  padding: 0.35rem 0.85rem;
+  background: var(--pjkt-yellow);
+  color: var(--vp-c-black);
+  font-size: 0.7rem;
+  font-weight: 700;
+  border-radius: 4px;
+  margin-bottom: 1.25rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.booth-chip {
+  display: inline-block;
+  padding: 0.3rem 0.6rem;
+  background: var(--vp-c-bg-mute);
+  color: var(--vp-c-text-2);
+  font-size: 0.65rem;
+  font-weight: 600;
+  border-radius: 3px;
+  margin-bottom: 1.25rem;
+  border: 1px solid var(--vp-c-divider);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.booth-icon {
   font-size: 2.5rem;
-  margin-bottom: 1.5rem;
-  width: 70px;
-  height: 70px;
+  margin-bottom: 1.25rem;
+  width: 64px;
+  height: 64px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 12px;
-  transition: transform 0.3s ease, background-color 0.3s ease;
   background: var(--vp-c-bg);
 }
 
-.web-booth .option-icon {
+.web-booth .booth-icon {
   box-shadow: 0 0 0 2px rgba(0, 198, 255, 0.2);
 }
 
-.sdk-booth .option-icon {
+.sdk-booth .booth-icon {
   box-shadow: 0 0 0 2px rgba(160, 4, 255, 0.2);
 }
 
-.web-booth:hover .option-icon {
-  transform: scale(1.05);
-  background-color: rgba(0, 198, 255, 0.1);
-}
-
-.sdk-booth:hover .option-icon {
-  transform: scale(1.05);
-  background-color: rgba(160, 4, 255, 0.1);
-}
-
-.option-content h3 {
-  margin: 0 0 0.75rem;
+.booth-header h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.6rem;
+  font-weight: 800;
   color: var(--vp-c-text-1);
-  font-size: 1.8rem;
-  transition: color 0.3s ease;
+  letter-spacing: -0.02em;
 }
 
-.web-booth:hover h3 {
-  background: linear-gradient(90deg, var(--pjkt-cyan), #00ffc6);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  text-shadow: 0 2px 12px rgba(0, 198, 255, 0.2);
-}
-
-.sdk-booth:hover h3 {
-  background: linear-gradient(90deg, var(--pjkt-purple), #ff0080);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  text-shadow: 0 2px 12px rgba(160, 4, 255, 0.2);
-}
-
-.option-desc {
+.booth-tagline {
+  margin: 0;
+  font-size: 1rem;
   color: var(--vp-c-text-2);
-  margin-bottom: 1.5rem;
-  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1.4;
 }
 
-.feature-list {
+.booth-features {
   list-style: none;
   padding: 0;
-  margin: 0 0 2rem;
+  margin: 1.5rem 0;
+  flex-grow: 1;
 }
 
-.feature-list li {
-  margin: 0.75rem 0;
+.booth-features li {
+  margin: 0.6rem 0;
   color: var(--vp-c-text-1);
+  font-size: 0.95rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.action-button {
-  display: inline-block;
-  padding: 0.8rem 1.6rem;
+.booth-cta {
+  display: block;
+  padding: 0.9rem 1.5rem;
   border-radius: 8px;
   text-decoration: none;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  text-shadow: none;
-  background-color: var(--vp-c-brand);
-  color: var(--vp-c-bg) !important;
-  border: 1px solid transparent;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-align: center;
+  transition: all 0.2s ease;
+  margin-top: auto;
 }
 
-.web-button {
+.web-cta {
   background: var(--pjkt-cyan);
-  color: var(--vp-c-black) !important;
+  color: var(--pjkt-black);
 }
 
-.sdk-button {
+.web-cta:hover {
+  background: #00b8e6;
+  color: var(--pjkt-black);
+  transform: translateY(-1px);
+}
+
+.sdk-cta {
   background: var(--pjkt-purple);
-  color: var(--vp-c-black) !important;
+  color: var(--pjkt-white);
 }
 
-.action-button:hover {
-  transform: translateY(-2px);
-  color: var(--vp-c-black); /* Ensuring high contrast on hover */
+.sdk-cta:hover {
+  background: #8a00d4;
+  color: var(--pjkt-white);
+  transform: translateY(-1px);
 }
 
-.web-button:hover {
-  box-shadow: 0 4px 12px rgba(0, 198, 255, 0.3);
-  background: linear-gradient(90deg, var(--pjkt-cyan), #00ffc6);
-}
-
-.sdk-button:hover {
-  box-shadow: 0 4px 12px rgba(160, 4, 255, 0.3);
-  background: linear-gradient(90deg, var(--pjkt-purple), #ff0080);
-}
-
-.action-button:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-}
-
-@media (max-width: 640px) {
-  .options-grid {
+@media (max-width: 768px) {
+  .booth-choice {
     grid-template-columns: 1fr;
   }
   
-  .option-card {
+  .booth-card {
     padding: 1.5rem;
-  }
-  
-  .option-icon {
-    width: 60px;
-    height: 60px;
-    font-size: 2rem;
-    margin-bottom: 1rem;
   }
 }
 

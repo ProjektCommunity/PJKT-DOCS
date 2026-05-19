@@ -13,7 +13,7 @@
       <p class="booth-tagline">For those who want a booth without the hassle</p>
     </div>
     <ul class="booth-features">
-      <li>✨ No coding experience, we gotchu</li>
+      <li>✨ No coding, we gotchu</li>
       <li>🎯 All done on the web</li>
       <li>⚡ Quick setup</li>
       <li>🧘‍♂️ Zero Unity-induced pain</li>

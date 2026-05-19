@@ -57,6 +57,17 @@ The Web Booth Creator lets you create and customise PJKT booths directly in your
   </div>
 </div>
 
+::: warning Upload buttons or 3D preview not Showing?
+If you don't see a 3D preview of your booth after uploading images, you may need to enable **Hardware acceleration** in your web browser:
+
+1. Open your browser settings
+2. Enable "Hardware acceleration" (or "Use hardware acceleration when available")
+3. **Restart your browser** completely after enabling this setting
+4. Return to the booth editor
+
+Most modern browsers require hardware acceleration, which the 3D preview depends on.
+:::
+
 ## 🖼️ Image Slots
 
 Each slot in the booth template has a fixed pixel size. Images that do not match will be stretched.

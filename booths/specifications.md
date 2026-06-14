@@ -34,6 +34,7 @@ const loading = ref(true)
 const error = ref(null)
 const eventName = ref('')
 const eventInfo = ref(null)
+const submissionsClosed = ref(false)
 
 const canvasRef = ref(null)
 let renderer, scene, camera, animationFrameId
@@ -315,6 +316,8 @@ onMounted(async () => {
     }
 
     const nextEvent = futureEvents[0]
+    // The event hasn't started yet, but its booth submission deadline may have already passed
+    submissionsClosed.value = new Date(nextEvent.booth_deadline_date) < now
     specs.value = nextEvent.booth_requirements
     eventName.value = nextEvent.name
     eventInfo.value = {
@@ -388,9 +391,10 @@ const formatNumber = (num) => num.toLocaleString()
                 <span class="icon">📅</span>
                 <span>Event: {{ eventInfo.startDate }} - {{ eventInfo.endDate }}</span>
             </div>
-            <div class="deadline">
-                <span class="icon">⏰</span>
-                <span>Booth submissions due: {{ eventInfo.deadline }}</span>
+            <div class="deadline" :class="{ 'deadline-closed': submissionsClosed }">
+                <span class="icon">{{ submissionsClosed ? '🔒' : '⏰' }}</span>
+                <span v-if="submissionsClosed">Booth submissions closed ({{ eventInfo.deadline }})</span>
+                <span v-else>Booth submissions due: {{ eventInfo.deadline }}</span>
             </div>
             <div v-if="eventInfo.preview" class="preview-info">
                 <a :href="eventInfo.preview" target="_blank" rel="noopener">
@@ -400,6 +404,11 @@ const formatNumber = (num) => num.toLocaleString()
             </div>
         </div>
     </div>
+</div>
+
+<div v-if="submissionsClosed" class="custom-block danger">
+    <p class="custom-block-title">🔒 Booth submissions closed</p>
+    <p>Booth submissions for <strong>{{ eventName }}</strong> are now closed. These specifications are shown for reference only. Keep an eye on our <a href="https://discord.com/invite/pjkt" target="_blank" rel="noopener">Discord</a> for the next opportunity to submit a booth.</p>
 </div>
 
 ::: warning IMPORTANT NOTE
@@ -733,6 +742,11 @@ If you are not sure how to set these flags, the SDK will automatically set them 
 
 .specifications-page .dates:hover, .deadline:hover {
   background: transparent;
+}
+
+.specifications-page .deadline-closed {
+  color: var(--vp-c-danger-1);
+  font-weight: 600;
 }
 
 .specifications-page .preview-info {

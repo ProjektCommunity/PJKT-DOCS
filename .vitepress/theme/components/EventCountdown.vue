@@ -21,16 +21,16 @@
           <span class="countdown-value">{{ eventName }}</span>
         </div>
         <div class="countdown-item" v-if="deadline">
-          <span class="countdown-label">Booth deadline:</span>
-          <span 
-            class="countdown-value" 
-            :class="{ 'countdown-urgent': timeDistance > 0 && timeDistance <= 7 * 24 * 60 * 60 * 1000 }"
+          <span class="countdown-label">{{ submissionsEnded ? 'Booth submissions:' : 'Booth deadline:' }}</span>
+          <span
+            class="countdown-value"
+            :class="{ 'countdown-urgent': !submissionsEnded && timeDistance > 0 && timeDistance <= 7 * 24 * 60 * 60 * 1000 }"
             data-tooltip
             role="tooltip"
             tabindex="0"
             aria-label="Full deadline date and time"
           >
-            {{ formattedDeadline }}
+            {{ submissionsEnded ? 'Submissions ended' : formattedDeadline }}
             <span class="tooltip" role="tooltip">{{ deadlineFormatted }}</span>
           </span>
         </div>
@@ -59,6 +59,7 @@ export default defineComponent({
     const eventName = ref('')
     const apiError = ref(false)
     const isLoading = ref(true)
+    const submissionsEnded = ref(false)
 
     const isHomePage = computed(() => route.path === '/')
     
@@ -66,6 +67,7 @@ export default defineComponent({
       try {
         isLoading.value = true
         apiError.value = false
+        submissionsEnded.value = false
         const response = await fetch('https://api.projektcommunity.com/projects', {
           mode: 'cors',
           headers: {
@@ -82,20 +84,24 @@ export default defineComponent({
         }
 
         const now = new Date()
+        let ended = false
         let nextEvent = data.projects
           .filter(p => p.booth_deadline_date && new Date(p.booth_deadline_date) > now && p.accepting_booth)
           .sort((a, b) => new Date(a.start_date) - new Date(b.start_date))[0]
 
         if (!nextEvent) {
+          // No upcoming deadlines — fall back to the most recent booth event (its deadline has already passed)
           nextEvent = data.projects
             .filter(p => p.accepting_booth && p.booth_deadline_date)
             .sort((a, b) => new Date(b.start_date) - new Date(a.start_date))[0]
+          ended = true
         }
 
         if (nextEvent && nextEvent.name && nextEvent.booth_deadline_date) {
           eventData.value = nextEvent
           eventName.value = nextEvent.name
           deadline.value = nextEvent.booth_deadline_date
+          submissionsEnded.value = ended
           updateCountdown()
         } else {
           eventName.value = ''
@@ -181,9 +187,15 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      fetchEventData()
+      const oneWeekInMs = 7 * 24 * 60 * 60 * 1000;
       let animationFrameId = null
       let normalInterval = null
+      let checkInterval = null
+
+      const stopTimers = () => {
+        if (animationFrameId) { cancelAnimationFrame(animationFrameId); animationFrameId = null }
+        if (normalInterval) { clearInterval(normalInterval); normalInterval = null }
+      }
 
       const updateWithAnimation = () => {
         updateCountdown()
@@ -191,55 +203,57 @@ export default defineComponent({
       }
 
       const startPreciseUpdates = () => {
-        if (normalInterval) {
-          clearInterval(normalInterval)
-          normalInterval = null
-        }
-        updateWithAnimation()
+        if (normalInterval) { clearInterval(normalInterval); normalInterval = null }
+        if (!animationFrameId) updateWithAnimation()
       }
 
       const startNormalUpdates = () => {
-        if (animationFrameId) {
-          cancelAnimationFrame(animationFrameId)
-          animationFrameId = null
-        }
+        if (animationFrameId) { cancelAnimationFrame(animationFrameId); animationFrameId = null }
         updateCountdown()
         normalInterval = setInterval(updateCountdown, 1000)
       }
 
+      fetchEventData()
+
       // Watch for loading state changes
       watch([isLoading, deadline], ([loading, newDeadline]) => {
-        if (!loading && newDeadline) {
-          const oneWeekInMs = 7 * 24 * 60 * 60 * 1000;
-          // Initial check for precise updates
-          if (timeDistance.value > 0 && timeDistance.value <= oneWeekInMs) {
+        // Tear down timers from any previous event before reconfiguring
+        stopTimers()
+        if (checkInterval) { clearInterval(checkInterval); checkInterval = null }
+
+        if (loading || !newDeadline) return
+
+        // Submissions already closed — show the ended state, run no countdown (avoids the refetch loop)
+        if (submissionsEnded.value || timeDistance.value <= 0) return
+
+        if (timeDistance.value <= oneWeekInMs) {
+          startPreciseUpdates();
+        } else {
+          startNormalUpdates();
+        }
+
+        checkInterval = setInterval(() => {
+          if (timeDistance.value <= 0) {
+            // Countdown reached zero — stop and re-check the API once for a newer event.
+            // If none exists, fetchEventData sets submissionsEnded and the watch above
+            // will not restart any timers, so the display settles on "Submissions ended".
+            stopTimers()
+            clearInterval(checkInterval); checkInterval = null
+            fetchEventData()
+          } else if (timeDistance.value <= oneWeekInMs && !animationFrameId) {
+            // Drop into precise (rAF) updates inside the final week
             startPreciseUpdates();
-          } else {
+          } else if (timeDistance.value > oneWeekInMs && animationFrameId) {
+            // Back off to 1s updates outside the final week
             startNormalUpdates();
           }
-
-          const checkInterval = setInterval(() => {
-            // Switch to precise updates if time drops to 1 week or less and not already using precise updates
-            if (timeDistance.value > 0 && timeDistance.value <= oneWeekInMs && !animationFrameId) {
-              startPreciseUpdates();
-            // Switch back to normal updates if time is greater than 1 week and precise updates are running
-            } else if (timeDistance.value > oneWeekInMs && animationFrameId) {
-              startNormalUpdates();
-            } else if (timeDistance.value <= 0) { // Countdown ended
-              if (normalInterval) clearInterval(normalInterval);
-              if (animationFrameId) cancelAnimationFrame(animationFrameId)
-              if (checkInterval) clearInterval(checkInterval)
-              // Refetch data when countdown ends
-              fetchEventData()
-            }
-          }, 1000)
-        }
+        }, 1000)
       })
 
       // Clean up intervals on component unmount
       onUnmounted(() => {
-        if (normalInterval) clearInterval(normalInterval)
-        if (animationFrameId) cancelAnimationFrame(animationFrameId)
+        stopTimers()
+        if (checkInterval) { clearInterval(checkInterval); checkInterval = null }
       })
 
       // Add tooltip position handler
@@ -280,7 +294,8 @@ export default defineComponent({
       eventName,
       apiError,
       isLoading,
-      deadline
+      deadline,
+      submissionsEnded
     }
   }
 })

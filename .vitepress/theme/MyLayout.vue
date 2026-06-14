@@ -4,7 +4,6 @@ import { useData } from 'vitepress'
 import { ref, watch, onUnmounted } from 'vue'
 import Glowsticks from './components/Glowsticks.vue'
 import EventCountdown from './components/EventCountdown.vue'
-import WIPBubble from './components/WIPBubble.vue'
 import FlyingBird from '../../components/FlyingBird.vue'
 import NeonCursor from './components/NeonCursor.vue'
 
@@ -143,7 +142,6 @@ onUnmounted(() => {
 
     <!-- Add layout bottom slot -->
     <template #layout-bottom>
-      <WIPBubble />
       <FlyingBird />
       <NeonCursor />
     </template>

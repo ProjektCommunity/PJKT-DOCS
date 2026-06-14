@@ -7,7 +7,6 @@ import './custom.css'
 import '@fortawesome/fontawesome-free/css/all.css'
 import EventCountdown from './components/EventCountdown.vue'
 import Glowsticks from './components/Glowsticks.vue'
-import WIPBubble from './components/WIPBubble.vue'
 import './components/EventCountdown.css'
 import MyLayout from './MyLayout.vue'
 
@@ -18,6 +17,5 @@ export default {
     // Register global components
     app.component('EventCountdown', EventCountdown)
     app.component('Glowsticks', Glowsticks)
-    app.component('WIPBubble', WIPBubble)
   }
 } satisfies Theme
